@@ -34,4 +34,7 @@ EasyGift::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  ENV['FACEBOOK_KEY'] = '563804037067616'
+  ENV['FACEBOOK_SECRET'] = '88b4d03810c510ced21861f2026fc68e'
 end
