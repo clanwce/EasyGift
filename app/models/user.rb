@@ -10,4 +10,10 @@ class User < ActiveRecord::Base
 
   validates_presence_of :username
   validates_uniqueness_of :username
+
+  has_many :authentications
+
+  def apply_omniauth(omniauth)
+    authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  end
 end
