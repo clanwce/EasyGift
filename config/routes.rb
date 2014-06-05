@@ -1,10 +1,14 @@
 EasyGift::Application.routes.draw do
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  root :to => 'home#index'
+  match 'testpage' => 'home#test'
+
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   # resources :authentications
 
   match 'auth/:provider/callback' => 'authentications#create'
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -54,11 +58,6 @@ EasyGift::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-   root :to => 'home#index'
-   match 'testpage' => 'home#test'
 
   # See how all your routes lay out with "rake routes"
 
