@@ -16,10 +16,15 @@ class UsersController < ApplicationController
   	end
 
   	def generate_new_password_email
-    	user = User.find(params[:user_id])
-    	user.send_reset_password_instructions
-    	flash[:notice] = "Reset password instructions have been sent to #{user.email}."
-    	redirect_to "/"
+  		user = User.find_by_email(params[:user_email])
+    	if user
+    		user.send_reset_password_instructions
+    		flash[:notice] = "Reset password instructions have been sent to #{user.email}."
+    		redirect_to "/users/sign_in"
+    	else
+     		flash[:notice] = "#{params[:user_email]} is not registered in the system"
+    		redirect_to "/users/sign_in"   		
+    	end
   	end
 
 end

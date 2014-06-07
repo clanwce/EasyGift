@@ -39,11 +39,6 @@
       <p> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </p>
       <%= link_to "Change your password", edit_user_registration_path %>
 
-      <form name="input" action="/users/generate_new_password_email" method="get">
-        <input type="hidden" name="user_id" value="<%= current_user.id %>" />
-        <input type="submit" value="Reset Password">
-      </form>
-
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>Hello, world!</h1>
