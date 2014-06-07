@@ -10,6 +10,7 @@ EasyGift::Application.routes.draw do
   match 'users/edit_password' => 'users#edit_password'
   match 'auth/:provider/callback' => 'authentications#create'
   match 'users/update_password' => 'users#update_password'
+  match 'users/generate_new_password_email' => 'users#generate_new_password_email'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
