@@ -37,6 +37,7 @@
       <h1> Hey <%= current_user.username %> </h1>
       <%= link_to "Connect facebook", "/auth/facebook" %>
       <p> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </p>
+      <%= link_to "Change your password", edit_user_registration_path %>
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
