@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20140611002847) do
-
+ActiveRecord::Schema.define(:version => 20140611010418) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -44,6 +42,15 @@ ActiveRecord::Schema.define(:version => 20140611002847) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "gift_requests_tags", :force => true do |t|
+    t.integer  "gift_request_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gift_requests_tags", ["gift_request_id", "tag_id"], :name => "index_gift_requests_tags_on_gift_request_id_and_tag_id", :unique => true
 
   create_table "likes", :force => true do |t|
     t.string   "status"
