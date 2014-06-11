@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Gift Request ID <%= @gift_request.id %> <h1>
+<h4> Created By: <%= @gift_request.username %> </h1>
+
+<b> Comments </b>
+<br/><br/>
+<% if @gift_request_comments %>
+	<% @gift_request_comments.each do |comment| %>
+
+		<p> <%= comment.username %> says: <%= comment.description %> 
+			<% if comment.likes %>
+				<% comment.likes.each do |like| %>
+					| <%= like.username %> <%= like.status %>'s this comment |
+				<% end %>
+
+			<% end %>
+
+		</p>
+
+	<% end %>
+<% end %>
+<b> Tags </b>
+<br/><br/>
+<% if @gift_request_tags %>
+	<% @gift_request_tags.each do |tag| %>
+
+		<p> <%= tag.name %> </p>
+
+	<% end %>
+<% end %>
+<br>
+
+<b> Likes/Dislikes </b>
+<br/><br/>
+<% if @gift_request_likes %>
+
+	<% @gift_request_likes.each do |like| %>
+
+		<p> <%= like.username %> <%= like.status %>'s this post</p>
+
+	<% end %>
+<% end %>
+<br>
+
+
+<%= link_to 'Edit', edit_gift_request_path(@gift_request) %> |
+<%= link_to 'Back', gift_requests_path %>

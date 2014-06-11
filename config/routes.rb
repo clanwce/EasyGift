@@ -12,6 +12,9 @@ EasyGift::Application.routes.draw do
   match 'users/update_password' => 'users#update_password'
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
 
+  # gift request
+  resources :gift_requests
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

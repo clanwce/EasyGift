@@ -13,4 +13,8 @@ class Like < ActiveRecord::Base
   	end
   end
 
+  def username
+    user.username
+  end
+
 end
