@@ -6,6 +6,8 @@ class Like < ActiveRecord::Base
   belongs_to :comment
 
   validate :like_cannot_belong_to_post_and_comment
+  validates_uniqueness_of :comment_id, :allow_nil => true, :scope => :user_id
+  validates_uniqueness_of :gift_request_id, :allow_nil => true, :scope => :user_id
 
   def like_cannot_belong_to_post_and_comment
   	if gift_request_id && comment_id
