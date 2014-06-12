@@ -6,8 +6,10 @@ class LikesController < ApplicationController
 	      if @like.save
 	      	format.html {
 	      	if @like.gift_request
+	   			@like.update_gift_request_likes(@like.status)
 		        redirect_to @like.gift_request, notice: 'Like Sucessful' 
 		    else
+		    	@like.update_comment_likes(@like.status)
 		    	redirect_to @like.comment.gift_request, notice: 'Like Successful'	    	
 		    end
 	      	}
@@ -15,7 +17,7 @@ class LikesController < ApplicationController
 	      		result = {}
 	      		result[:like] = @like
 	      		result[:status] = true	 
-	      		render json: result     	
+	      		render json: result
 	      	}
 	      else
 	        format.html {
