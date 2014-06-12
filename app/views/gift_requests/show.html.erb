@@ -49,6 +49,16 @@
 <% end %>
 <br>
 
+ <form action="/gift_requests/<%= @gift_request.id %>" method="post">
+    <P>
+    Make a Comment:</label><br>  
+    <input type="hidden" name="comment[user_id]" value="<%= current_user.id %>" ><BR>
+    <input type="hidden" name="comment[gift_request_id]" value="<%= @gift_request.id %>"><BR>
+    <input type="text" name="comment[description]" id="newcomment"><BR>
+
+    <input type="submit" value="Submit">
+    </P>
+ </form>
 
 <%= link_to 'Edit', edit_gift_request_path(@gift_request) %> |
 <%= link_to 'Back', gift_requests_path %>

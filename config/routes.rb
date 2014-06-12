@@ -11,8 +11,9 @@ EasyGift::Application.routes.draw do
   match 'auth/:provider/callback' => 'authentications#create'
   match 'users/update_password' => 'users#update_password'
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
-
-  # gift request
+  post 'gift_requests/:id' => 'comments#create'
+  # gift request  match 'gift_requests/:id' => 'comments#create', :via => [:post]
+  
   resources :gift_requests
 
   # The priority is based upon order of creation:
