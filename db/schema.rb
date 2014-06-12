@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(:version => 20140612034618) do
     t.integer  "user_id"
     t.integer  "gift_request_id"
     t.text     "description"
-    t.integer  "likes",           :default => 0
-    t.integer  "dislikes",        :default => 0
+    t.integer  "like_count",      :default => 0
+    t.integer  "dislike_count",   :default => 0
     t.boolean  "final_answer"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(:version => 20140612034618) do
   create_table "gift_requests", :force => true do |t|
     t.integer  "user_id"
     t.text     "description"
-    t.integer  "likes",       :default => 0
-    t.integer  "dislikes",    :default => 0
+    t.integer  "like_count",    :default => 0
+    t.integer  "dislike_count", :default => 0
     t.boolean  "public"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "gift_requests_tags", :force => true do |t|

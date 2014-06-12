@@ -23,7 +23,7 @@ class Like < ActiveRecord::Base
   def update_comment_likes(status)
     if comment
       if status == 'like'
-        comment_like += 1
+        comment_likes += 1
       else
         update_comment_likes += 1
       end
@@ -31,29 +31,30 @@ class Like < ActiveRecord::Base
   end
 
   def update_gift_request_likes(status)
+    debugger
     if gift_request
       if status == 'like'
-        gift_request_like +=1
+        gift_request_likes +=1
       else
-        gift_request_dislike +=1
+        gift_request_dislikes +=1
       end
     end
   end
 
-  def comment_like
-    comment.like
+  def comment_likes
+    comment.likes
   end
 
-  def comment_dislike
+  def comment_dislikes
     comment.dislike
   end
 
-  def gift_request_like
-    gift_request.like
+  def gift_request_likes
+    gift_request.likes
   end
 
-  def gift_request_dislike
-    gift_request.dislike
+  def gift_request_dislikes
+    gift_request.dislikes
   end
 
 end
