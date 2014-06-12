@@ -11,13 +11,69 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140604214129) do
+ActiveRecord::Schema.define(:version => 20140612034618) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
     t.text     "message"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "gift_request_id"
+    t.text     "description"
+    t.integer  "like_count",      :default => 0
+    t.integer  "dislike_count",   :default => 0
+    t.boolean  "final_answer"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "gift_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.integer  "like_count",    :default => 0
+    t.integer  "dislike_count", :default => 0
+    t.boolean  "public"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "gift_requests_tags", :force => true do |t|
+    t.integer  "gift_request_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "gift_requests_tags", ["gift_request_id", "tag_id"], :name => "index_gift_requests_tags_on_gift_request_id_and_tag_id", :unique => true
+
+  create_table "likes", :force => true do |t|
+    t.string   "status"
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.integer  "gift_request_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "relationships", :force => true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
+  add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

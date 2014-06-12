@@ -3,12 +3,23 @@ EasyGift::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'home#index'
   match 'testpage' => 'home#test'
+
   match 'profile'   => 'home#profile'
+
+  match 'likes/create' => 'likes#create', :via => [:post]
+
+
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   # resources :authentications
-
+  match 'users/edit_password' => 'users#edit_password'
   match 'auth/:provider/callback' => 'authentications#create'
+  match 'users/update_password' => 'users#update_password'
+  match 'users/generate_new_password_email' => 'users#generate_new_password_email'
+  post 'gift_requests/:id' => 'comments#create'
+  # gift request  match 'gift_requests/:id' => 'comments#create', :via => [:post]
+  
+  resources :gift_requests
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -26,3 +26,8 @@
 <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
 <% end -%>
 <% end -%>
+
+  <form name="input" action="/users/generate_new_password_email" method="get">
+  	Email: <input type="text" name="user_email">
+    <input type="submit" value="Reset Password">
+  </form>
