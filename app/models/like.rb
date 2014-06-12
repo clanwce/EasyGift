@@ -20,4 +20,40 @@ class Like < ActiveRecord::Base
     user.username
   end
 
+  def update_comment_likes(status)
+    if comment
+      if status == 'like'
+        comment_like += 1
+      else
+        update_comment_likes += 1
+      end
+    end
+  end
+
+  def update_gift_request_likes(status)
+    if gift_request
+      if status == 'like'
+        gift_request_like +=1
+      else
+        gift_request_dislike +=1
+      end
+    end
+  end
+
+  def comment_like
+    comment.like
+  end
+
+  def comment_dislike
+    comment.dislike
+  end
+
+  def gift_request_like
+    gift_request.like
+  end
+
+  def gift_request_dislike
+    gift_request.dislike
+  end
+
 end

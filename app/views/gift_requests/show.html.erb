@@ -4,7 +4,20 @@
 <h4> Created By: <%= @gift_request.username %> </h1>
 <h4> Description: </h4> <br>
 <p> <%= @gift_request.description %> </p> <br>
-<a href="http://www.w3schools.com">Like</a> | <a href="http://www.w3schools.com">Dislike</a><br><br>
+	<form action="/likes/create" method="post">
+		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+	    <input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
+	    <input type="hidden" name="like[status]" value="like" />
+	    <button type="submit" class="btn btn-success btn-xs">Like</button>
+	</form>
+	<form action="/likes/create" method="post">
+		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+	    <input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
+	    <input type="hidden" name="like[status]" value="dislike" />
+	    <button type="submit" class="btn btn-danger btn-xs">Dislike</button>
+	</form>
 
 <h4> Comments </h4>
 <br/><br/>
