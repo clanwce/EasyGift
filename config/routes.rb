@@ -3,7 +3,7 @@ EasyGift::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'home#index'
   match 'testpage' => 'home#test'
-
+  match 'profile'   => 'home#profile'
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   # resources :authentications
