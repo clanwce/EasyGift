@@ -20,6 +20,7 @@
  <form action="/gift_requests" method="post">
     <P>
     <label for="newgiftrequest">Gift Request</label><br />  
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
     <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" ><BR>
     <input type="text" name="gift_request[description]" id="newgiftrequest"><BR>
     <input type="radio" name="gift_request[public]" id="newpostpublic" value="1" checked>Public<br>
