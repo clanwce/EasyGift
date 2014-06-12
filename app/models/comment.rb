@@ -5,6 +5,8 @@ class Comment < ActiveRecord::Base
   has_many :likes
   belongs_to :user
 
+  validates_presence_of :user_id
+
   def username
   	user.username
   end

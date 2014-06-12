@@ -5,6 +5,8 @@ class GiftRequest < ActiveRecord::Base
   has_and_belongs_to_many :tags
   has_many :likes
 
+  validates_presence_of :user_id
+
   def username
   	user.username
   end
