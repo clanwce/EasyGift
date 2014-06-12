@@ -2,13 +2,16 @@
 
 <h1> Gift Request ID <%= @gift_request.id %> <h1>
 <h4> Created By: <%= @gift_request.username %> </h1>
+<h4> Description: </h4> <br>
+<p> <%= @gift_request.description %> </p> <br>
+<a href="http://www.w3schools.com">Like</a> | <a href="http://www.w3schools.com">Dislike</a><br><br>
 
-<b> Comments </b>
+<h4> Comments </h4>
 <br/><br/>
 <% if @gift_request_comments %>
 	<% @gift_request_comments.each do |comment| %>
 
-		<p> <%= comment.username %> says: <%= comment.description %> 
+		<p><b> <%= comment.username %> says: </b> <%= comment.description %> 
 			<% if comment.likes %>
 				<% comment.likes.each do |like| %>
 					| <%= like.username %> <%= like.status %>'s this comment |
@@ -17,10 +20,13 @@
 			<% end %>
 
 		</p>
-
+	<a href="http://www.w3schools.com">Like</a> | <a href="http://www.w3schools.com">Dislike</a> <br>
+	<a href="http://www.w3schools.com">Leave a comment</a> 
+	<br>
 	<% end %>
 <% end %>
-<b> Tags </b>
+<br><br>
+<h4> Tags </h4>
 <br/><br/>
 <% if @gift_request_tags %>
 	<% @gift_request_tags.each do |tag| %>
