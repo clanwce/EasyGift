@@ -20,16 +20,30 @@ class CommentsController < ApplicationController
     if @comment
       @comment_gift_request = @comment.gift_request
       respond_to do |format|
-        if current_user.id == @comment_gift_request.user.id
-          @comment.update_attributes(final_answer: true)
+        if current_user.id == @comment_gift_request.user.id && @comment.update_attributes(final_answer: true)
           format.html { redirect_to @comment_gift_request, notice: 'Final answer was chosen'}
           format.json { render json: @comment, status: :created}
         else
-          format.html { redirect_to @comment_gift_request, notice: 'Unauthorized access to gift request'}
-          format.json { render json: @comment, status: :failed}       
+          format.html { 
+            notice = ''
+              @comment.errors.full_messages.each do |message|
+              notice += message
+            end
+            unless current_user.id == @comment_gift_request.user.id
+              notice += "Unauthorized final answer"
+            end
+            redirect_to @comment_gift_request, notice: notice
+          }
+          format.json { 
+            result = {}
+            result[:errors] = @like.errors
+            result[:status] = false  
+            render json: result
+          }       
         end
       end
     end
   end
+
 end
 

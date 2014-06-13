@@ -7,6 +7,14 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :user_id
 
+  validate :one_final_answer
+
+  def one_final_answer
+    if Comment.where(gift_request_id: gift_request.id, final_answer: true).count > 0
+      errors[:base ] << "A gift request cannot have more than one final answer"
+    end
+  end
+
   def username
   	user.username
   end
