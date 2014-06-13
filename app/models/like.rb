@@ -23,6 +23,26 @@ class Like < ActiveRecord::Base
     user.username
   end
 
+  def update_gift_request_or_comment(status, type)
+    if type == 'comment'
+      if status == 'like'
+        new_count = comment_likes + 1
+        comment.update_attributes(like_count: new_count)
+      else
+        new_count = comment_dislikes + 1
+        comment.update_attributes(dislike_count: new_count)
+      end
+    else
+      if status == 'like'
+        new_count = gift_request_likes + 1
+        gift_request.update_attributes(like_count: new_count)
+      else
+        new_count = gift_request_dislikes + 1
+        gift_request.update_attributes(dislike_count: new_count)
+      end   
+    end
+  end
+
   def update_comment_likes(status)
     if comment
       if status == 'like'
@@ -45,6 +65,10 @@ class Like < ActiveRecord::Base
         gift_request.update_attributes(dislike_count: new_count)
       end
     end
+  end
+
+  def comment_gift_request
+    comment.gift_request
   end
 
   def comment_likes
