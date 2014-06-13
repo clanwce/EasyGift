@@ -1,4 +1,5 @@
 class GiftRequestsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /gift_requests
   # GET /gift_requests.json
   def index

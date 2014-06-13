@@ -19,12 +19,27 @@
 	    <button type="submit" class="btn btn-danger btn-xs">Dislike</button>
 	</form>
 
-<h4> Comments </h4>
+<b> Likes/Dislikes </b>
 <br/><br/>
+<%= @gift_request.like_count %> people like this | <%= @gift_request.dislike_count %> people dislike this <br>
+<% if @gift_request_likes %>
+
+	<% @gift_request_likes.each do |like| %>
+
+		<p> <%= like.username %> <%= like.status %>'s this post</p>
+
+	<% end %>
+<% end %>
+<hr>
+<h4> <b>Comments </b> </h4>
 <% if @gift_request_comments %>
 	<% @gift_request_comments.each do |comment| %>
 
-		<p><b> <%= comment.username %> says: </b> <%= comment.description %> 
+		<p><b> <%= comment.username %> says: </b> <%= comment.description %> <br>
+			<%= comment.like_count %> people like this | <%= comment.dislike_count %> people dislike this <br>
+			<% if comment.final_answer %>
+				<b> FINAL ANSWER </b>
+			<% end %>
 			<% if comment.likes %>
 				<% comment.likes.each do |like| %>
 					| <%= like.username %> <%= like.status %>'s this comment |
@@ -47,30 +62,15 @@
 	    <input type="hidden" name="like[status]" value="dislike" />
 	    <button type="submit" class="btn btn-danger btn-xs">Dislike</button>
 	</form>
+	<% if current_user.id == @gift_request.user.id %>
+		<form action="/comments/final" method="post">
+			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
+		    <button type="submit" class="btn btn-primary btn-xs">Final Answer</button>
+		</form>
+	<% end %>
 	<br>
 	<br>
-	<% end %>
-<% end %>
-<br><br>
-<h4> Tags </h4>
-<br/><br/>
-<% if @gift_request_tags %>
-	<% @gift_request_tags.each do |tag| %>
-
-		<p> <%= tag.name %> </p>
-
-	<% end %>
-<% end %>
-<br>
-
-<b> Likes/Dislikes </b>
-<br/><br/>
-<% if @gift_request_likes %>
-
-	<% @gift_request_likes.each do |like| %>
-
-		<p> <%= like.username %> <%= like.status %>'s this post</p>
-
 	<% end %>
 <% end %>
 <br>
@@ -86,6 +86,16 @@
     <input type="submit" value="Submit">
     </P>
  </form>
+<hr>
+<h4> <b> Tags </b> </h4>
+<br/><br/>
+<% if @gift_request_tags %>
+	<% @gift_request_tags.each do |tag| %>
+
+		<p> <%= tag.name %> </p>
+
+	<% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_gift_request_path(@gift_request) %> |
 <%= link_to 'Back', gift_requests_path %>

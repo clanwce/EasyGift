@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-
+	before_filter :authenticate_user!
 	def create
 		@like = Like.new(params[:like])
 	    respond_to do |format|
