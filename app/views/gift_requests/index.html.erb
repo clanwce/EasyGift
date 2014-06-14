@@ -24,5 +24,7 @@
 
 <h1>Welcome!</h1>
 <%= form_tag do %>
-  <%=autocomplete_field_tag 'Title', '', 'gift_requests/autocomplete_gift_request_title' %>
+  <%=autocomplete_field_tag 'Title', '', 'gift_requests/autocomplete_gift_request_title', :update_elements => {:id => '#id_element', :slogan => '#some_other_element'} %>
 <% end %>
+<p id='id_element'></p>
+<p id='some_other_element'></p>
