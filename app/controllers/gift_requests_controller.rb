@@ -1,5 +1,6 @@
 class GiftRequestsController < ApplicationController
   before_filter :authenticate_user!
+  autocomplete :gift_request, :title
   # GET /gift_requests
   # GET /gift_requests.json
   def index

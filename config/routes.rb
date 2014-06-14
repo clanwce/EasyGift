@@ -21,7 +21,10 @@ EasyGift::Application.routes.draw do
   match 'userhome' => 'home#userhome'
   # gift request  match 'gift_requests/:id' => 'comments#create', :via => [:post]
   
-  resources :gift_requests
+  resources :gift_requests do
+    get :autocomplete_gift_request_title, :on => :collection
+  end
+  # match 'gift_requests/autocomplete_gift_request_title'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
