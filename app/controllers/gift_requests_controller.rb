@@ -1,9 +1,11 @@
 class GiftRequestsController < ApplicationController
   before_filter :authenticate_user!
-  autocomplete :gift_request, :title, :extra_data => [:description]
+  # autocomplete :gift_request, :title, :extra_data => [:description]
+  autocomplete :tag, :name, :gift_request_count => [:description]
   # GET /gift_requests
   # GET /gift_requests.json
   def index
+    @gift_request = GiftRequest.new
     @gift_requests = GiftRequest.all
 
     respond_to do |format|
@@ -45,9 +47,15 @@ class GiftRequestsController < ApplicationController
   # POST /gift_requests.json
   def create
     @gift_request = GiftRequest.new(params[:gift_request])
-
     respond_to do |format|
       if @gift_request.save
+        tags = params[:tags]
+        tags.each do |tag|
+          tag = Tag.find_by_name(tag)
+          if tag
+            @gift_request.tags << tag
+          end
+        end
         format.html { redirect_to @gift_request, notice: 'Gift request was successfully created.' }
         format.json { render json: @gift_request, status: :created, location: @gift_request }
       else

@@ -23,7 +23,12 @@ EasyGift::Application.routes.draw do
   
   resources :gift_requests do
     get :autocomplete_gift_request_title, :on => :collection
+    get :autocomplete_tag_name, :on => :collection
   end
+
+  post '/gift_requests/autocomplete_tag_name'
+  post '/tags/create'
+
   # match 'gift_requests/autocomplete_gift_request_title'
 
   # The priority is based upon order of creation:

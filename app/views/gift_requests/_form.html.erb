@@ -1,32 +1,26 @@
-<!-- # <%= form_for(@gift_request) do |f| %>
-#   <% if @gift_request.errors.any? %>
-#     <div id="error_explanation">
-#       <h2><%= pluralize(@gift_request.errors.count, "error") %> prohibited this gift_request from being saved:</h2>
 
-#       <ul>
-#       <% @gift_request.errors.full_messages.each do |msg| %>
-#         <li><%= msg %></li>
-#       <% end %>
-#       </ul>
-#     </div>
-#   <% end %>
 
-#   <div class="actions">
-#     <%= f.submit %>
-#   </div>
-# <% end %>
- -->
-
- <form action="/gift_requests" method="post">
+ <form id="new_gift_request_form" action="/gift_requests" method="post">
     <P>
     <label for="newgiftrequest">Gift Request</label><br />  
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" ><BR>
-    Title: <input type="text" name="gift_request[title]" id="newgiftrequest"><BR>
-    Description: <input type="text" name="gift_request[description]" id="newgiftrequest"><BR>
-    <input type="radio" name="gift_request[public]" id="newpostpublic" value="1" checked>Public<br>
-    <input type="radio" name="gift_request[public]" id="newpostprivate" value="0">Private
+    <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' ><BR>
+    Title: <input type="text" name="gift_request[title]" id="new_gift_request_title"><BR>
+    Description: <input type="text" name="gift_request[description]" id="new_gift_request_description"><BR>
+    <input type="radio" name="gift_request_public" id="new_gift_request_public" value="1" checked>Public<br>
+    <input type="radio" name="gift_request_public" id="new_gift_request_private" value="0">Private
 
-    <input type="submit" value="Submit">
+    <h4> Tags </h4>
+    <div id='tag_holder'>
+
+    </div>
+
+    <div style="margin:0;padding:0;display:inline">
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+    </div>
+        <input data-autocomplete="autocomplete_tag_name" id="autocomplete_tag"/>
+        <input id="add_tag_to_gift_request" type="submit" value="Add">
+    <br>
+    <input id="create_gift_request_button" type="submit" value="Submit">
     </P>
  </form>
