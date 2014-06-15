@@ -7,5 +7,9 @@ class HomeController < ApplicationController
 
 	def test
 
+	end 
+
+	def profile
+
 	end
 end
