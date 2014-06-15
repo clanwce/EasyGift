@@ -6,4 +6,7 @@ class Notification < ActiveRecord::Base
 
   validates_presence_of :event_id
   validates_presence_of :type_of_event
+
+  validates :type_of_event, inclusion: { in: %w(like comment gift_request),
+    message: "can only be either like, comment, or gift_request" }
 end
