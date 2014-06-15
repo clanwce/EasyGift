@@ -26,6 +26,8 @@ EasyGift::Application.routes.draw do
     get :autocomplete_tag_name, :on => :collection
   end
 
+  resources :tags, only: [:index, :create, :show]
+
   post '/gift_requests/autocomplete_tag_name'
   post '/tags/create'
 
