@@ -1,18 +1,85 @@
-<h2>Sign in</h2>
+    <style>
+    .col-centered{
+    float: none;
+    padding-left: 450px;
+    display: inliauto;
+}
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+body{
+  background-color: #008080;
+  color: #ffffff;
+}
+.signupbutton{
+  position:absolute; left: 1100px;top:100px;
+}
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+.white
+{
+  color: #ffffff;
+  text: #ffffff;
+}
+@media {
+  html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+}
+.container {
+    width: 1024px;
+    display: block;
+}
+.border
+{
+border-style:solid;
+border-color:#ffffff;
+background-color: #2B3856;
+}
+</style>
+  <div class="container">
 
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-primary signupbutton border" %><br/>
+<% end -%>
+<%= image_tag 'gift.png', :alt => 'lgo', width:"300", height:"300", style: "top:180px;position:absolute;"  %>
+        <div class="login-screen" >
+            
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+      <div class="login-form" >
+  	<%= form_for(resource, :html => {class: "form-signin"}, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
+       <div style="display:inline" >
+       <%= image_tag 'user.png', :alt => 'lgo', width:"100",   height:"100" %>
+            <h3 style="display:inline" >Please Sign-in</h3> 
+        <!-- <span style="display:inline" class="glyphicon glyphicon-user"> -->
+          <%= f.email_field :email, autofocus: true, class: "form-control", :required => "true",:placeholder => "Email Address" %>
+		 <%= f.password_field :password, autocomplete: "off" , :required => "true" , :placeholder => "Password", class: "form-control" %>
+      </div>
+           <% if devise_mapping.rememberable? -%>
+     	    	<%= f.check_box :remember_me %> <%= f.label :remember_me %>
+          <% end -%>
 
-<%= render "devise/shared/links" %>
+      <%= f.submit "Sign in", class: "btn btn-lg btn-primary btn-block border" %>
+           
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+        <label><a style="color: white" href="password/new"> Forgot your password? </a> </label><br />
+
+      <% end -%>
+    <%= link_to (image_tag('fb.png')), "/auth/facebook" %>
+
+    <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
+      <% end -%>
+      <% end -%>
+
+
+      <% end %> 
+      <%= render "devise/shared/links" %>
+<br/><br/>
+           </div>
+  </div>
+</div>    
+
+
+

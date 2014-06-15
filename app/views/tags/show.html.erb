@@ -1,0 +1,10 @@
+<h3> Gift Request for <%= @tag.name %> </h3>
+
+<% @tag_gift_request.each do |gift_request| %>
+
+	<p><%= link_to gift_request.title, gift_request %> </p>
+
+<% end %>
+
+
+<%= link_to 'Back', tags_path %>

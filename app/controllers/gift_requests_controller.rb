@@ -1,7 +1,11 @@
 class GiftRequestsController < ApplicationController
+  before_filter :authenticate_user!
+  # autocomplete :gift_request, :title, :extra_data => [:description]
+  autocomplete :tag, :name, :gift_request_count => [:description]
   # GET /gift_requests
   # GET /gift_requests.json
   def index
+    @gift_request = GiftRequest.new
     @gift_requests = GiftRequest.all
 
     respond_to do |format|
@@ -43,14 +47,14 @@ class GiftRequestsController < ApplicationController
   # POST /gift_requests.json
   def create
     @gift_request = GiftRequest.new(params[:gift_request])
-
     respond_to do |format|
       if @gift_request.save
+        @gift_request.attach_tags_to_gift_request(params[:tags])
         format.html { redirect_to @gift_request, notice: 'Gift request was successfully created.' }
         format.json { render json: @gift_request, status: :created, location: @gift_request }
       else
-        format.html { render action: "new" }
-        format.json { render json: @gift_request.errors, status: :unprocessable_entity }
+        format.html { redirect_to '/gift_requests/new', notice: @gift_request.errors.full_messages.to_sentence}
+        format.json { render json: @gift_request.errors.full_messages.to_sentence, status: :unprocessable_entity }
       end
     end
   end
@@ -66,7 +70,7 @@ class GiftRequestsController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @gift_request.errors, status: :unprocessable_entity }
+        format.json { render json: @gift_request.errors.full_messages.to_sentence, status: :unprocessable_entity }
       end
     end
   end
@@ -82,4 +86,5 @@ class GiftRequestsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end

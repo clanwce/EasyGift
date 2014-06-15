@@ -1,15 +1,39 @@
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <title>EasyGift</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+  .change {
+    color: #ffffff ;
+  }
+body{
+  background-color: #008080;
+  color: #ffffff;
+}
 
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+@media {
+  html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+}
+
+.container {
+    width: 1024px;
+    display: block;
+}
+
+  </style>
+  <title><%= yield(:title) %></title>
+  <!-- Additional header tags here -->
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,24 +42,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">EasyGift</a>
+          <a class="navbar-brand" href="#">EASY GIFTS</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active">
-              <% if signed_in? %>
-                <a href="#"><%= current_user.username %></a>
-              <% end %>
-            </li>
-            <li><a href="#about">pts</a></li>
-            <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-            <form class="navbar-form navbar-right" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -53,12 +66,47 @@
       </div>
     </div>
 
-    <br><br><br>
-    <h4><%= flash[:notice] if flash[:notice] %> </h4>
+    <h4>
+      <!-- <%= flash[:notice] if flash[:notice] %> 
+    -->
+    <% if flash[:notice] %>
+      <script type="text/javascript">
+      alert("<%= flash[:notice] if flash[:notice] %>");
+    </script>
+    <% end %>
+    </h4>
 <!--     <p class="notice"><%= notice %></p> -->
     <p class="alert"><%= alert %></p>
+    <% if current_user %>
+    <div class="inline" style="display:inline">
+    <h3 class="inline" style="margin-left:6em">
+    <%= image_tag 'giftbox.png', :alt => 'lgo', width:"100", height:"100"  %>
+    
+    </h3>
+    </div>
+    <%  end %>
 
-    <%= yield %>
+<%= yield %>
+</body>
+  
+      <footer  style = "background-color: #d4eaf4;">
+        <%= stylesheet_link_tag "footer" %>
+        <div id="footer"  style = "color: #000000;background-color: #d4eaf4;">
+      <div class="cc"  style = "color: #000000;background-color: #d4eaf4;">
+        <p class="muted credit">&#169; EasyGift Team 
+    </p>
+        <blockquote class="blockquote-reverse" style = "background-color: #d4eaf4;">
+                <ul class="list-inline">
+                <li><a href="#" style="color: #000000;">Help</a></li>
+                <li><a href="privacy" style="color: #000000;">Privacy</a></li>            
+                <li><a href="about"  style="color: #000000;">About</a></li>
+            </ul>
 
-  </body>
-  </html>
+      </blockquote>
+      </div>
+    </div>
+  
+  </footer>
+
+
+</html>
