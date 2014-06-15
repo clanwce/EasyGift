@@ -12,4 +12,17 @@ class GiftRequest < ActiveRecord::Base
   def username
   	user.username
   end
+
+  def attach_tags_to_gift_request(tags)
+    if tags
+      tags.each do |tag|
+        tag = Tag.find_by_name(tag)
+        if tag
+          self.tags << tag
+          tag.increment_gift_request_count
+        end
+      end
+    end
+  end
+
 end

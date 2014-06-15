@@ -77,7 +77,7 @@ $( document ).ready(function() {
 		    url: "/gift_requests",
 		    data: data,
 		    success: function(response) {
-
+		    	window.location.replace('/gift_requests/' + response.id);
 		    },
 		    error: function(response) {
 		    	alert(response.responseText);
