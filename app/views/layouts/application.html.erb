@@ -5,6 +5,10 @@
   .change {
     color: #ffffff ;
   }
+body{
+  background-color: #008080;
+  color: #ffffff;
+}
 
 @media {
   html {
@@ -20,7 +24,8 @@
 }
 
   </style>
-  <title>EasyGift</title>
+  <title><%= yield(:title) %></title>
+  <!-- Additional header tags here -->
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -72,6 +77,14 @@
     </h4>
 <!--     <p class="notice"><%= notice %></p> -->
     <p class="alert"><%= alert %></p>
+    <% if current_user %>
+    <div class="inline" style="display:inline">
+    <h3 class="inline" style="margin-left:6em">
+    <%= image_tag 'giftbox.png', :alt => 'lgo', width:"100", height:"100"  %>
+    
+    </h3>
+    </div>
+    <%  end %>
 
 <%= yield %>
 </body>
