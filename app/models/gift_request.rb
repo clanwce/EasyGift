@@ -2,12 +2,15 @@ class GiftRequest < ActiveRecord::Base
   attr_accessible :description, :dislike, :likes, :public, :user_id, :like_count, :dislike_count, :title
   has_many :comments, :dependent => :delete_all
   belongs_to :user
-  has_and_belongs_to_many :tags
+  has_many :gift_requests_tags
+  has_many :tags, :through => :gift_requests_tags
   has_many :likes, :dependent => :destroy
 
   validates_presence_of :user_id
   validates_presence_of :title
   validates_presence_of :description
+
+  MAXIMUM_AMOUNT_OF_TAGS = 5
 
   def username
   	user.username
@@ -18,11 +21,17 @@ class GiftRequest < ActiveRecord::Base
       tags.each do |tag|
         tag = Tag.find_by_name(tag)
         if tag
-          self.tags << tag
-          tag.increment_gift_request_count
+          begin
+            self.tags << tag
+            tag.increment_gift_request_count
+          rescue ActiveRecord::RecordInvalid => e
+            errors[:base ] << "You cannot have more than #{MAXIMUM_AMOUNT_OF_TAGS} tags on this gift request." 
+            return false
+          end
         end
       end
     end
+    return true
   end
 
 end

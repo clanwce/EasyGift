@@ -48,10 +48,9 @@ class GiftRequestsController < ApplicationController
   def create
     @gift_request = GiftRequest.new(params[:gift_request])
     respond_to do |format|
-      if @gift_request.save
-        @gift_request.attach_tags_to_gift_request(params[:tags])
-        format.html { redirect_to @gift_request, notice: 'Gift request was successfully created.' }
-        format.json { render json: @gift_request, status: :created, location: @gift_request }
+      if @gift_request.save && @gift_request.attach_tags_to_gift_request(params[:tags])
+          format.html { redirect_to @gift_request, notice: 'Gift request was successfully created.' }
+          format.json { render json: @gift_request, status: :created, location: @gift_request }
       else
         format.html { redirect_to '/gift_requests/new', notice: @gift_request.errors.full_messages.to_sentence}
         format.json { render json: @gift_request.errors.full_messages.to_sentence, status: :unprocessable_entity }
