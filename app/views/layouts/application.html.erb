@@ -5,6 +5,14 @@
   .change {
     color: #ffffff ;
   }
+  .inline{
+   display: inline;
+  }
+
+.navbar-static-top {
+  margin-top: -40px;
+}
+
 body{
   background-color: #008080;
   color: #ffffff;
@@ -17,9 +25,8 @@ body{
     overflow-y: scroll;
   }
 }
-
 .container {
-    width: 1024px;
+    /*width: 1024px;*/
     display: block;
 }
 
@@ -32,8 +39,8 @@ body{
 </head>
 <body>
 
-<!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -42,7 +49,10 @@ body{
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">EASY GIFTS</a>
+          
+          <%= image_tag 'tiffany.png', :alt => 'lgo', width:"50", height:"50", class: "inline" %>
+          <a class="inline" href="#"><h4 class="inline" style="color:#ffffff;">Easy Gifts</h4></a>
+        
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -62,10 +72,52 @@ body{
               </ul>
             </li>
           </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Default</a></li>
+            <li><a href="../navbar-static-top/">Static top</a></li>
+            <li class="active"><a href="./">Fixed top</a></li>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
+<!-- Fixed navbar 
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header inline">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div style="margin-top: 3px;"> 
+        <%= image_tag 'giftbox.png', :alt => 'lgo', width:"50", height:"50", class: "inline" %>
+          <a class="inline" href="#"><h4 class="inline" style="color:#ffffff;">Easy Gifts</h4></a>
+        </div>
+      </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+-->
     <h4>
       <!-- <%= flash[:notice] if flash[:notice] %> 
     -->
@@ -77,14 +129,14 @@ body{
     </h4>
 <!--     <p class="notice"><%= notice %></p> -->
     <p class="alert"><%= alert %></p>
-    <% if current_user %>
-    <div class="inline" style="display:inline">
-    <h3 class="inline" style="margin-left:6em">
-    <%= image_tag 'giftbox.png', :alt => 'lgo', width:"100", height:"100"  %>
+    <!-- <% if current_user %> -->
     
-    </h3>
-    </div>
-    <%  end %>
+    <!-- <div class="inline" style="display:inline; margin-left:12em; height: 120; width: 100%"> -->
+      <!-- <%= image_tag 'giftbox.png', :alt => 'lgo', width:"100", height:"100" %> -->
+      <!-- <h3 class="inline" style="margin-left:1em;"> Easy Gifts</h3> -->
+    <!-- </div> -->
+
+    <!-- <%  end %> -->
 
 <%= yield %>
 </body>

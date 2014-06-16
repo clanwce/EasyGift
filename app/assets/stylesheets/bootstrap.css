@@ -1420,11 +1420,11 @@ th {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
-  border-top: 1px solid #ddd;
+  /*border-top: 1px solid #43BFC7;*/
 }
 .table > thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -1469,7 +1469,8 @@ th {
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-  background-color: #f5f5f5;
+  background-color: #78866B;
+  /*background-color: #f5f5f5;*/
 }
 table col[class*="col-"] {
   position: static;
@@ -3471,7 +3472,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eee;
+  background-color: #D4A017;
 }
 .nav > li.disabled > a {
   color: #999;
@@ -3572,6 +3573,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-pills > li > a {
   border-radius: 4px;
+  background-color: #2C3539;
+  color: #ffffff;
 }
 .nav-pills > li + li {
   margin-left: 2px;
@@ -3579,8 +3582,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #428bca;
+  color: #000000;
+  background-color: #D4A017;
 }
 .nav-stacked > li {
   float: none;

@@ -6,9 +6,14 @@
   display: inline
 }
 body{
+  background-color: #3B9C9C;
+  color: #ffffff;
+}
+body{
   background-color: #008080;
   color: #ffffff;
 }
+
 
 @media {
   html {
@@ -18,31 +23,47 @@ body{
   }
 }
 
+.table-nonfluid {
+   width: 70%;
+   margin: 0 auto;
+   float: none;
+}
+.table td{
+  text-align: center;
+  color: #ffffff;
+}
+.btn{
+color: #ffffff;
+   background-color: #2C3539;
+}
 .container {
-    width: 1024px;
+    width:1024px;
     display: block;
 }
 </style>
 
-<h1>Listing gift_requests</h1>
+    <div class="inline">
+    <ul style="margin-left:20em" class="nav nav-pills" style="position:absolute">
+    <li class="active"><a href="#">Gift Requests</a></li>
+    <li><a href="#">Tags</a></li>
+    <li><a href="#">Users</a></li>
+    <li><a href="#">Badges</a></li>
+    </ul>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    </div>
+    <div class="table-responsive" style="display:inline">
+        <table class="table table-hover table-nonfluid" style="background-color: #008080">
+        <% @gift_requests.each do |gift_request| %>
+        <tr>
+      <td data-id=title<%= gift_request.id %>><h4><%= gift_request.title %></h4></td>
+      <td data-id=show<%= gift_request.id %>><%= button_to "Show", gift_request, :class => "btn btn-default", :method => :get %> </td>
+      <td data-id=edit<%= gift_request.id %>><%= button_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-default", :method => :get  %></td>
+      <td data-id=destroy<%= gift_request.id %>><%= button_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default" %></td>
+       </tr>
+      <% end %>
 
-  <% @gift_requests.each do |gift_request| %>
-    <tr>
-      <td><%= gift_request.title %></td>
-      <td><%= link_to 'Show', gift_request %></td>
-      <td><%= link_to 'Edit', edit_gift_request_path(gift_request) %></td>
-      <td><%= link_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-
-</table>
+      </table>
+    </div>
 
 <br />
 
