@@ -38,7 +38,7 @@ $( document ).ready(function() {
 	function associate_tag_to_gift_request(tag) {
 		if(!is_tag_on_page(tag.name) && tags_on_page.length < 5) {
 			tags_on_page.push(tag.name);
-			$('#tag_holder').append('<p>' + tag.name + '(' + tag.gift_request_count + ')' + ' <button class="remove_tag_from_new_gift_request" data-tag=' + tag.name + " >Remove</button> </p>");
+			$('#tag_holder').append('<p class="inline">' + tag.name + '(' + tag.gift_request_count + ')' + '  <input type="button" class="inline btn  remove_tag_from_new_gift_request" value="Remove" data-tag=' + tag.name + '> </p>');
 		}
 	}
 
