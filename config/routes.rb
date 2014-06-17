@@ -18,8 +18,12 @@ EasyGift::Application.routes.draw do
   match 'auth/:provider/callback' => 'authentications#create'
   match 'users/update_password' => 'users#update_password'
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
-  post 'gift_requests/:id' => 'comments#create'
+  post 'comments' => 'comments#create'
   match 'userhome' => 'home#userhome'
+  match 'gift_requests/searchresult' => 'gift_requests#gift_request_search', :via => [:post]
+  match 'tags/tag_search' => 'tags#tag_search', :via => [:post]
+  #get 'gift_requests/searchresult' => 'gift_requests#tag_search'
+
   # gift request  match 'gift_requests/:id' => 'comments#create', :via => [:post]
 
 
