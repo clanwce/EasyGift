@@ -27,7 +27,7 @@ class LikesController < ApplicationController
 	      else
 	        format.html {
 				if current_user.id == post_or_comment.user.id
-					notice += "Can't like your own comment or post"
+					@like.errors += "Can't like your own comment or post"
 				end
 	        		redirect_to gift_request, notice: @like.errors.full_messages.to_sentence
 	        }
