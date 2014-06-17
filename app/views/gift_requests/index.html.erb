@@ -44,16 +44,12 @@ color: #ffffff;
 
 </style>
 
-    <div class="inline">
-    <ul style="margin-left:20em" class="nav nav-pills" style="position:absolute">
-    <li class="active "><a href="#">Gift Requests</a></li>
-    <li><a href="#">Tags</a></li>
-    <li><a href="#">Users</a></li>
-    <li><a href="#">Badges</a></li>
-    <li style="margin-left: 10em"><%= link_to 'New Gift request', new_gift_request_path %></li>
-    </ul>
-    </div>
-    <br> 
+<%= render 'subnav' %>
+  <script type="text/javascript">
+    var node = document.getElementById("subnav").getElementsByTagName("li")[0];
+  node.setAttribute("class", "active");
+    </script>
+
               <div style="display:block;">
                   <table class="table table-responsive table-hover table-nonfluid" style="background-color: #008080; float: center">
                   <% @gift_requests.each do |gift_request| %>
