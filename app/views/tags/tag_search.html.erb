@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @tags.each do |tag| %>
+    <tr>
+      <td><%= tag.name %></td>
+      <% tag.gift_requests.each do |gift_request| %>
+      <tr>
+      <td><%= gift_request.title %></td><td>=></td>
+      <td><%= link_to ' Show Entry ', gift_request %></td>
+      </tr>
+      <% end %>
+    </tr>
+  <% end %>
+
+</table>

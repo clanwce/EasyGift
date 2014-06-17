@@ -56,6 +56,27 @@ class TagsController < ApplicationController
 	    end
 	end
 
+  def tag_search
+    @tags = Array.new
+    keyword = params[:keyword]
+    # all_gift_requests = GiftRequest.all
+    all_tags = Tag.all
+    # all_gift_requests.each do |gift_request|
+    #   gift_request.title
+    # end
+    require 'fuzzystringmatch'
+    jarow = FuzzyStringMatch::JaroWinkler.create( :native )
+    all_tags.each do |tag|
+        if(jarow.getDistance( tag.name, keyword ) > 0.8)
+          @tags << tag
+          #selected_gift_requests = tag.gift_requests
+          ###tag.gift_requests.each do |selected_gift_request|
+          ###@gift_requests << selected_gift_request
+          
+        end
+    end
+  end
+
   # PUT /tags/1
   # PUT /tags/1.json
   # def update

@@ -85,4 +85,17 @@ $( document ).ready(function() {
 	    });	
 	});
 
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+
+    var pusher = new Pusher('ae0c513bd7bc7a412781');
+    var user_channel_name = 'user' + $('#user_navigation_bar').data('user-id') + '_channel';
+    var user_channel = pusher.subscribe(user_channel_name);
+    user_channel.bind('like_event', function(data) {
+      alert(data.message);
+    });
+
 });

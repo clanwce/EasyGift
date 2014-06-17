@@ -10,10 +10,6 @@ class Comment < ActiveRecord::Base
 
   validate :one_final_answer, :if => :final_answer_changed?
 
-  def cant_select_own_comment_as_final_answer
-
-  end
-
   def one_final_answer
     if Comment.where(gift_request_id: gift_request.id, final_answer: true).count > 0
       errors[:base ] << "A gift request cannot have more than one final answer"

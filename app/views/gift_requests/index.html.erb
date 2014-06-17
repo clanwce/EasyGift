@@ -1,3 +1,26 @@
+
+<h1>Search</h1>
+
+ <form action="/gift_requests/searchresult" method="post">
+    <P> 
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+    Search Gift Request <input type="text" name="keyword" id="giftrequestsearch">
+    <input type="submit" value="Submit">
+    </P>
+ </form>
+ <br>
+  <form action="/tags/tag_search" method="post">
+    <P> 
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+    Search Tag <input type="text" name="keyword" id="tagsearch">
+    <input type="submit" value="Submit">
+    </P>
+ </form>
+
+
+<h1>Welcome!</h1>
+
+
 <% content_for :title, "Gift Requests" %>
 
 <style type="text/css">
@@ -73,3 +96,4 @@ User should not be able to edit it.. only the owner. requests showed be hyperlin
 
 
 -->
+

@@ -10,7 +10,14 @@ class GiftRequest < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :description
 
+  # define_index do
+  #   indexes :title
+  #   indexes description
+  # end
+  after_save ThinkingSphinx::RealTime.callback_for(:gift_request)
+
   MAXIMUM_AMOUNT_OF_TAGS = 5
+
 
   def username
   	user.username
