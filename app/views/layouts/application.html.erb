@@ -35,6 +35,7 @@ body{
   <!-- Additional header tags here -->
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+<script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -54,7 +55,7 @@ body{
           <a class="inline" href="#"><h4 class="inline" style="color:#ffffff;">Easy Gifts</h4></a>
         
         </div>
-        <div class="navbar-collapse collapse">
+        <div id="user_navigation_bar" <% if current_user %> data-user-id=<%= current_user.id %> <% end %> class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>

@@ -8,4 +8,14 @@ class UserNotification < ActiveRecord::Base
   validates_presence_of :notification_id
 
   validates_uniqueness_of :notification_id, :allow_nil => true, :scope => :user_id, :message => "can't have duplicate notifications for a user"
+
+  after_create :push_notification
+
+  def push_notification
+  	channel = 'user' + user.id.to_s + '_channel'
+	Pusher[channel].trigger('like_event', {
+	  message: message
+	})
+  end
+
 end

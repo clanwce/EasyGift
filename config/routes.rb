@@ -22,6 +22,7 @@ EasyGift::Application.routes.draw do
   match 'userhome' => 'home#userhome'
   match 'gift_requests/searchresult' => 'gift_requests#gift_request_search', :via => [:post]
   match 'tags/tag_search' => 'tags#tag_search', :via => [:post]
+  # match '/helloworld' => 'home#hello_world'
   #get 'gift_requests/searchresult' => 'gift_requests#tag_search'
 
   # gift request  match 'gift_requests/:id' => 'comments#create', :via => [:post]
