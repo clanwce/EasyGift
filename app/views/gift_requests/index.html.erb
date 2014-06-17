@@ -1,5 +1,22 @@
 <h1>Listing gift_requests</h1>
 
+ <form action="/gift_requests/searchresult" method="post">
+    <P> 
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+    Search Gift Request <input type="text" name="keyword" id="giftrequestsearch"><BR>
+    <input type="submit" value="Submit">
+    </P>
+ </form>
+ <br>
+  <form action="/gift_requests/searchresult" method="get">
+    <P> 
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+    Search Tag <input type="text" name="keyword" id="tagsearch"><BR>
+    <input type="submit" value="Submit">
+    </P>
+ </form>
+
+
 <table>
   <tr>
     <th></th>

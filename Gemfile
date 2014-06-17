@@ -11,6 +11,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'devise'
 gem 'rails3-jquery-autocomplete'
+gem 'fuzzy-string-match'
+#gem "sphinx"
+gem "thinking-sphinx"
 
 # Gems used only for assets and not required
 # in production environments by default.

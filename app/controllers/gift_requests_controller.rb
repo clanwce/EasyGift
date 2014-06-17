@@ -84,4 +84,31 @@ class GiftRequestsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def tag_search
+    @gift_requests = Array.new
+    keyword = params[:keyword]
+    # all_gift_requests = GiftRequest.all
+    all_tags = Tag.all
+    # all_gift_requests.each do |gift_request|
+    #   gift_request.title
+    # end
+    jarow = FuzzyStringMatch::JaroWinkler.create( :native )
+    all_tags.each do |tag|
+        if(jarow.getDistance( tag.name, keyword ) > 0.8)
+          #@result << tag
+          #selected_gift_requests = tag.gift_requests
+          tag.gift_requests.each do |selected_gift_request|
+          @gift_requests << selected_gift_request
+          end
+        end
+    end
+  end
+
+  def gift_request_search
+    @gift_requests = GiftRequest.search params[:keyword]
+    #redirect_to "/gift_requests/gift_request_search"
+  end
+
+
 end

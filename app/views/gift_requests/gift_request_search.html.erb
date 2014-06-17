@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @gift_requests.each do |gift_request| %>
+    <tr>
+      <td><%= gift_request.title %></td>
+      <td><%= link_to 'Show', gift_request %></td>
+    </tr>
+  <% end %>
+
+</table>
