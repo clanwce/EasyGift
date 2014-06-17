@@ -27,16 +27,11 @@ class LikesController < ApplicationController
 	      else
 	        format.html {
 				if current_user.id == post_or_comment.user.id
-					@like.errors += "Can't like your own comment or post"
+					@like.errors[:base ] << "Can't like your own comment or post"
 				end
 	        		redirect_to gift_request, notice: @like.errors.full_messages.to_sentence
 	        }
 	        format.json { render json: @like.errors.full_messages.to_sentence, status: :unprocessable_entity } 
-	      		# result = {}
-	      		# result[:errors] = @like.errors.full_messages.to_sentence
-	      		# result[:status] = false	 
-	      		# render json: result  
-	        # }
 	      end
 	    end
 	end
