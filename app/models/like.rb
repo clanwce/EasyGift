@@ -13,6 +13,36 @@ class Like < ActiveRecord::Base
   validates :status, inclusion: { in: %w(like dislike),
     message: "can only be either like or dislike" }
 
+  after_create :create_notification
+
+  def create_notification
+    Notification.create_like_notification(self)
+  end
+
+  def post_or_comment_owner
+    if type == "gift_request"
+      gift_request_user
+    else
+      comment_user
+    end
+  end
+
+  def type
+    if gift_request_id
+      "gift_request"
+    else
+      "comment"
+    end
+  end
+
+  def comment_user
+    comment.user
+  end
+
+  def gift_request_user
+    gift_request.user
+  end
+
   def like_cannot_belong_to_post_and_comment
   	if gift_request_id && comment_id
   		errors[:base ] << "Like cannot belong to both a gift request post and a comment"
