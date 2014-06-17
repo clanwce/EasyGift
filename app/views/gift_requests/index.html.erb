@@ -36,40 +36,44 @@ body{
 color: #ffffff;
    background-color: #2C3539;
 }
+
 .container {
     width:1024px;
     display: block;
 }
+
 </style>
 
     <div class="inline">
     <ul style="margin-left:20em" class="nav nav-pills" style="position:absolute">
-    <li class="active"><a href="#">Gift Requests</a></li>
+    <li class="active "><a href="#">Gift Requests</a></li>
     <li><a href="#">Tags</a></li>
     <li><a href="#">Users</a></li>
     <li><a href="#">Badges</a></li>
+    <li style="margin-left: 10em"><%= link_to 'New Gift request', new_gift_request_path %></li>
     </ul>
-
     </div>
-    <div class="table-responsive" style="display:inline">
-        <table class="table table-hover table-nonfluid" style="background-color: #008080">
-        <% @gift_requests.each do |gift_request| %>
-        <tr>
-      <td data-id=title<%= gift_request.id %>><h4><%= gift_request.title %></h4></td>
-      <td data-id=show<%= gift_request.id %>><%= button_to "Show", gift_request, :class => "btn btn-default", :method => :get %> </td>
-      <td data-id=edit<%= gift_request.id %>><%= button_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-default", :method => :get  %></td>
-      <td data-id=destroy<%= gift_request.id %>><%= button_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default" %></td>
-       </tr>
-      <% end %>
+    <br> 
+              <div style="display:block;">
+                  <table class="table table-responsive table-hover table-nonfluid" style="background-color: #008080; float: center">
+                  <% @gift_requests.each do |gift_request| %>
+                  <tr>
+                <td data-id=title<%= gift_request.id %>><h4><%= gift_request.title %></h4></td>
+                <td data-id=show<%= gift_request.id %>><%= button_to "Show", gift_request, :class => "btn btn-default", :method => :get %> </td>
+                <% if current_user.id == gift_request.user.id %>
+                <td data-id=edit<%= gift_request.id %>><%= button_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-default", :method => :get  %></td>
+                <td data-id=destroy<%= gift_request.id %>><%= button_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default" %></td>
+                <% end %>
+                 </tr>
+                <% end %>
 
-      </table>
-    </div>
+                </table>
+                <p class="inline" style="float: right; padding-right:3em">Total Questions:  <%=  GiftRequest.count %></p>
+              </div>
+        
+<br /><br /><br /><br /><br /><br />
+<!-- make destroy and edit smaller 
+User should not be able to edit it.. only the owner. requests showed be hyperlink
 
-<br />
 
-<%= link_to 'New Gift request', new_gift_request_path %>
-
-<h1>Dummy Code</h1>
-<%= form_tag do %>
-  <%=autocomplete_field_tag 'Title', '', 'gift_requests/autocomplete_gift_request_title', :update_elements => {:id => '#id_element', :description => '#some_other_element'} %>
-<% end %>
+-->
