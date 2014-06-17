@@ -14,7 +14,6 @@ class Notification < ActiveRecord::Base
     	@notification = Notification.new
     	@notification.event_id = like.id
     	@notification.type_of_event = "like"
-    	@notification.message = "#{like.user.username} liked #{like.post_or_comment_owner.username}'s #{like.type}"
     	if @notification.save
     		send_like_notifications_to_users(@notification, like)
     		return true
@@ -28,10 +27,14 @@ class Notification < ActiveRecord::Base
     def self.send_like_notifications_to_users(notification, like)
     	like_post_or_comment_owner = like.post_or_comment_owner
     	likes_owner_followers = like.user.followers
-    	unless likes_owner_followers.include?(like_post_or_comment_owner)
-    		notification.users << like_post_or_comment_owner
-    	end
-    	notification.users << likes_owner_followers
+        UserNotification.create(notification: notification, user: like.user, message: "You like #{like_post_or_comment_owner.username}'s #{like.type}")
+        # send notification to owner of post or comment liked
+        UserNotification.create(notification: notification, user: like_post_or_comment_owner, message: "#{like.user.username} likes your #{like.type}")
+      likes_owner_followers.each do |follower|
+        unless follower == like_post_or_comment_owner
+          UserNotification.create(notification: notification, user: follower, message: "#{like.user.username} likes #{like_post_or_comment_owner.username}'s' #{like.type}")
+        end     
+      end
     end
 
 end

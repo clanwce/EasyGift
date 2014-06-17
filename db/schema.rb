@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140615233927) do
+ActiveRecord::Schema.define(:version => 20140617022118) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(:version => 20140615233927) do
   create_table "notifications", :force => true do |t|
     t.string   "type_of_event"
     t.integer  "event_id"
-    t.string   "message"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -94,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20140615233927) do
     t.boolean  "read"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "message"
   end
 
   add_index "user_notifications", ["user_id", "notification_id"], :name => "index_user_notifications_on_user_id_and_notification_id", :unique => true

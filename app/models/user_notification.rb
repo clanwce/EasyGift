@@ -1,5 +1,5 @@
 class UserNotification < ActiveRecord::Base
-  attr_accessible :notification_id, :read, :user_id
+  attr_accessible :notification_id, :read, :user_id, :message, :notification, :user
 
   belongs_to :user
   belongs_to :notification
