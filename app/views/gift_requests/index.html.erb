@@ -1,47 +1,99 @@
-<h1>Listing gift_requests</h1>
+
+<h1>Search</h1>
 
  <form action="/gift_requests/searchresult" method="post">
     <P> 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    Search Gift Request <input type="text" name="keyword" id="giftrequestsearch"><BR>
+    Search Gift Request <input type="text" name="keyword" id="giftrequestsearch">
     <input type="submit" value="Submit">
     </P>
  </form>
  <br>
-  <form action="/gift_requests/searchresult" method="get">
+  <form action="/tags/tag_search" method="post">
     <P> 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    Search Tag <input type="text" name="keyword" id="tagsearch"><BR>
+    Search Tag <input type="text" name="keyword" id="tagsearch">
     <input type="submit" value="Submit">
     </P>
  </form>
 
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-  <% @gift_requests.each do |gift_request| %>
-    <tr>
-      <td><%= gift_request.title %></td>
-      <td><%= link_to 'Show', gift_request %></td>
-      <td><%= link_to 'Edit', edit_gift_request_path(gift_request) %></td>
-      <td><%= link_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-
-</table>
-
-<br />
-
-<%= link_to 'New Gift request', new_gift_request_path %>
-
 <h1>Welcome!</h1>
-<%= form_tag do %>
-  <%=autocomplete_field_tag 'Title', '', 'gift_requests/autocomplete_gift_request_title', :update_elements => {:id => '#id_element', :slogan => '#some_other_element'} %>
-<% end %>
-<p id='id_element'></p>
-<p id='some_other_element'></p>
+
+
+<% content_for :title, "Gift Requests" %>
+
+<style type="text/css">
+.inline
+{
+  display: inline
+}
+body{
+  background-color: #3B9C9C;
+  color: #ffffff;
+}
+body{
+  background-color: #008080;
+  color: #ffffff;
+}
+
+
+@media {
+  html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+}
+
+.table-nonfluid {
+   width: 70%;
+   margin: 0 auto;
+   float: none;
+}
+.table td{
+  text-align: center;
+  color: #ffffff;
+}
+.btn{
+color: #ffffff;
+   background-color: #2C3539;
+}
+
+.container {
+    width:1024px;
+    display: block;
+}
+
+</style>
+
+<%= render 'subnav' %>
+  <script type="text/javascript">
+    var node = document.getElementById("subnav").getElementsByTagName("li")[0];
+  node.setAttribute("class", "active");
+    </script>
+
+              <div style="display:block;">
+                  <table class="table table-responsive table-hover table-nonfluid" style="background-color: #008080; float: center">
+                  <% @gift_requests.each do |gift_request| %>
+                  <tr>
+                <td data-id=title<%= gift_request.id %>><h4><%= gift_request.title %></h4></td>
+                <td data-id=show<%= gift_request.id %>><%= button_to "Show", gift_request, :class => "btn btn-default", :method => :get %> </td>
+                <% if current_user.id == gift_request.user.id %>
+                <td data-id=edit<%= gift_request.id %>><%= button_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-default", :method => :get  %></td>
+                <td data-id=destroy<%= gift_request.id %>><%= button_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default" %></td>
+                <% end %>
+                 </tr>
+                <% end %>
+
+                </table>
+                <p class="inline" style="float: right; padding-right:3em">Total Questions:  <%=  GiftRequest.count %></p>
+              </div>
+        
+<br /><br /><br /><br /><br /><br />
+<!-- make destroy and edit smaller 
+User should not be able to edit it.. only the owner. requests showed be hyperlink
+
+
+-->
+

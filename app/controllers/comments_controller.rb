@@ -25,24 +25,15 @@ class CommentsController < ApplicationController
           format.json { render json: @comment, status: :created}
         else
           format.html { 
-            # notice = ''
-            #   @comment.errors.full_messages.each do |message|
-            #   notice += message
-            # end
             unless current_user.id == @comment_gift_request.user.id
-              notice += "Unauthorized final answer"
+              @comment.errors[:base ] << "Unauthorized final answer"
             end
             unless current_user.id != @comment.user.id
-              notice += "Can't select your own gift comment as final answer"
+              @comment.errors[:base ] << "Can't select your own gift comment as final answer"
             end
             redirect_to @comment_gift_request, notice: @comment.errors.full_messages.to_sentence
           }
-          format.json { 
-            result = {}
-            result[:errors] = @like.errors.full_messages.to_sentence
-            result[:status] = false  
-            render json: result
-          }       
+          format.json { render json: @comment.errors.full_messages.to_sentence, status: :unprocessable_entity }      
         end
       end
     end

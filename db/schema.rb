@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140614211147) do
+ActiveRecord::Schema.define(:version => 20140615233927) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(:version => 20140614211147) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "notifications", :force => true do |t|
+    t.string   "type_of_event"
+    t.integer  "event_id"
+    t.string   "message"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -75,10 +83,20 @@ ActiveRecord::Schema.define(:version => 20140614211147) do
 
   create_table "tags", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.integer  "gift_request_count"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "gift_request_count", :default => 0
   end
+
+  create_table "user_notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "notification_id"
+    t.boolean  "read"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "user_notifications", ["user_id", "notification_id"], :name => "index_user_notifications_on_user_id_and_notification_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

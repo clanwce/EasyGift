@@ -1,4 +1,41 @@
-<h1>New gift_request</h1>
+<% content_for :title, "New Gift Request" %>
+
+<style type="text/css">
+.inline
+{
+  display: inline
+}
+body{
+  background-color: #008080;
+  color: #ffffff;
+}
+
+@media {
+  html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+}
+
+.btn{
+	color: #ffffff;
+   background-color: #2C3539;
+}
+
+.container {
+    width:1024px;
+    display: block;
+}
+
+</style>
+
+<%= render 'subnav' %>
+
+    <script type="text/javascript">
+    var node = document.getElementById("subnav").getElementsByTagName("li")[4];
+	node.setAttribute("class", "active");
+    </script>
 
 <%= render 'form' %>
 

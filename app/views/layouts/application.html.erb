@@ -5,16 +5,42 @@
   .change {
     color: #ffffff ;
   }
+  .inline{
+   display: inline;
+  }
+
+.navbar-static-top {
+  margin-top: -3%;
+}
+
+body{
+  background-color: #008080;
+  color: #ffffff;
+}
+
+@media {
+  html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-x: scroll; 
+    overflow-y: scroll;
+  }
+}
+.container {
+    /*width: 1024px;*/
+    display: block;
+}
+
   </style>
-  <title>EasyGift</title>
+  <title><%= yield(:title) %></title>
+  <!-- Additional header tags here -->
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +49,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">EASY GIFTS</a>
+          
+          <%= image_tag 'tiffany.png', :alt => 'lgo', width:"50", height:"50", class: "inline" %>
+          <a class="inline" href="#"><h4 class="inline" style="color:#ffffff;">Easy Gifts</h4></a>
+        
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -47,9 +76,25 @@
       </div>
     </div>
 
-    <h4><%= flash[:notice] if flash[:notice] %> </h4>
+    <h4>
+      <!-- <%= flash[:notice] if flash[:notice] %> 
+    -->
+    <% if flash[:notice] %>
+      <script type="text/javascript">
+      alert("<%= flash[:notice] if flash[:notice] %>");
+    </script>
+    <% end %>
+    </h4>
 <!--     <p class="notice"><%= notice %></p> -->
     <p class="alert"><%= alert %></p>
+    <!-- <% if current_user %> -->
+    
+    <!-- <div class="inline" style="display:inline; margin-left:12em; height: 120; width: 100%"> -->
+      <!-- <%= image_tag 'giftbox.png', :alt => 'lgo', width:"100", height:"100" %> -->
+      <!-- <h3 class="inline" style="margin-left:1em;"> Easy Gifts</h3> -->
+    <!-- </div> -->
+
+    <!-- <%  end %> -->
 
 <%= yield %>
 </body>
