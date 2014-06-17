@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140617022118) do
+ActiveRecord::Schema.define(:version => 20140617025553) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -90,9 +90,9 @@ ActiveRecord::Schema.define(:version => 20140617022118) do
   create_table "user_notifications", :force => true do |t|
     t.integer  "user_id"
     t.integer  "notification_id"
-    t.boolean  "read"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.boolean  "read",            :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "message"
   end
 

@@ -1,4 +1,4 @@
-<h1>Listing tags</h1>
+<!-- <h1>Listing tags</h1>
 
 <table>
   <tr>
@@ -17,6 +17,25 @@
 <% end %>
 </table>
 
-<br />
+<br /> -->
 
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" data-toggle="tab">Messages</a></li>
+</ul>
 
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="home">...</div>
+  <div class="tab-pane fade" id="profile">...</div>
+  <div class="tab-pane fade" id="messages">...</div>
+</div>
+
+<%= render :partial => 'gift_requests/subnav' %>
+
+ <script type="text/javascript">
+    var node = document.getElementById("subnav").getElementsByTagName("li")[1];
+  node.setAttribute("class", "active");
+    </script>
