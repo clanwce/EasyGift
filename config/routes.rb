@@ -4,6 +4,7 @@ EasyGift::Application.routes.draw do
   root :to => 'home#index'
   match 'testpage' => 'home#test'
 
+  match 'account_settings' => 'home#account_settings'
   match 'profile'   => 'home#profile'
 
   match 'likes/create' => 'likes#create', :via => [:post]
@@ -20,7 +21,8 @@ EasyGift::Application.routes.draw do
   post 'gift_requests/:id' => 'comments#create'
   match 'userhome' => 'home#userhome'
   # gift request  match 'gift_requests/:id' => 'comments#create', :via => [:post]
-  
+
+
   resources :gift_requests do
     get :autocomplete_gift_request_title, :on => :collection
     get :autocomplete_tag_name, :on => :collection
