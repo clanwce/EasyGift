@@ -20,7 +20,7 @@ class Like < ActiveRecord::Base
   end
 
   def post_or_comment_owner
-    if type == "gift_request"
+    if type == "gift request"
       gift_request_user
     else
       comment_user
@@ -29,7 +29,7 @@ class Like < ActiveRecord::Base
 
   def type
     if gift_request_id
-      "gift_request"
+      "gift request"
     else
       "comment"
     end
