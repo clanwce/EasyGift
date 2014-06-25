@@ -18,24 +18,125 @@
 </table>
 
 <br /> -->
+<style type="text/css">
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-  <li><a href="#profile" data-toggle="tab">Profile</a></li>
-  <li><a href="#messages" data-toggle="tab">Messages</a></li>
-</ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane fade in active" id="home">...</div>
-  <div class="tab-pane fade" id="profile">...</div>
-  <div class="tab-pane fade" id="messages">...</div>
-</div>
+   .tag-cell
+        {
+            width: 180px;
+            border-bottom: 1px dotted #808080;
+            padding-bottom: 12px;
+            padding-right: 6px;
+            padding-top: 6px;
+            vertical-align: top;
+        }
 
+         .excerpt
+        {
+          font-size: 12px;
+          height: 39px;
+          line-height: 14px;
+          overflow: hidden;
+          margin-bottom: 4px;
+        }
+
+
+</style>
+<!-- 
 <%= render :partial => 'gift_requests/subnav' %>
-
+ 
  <script type="text/javascript">
     var node = document.getElementById("subnav").getElementsByTagName("li")[1];
   node.setAttribute("class", "active");
     </script>
+ --> 
+ <div class="container">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
+  <li><a href="#name" data-toggle="tab">Name</a></li>
+  <li><a href="#new" data-toggle="tab">New</a></li>
+</ul>
+
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="popular">
+
+<!--     <table>   
+      <tr>
+        <% (@tags).each do |tag| %>
+          <td class="tag-cell">
+            <div class="excerpt">
+              <td><%= tag.name %></td>
+            </div>
+          </td>
+        <% end %>
+      </tr>
+    </table> -->
+
+<table>
+    <div class="row">
+        <% (@tags).each do |tag| %>
+            <div class="col-sm-3">
+              <div class="tag-cell">
+              <div class="excerpt">
+                <%= tag.name %>
+                <%= link_to 'Show', tag %>
+
+                <%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+              </div>    
+            </div>
+        <% end %>
+     </div>
+   
+
+</table>
+
+
+
+
+<!--       <tr>
+        <td class="tag-cell">
+          <div class="excerpt">
+            sdfdsfsf
+          </div>
+         </td>
+          <td class="tag-cell">
+          <div class="excerpt">
+            sdfdsfsf
+          </div>
+         </td>
+          <td class="tag-cell">
+          <div class="excerpt">
+            sdfdsfsf
+          </div>
+         </td>
+          <td class="tag-cell">
+          <div class="excerpt">
+            sdfdsfsf
+          </div>
+         </td>
+          <td class="tag-cell">
+          <div class="excerpt">
+            sdfdsfsf
+          </div>
+         </td>
+      </tr>
+    </table> -->
+
+
+
+
+
+
+
+  </div>
+  <div class="tab-pane fade" id="name">...
+  </div>
+  <div class="tab-pane fade" id="new">...
+  </div>
+</div>
+
+</div>
