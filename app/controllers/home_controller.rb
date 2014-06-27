@@ -9,11 +9,14 @@ class HomeController < ApplicationController
 
 	end
 
-	def profile
+	def userhome
 
 	end
 
-	def userhome
+	def account_settings
+	end
+
+	def profile
 
 	end
 end

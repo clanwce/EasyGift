@@ -20,7 +20,7 @@ class Like < ActiveRecord::Base
   end
 
   def post_or_comment_owner
-    if type == "gift_request"
+    if type == "gift request"
       gift_request_user
     else
       comment_user
@@ -29,7 +29,7 @@ class Like < ActiveRecord::Base
 
   def type
     if gift_request_id
-      "gift_request"
+      "gift request"
     else
       "comment"
     end
@@ -110,11 +110,12 @@ class Like < ActiveRecord::Base
   end
 
   def gift_request_likes
-    gift_request.like_count
+    # likecount = Like.find_by_userid()
+    gift_request.likes.count
   end
 
   def gift_request_dislikes
-    gift_request.dislike_count
+    gift_request.dislikes.count
   end
 
 end
