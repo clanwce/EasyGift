@@ -20,7 +20,6 @@ class GiftRequestsController < ApplicationController
     @gift_request = GiftRequest.find(params[:id])
     @gift_request_comments = @gift_request.comments
     @gift_request_likes = @gift_request.likes
-    @gift_request_dislikes = @gift_request.dislikes
     @gift_request_tags = @gift_request.tags
     respond_to do |format|
       format.html # show.html.erb

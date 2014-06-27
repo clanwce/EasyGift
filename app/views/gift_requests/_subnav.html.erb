@@ -1,14 +1,10 @@
    <div class="inline" id="subnav">
     <ul style="margin-left:20em" class="nav nav-pills" style="position:absolute">
-    <li><a href="/gift_requests">Gift Requests</a></li>
-    <li><a href="/tags">Tags</a></li>
+    <li ><%= link_to 'Gift Requests', gift_requests_path %></li>
+    <li><a href="#">Tags</a></li>
     <li><a href="#">Users</a></li>
     <li><a href="#">Badges</a></li>
-    <li class ="" style="margin-left: 10em"><a href="/gift_requests/new">New Gift Request</a></li>
+    <li class ="" style="margin-left: 10em"><%= link_to 'New Gift request', new_gift_request_path %></li>
     </ul>
     </div>
     <br> 
-<!--     <li ><%= link_to 'Gift Requests', gift_requests_path %></li>
-# <%= link_to 'New Gift request', new_gift_request_path %>
-
--->
