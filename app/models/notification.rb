@@ -10,30 +10,45 @@ class Notification < ActiveRecord::Base
   validates :type_of_event, inclusion: { in: %w(like comment gift_request final_answer),
     message: "can only be either like, comment, gift request, or final answer" }
 
-    def self.create_like_notification(like)
-    	@notification = Notification.new
-    	@notification.event_id = like.id
-    	@notification.type_of_event = "like"
-      @notification.actor_id = like.user.id
-    	if @notification.save
-    		send_like_notifications_to_users(@notification, like)
-    		return true
-    	else
-    		return false
-    	end
+    def self.create_notification(event, type)
+      notification = Notification.new
+      notification.event_id = event.id
+      notification.type_of_event = type
+      notification.actor_id = event.user
+      if notification.save
+        send_notifications_to_users(notification, event)
+        return true
+      else
+        return false
+      end
     end
 
-    def self.send_like_notifications_to_users(notification, like)
-    	like_post_or_comment_owner = like.post_or_comment_owner
-    	likes_owner_followers = like.user.followers
+    def self.send_notifications_to_users(notification, event)
+    	actor = notification.actor
+    	actor_followers = actor.followers
+      case notification.type_of_event
+      when "like"
+          UserNotification.create(notification: notification, user: event.post_or_comment_owner, message: "#{actor.username} #{event.status}s your #{event.type}")
+      actor_followers.each do |follower|
+        unless follower == event.post_or_comment_owner
+          UserNotification.create(notification: notification, user: follower, message: "#{actor.username} #{event.status}s #{event.post_or_comment_owner.username}'s' #{event.type}")
+        end   
+      when "comment"
+          UserNotification.create(notification: notification, user: event.gift_request_owner, message: "#{actor.username} has made comments on your post: #{event.gift_request.title}")
+      actor_followers.each do |follower|
+        unless follower == event.gift_request_owner
+          UserNotification.create(notification: notification, user: follower, message: "#{actor.username} #has made comments on #{event.gift_request_owner_username}'s post: #{event.gift_request.title}")
+        end   
+      when "gift_request"
+      actor_followers.each do |follower|
+          UserNotification.create(notification: notification, user: follower, message: "#{actor.username} has posted a new gift request: #{event.title}")
+        end   
+      else #final_answer
+        
+      end
+
         # UserNotification.create(notification: notification, user: like.user, message: "You #{like.status} #{like_post_or_comment_owner.username}'s #{like.type}")
         # send notification to owner of post or comment liked
-        UserNotification.create(notification: notification, user: like_post_or_comment_owner, message: "#{like.user.username} #{like.status}s your #{like.type}")
-      likes_owner_followers.each do |follower|
-        unless follower == like_post_or_comment_owner
-          UserNotification.create(notification: notification, user: follower, message: "#{like.user.username} #{like.status}s #{like_post_or_comment_owner.username}'s' #{like.type}")
-        end     
-      end
     end
 
     def actor

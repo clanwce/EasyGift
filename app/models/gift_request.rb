@@ -18,6 +18,11 @@ class GiftRequest < ActiveRecord::Base
 
   MAXIMUM_AMOUNT_OF_TAGS = 5
 
+  after_create :create_notification
+
+  def create_notification
+    Notification.create_notification(self, "gift_request")
+  end
 
   def username
   	user.username
