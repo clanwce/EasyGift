@@ -1,10 +1,11 @@
 class GiftRequest < ActiveRecord::Base
-  attr_accessible :description, :dislike, :likes, :public, :user_id, :like_count, :dislike_count, :title
+  attr_accessible :description, :dislikes, :likes, :public, :user_id, :like_count, :dislike_count, :title
   has_many :comments, :dependent => :delete_all
   belongs_to :user
   has_many :gift_requests_tags
   has_many :tags, :through => :gift_requests_tags
   has_many :likes, :dependent => :destroy
+  has_many :dislikes, :dependent => :destroy
 
   validates_presence_of :user_id
   validates_presence_of :title
