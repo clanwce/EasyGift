@@ -19,4 +19,12 @@ class Comment < ActiveRecord::Base
   def username
   	user.username
   end
+
+  def gift_request_owner
+    gift_request.user
+  end
+
+  def gift_request_owner_username
+    gift_request_owner.username
+  end
 end

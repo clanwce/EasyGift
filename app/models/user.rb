@@ -43,4 +43,8 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def activity
+    Notification.where(actor_id: self.id)
+  end
+
 end
