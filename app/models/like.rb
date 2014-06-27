@@ -110,11 +110,12 @@ class Like < ActiveRecord::Base
   end
 
   def gift_request_likes
-    gift_request.like_count
+    # likecount = Like.find_by_userid()
+    gift_request.likes.count
   end
 
   def gift_request_dislikes
-    gift_request.dislike_count
+    gift_request.dislikes.count
   end
 
 end
