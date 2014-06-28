@@ -144,7 +144,7 @@ class Notification < ActiveRecord::Base
   end
 
   def constructFinalAnswerSelectedActivity(viewing_user)
-    if type_of_event = "final_answer_selected"
+    if type_of_event == "final_answer_selected"
       if viewing_user == actor
         actor = "Your"
       else
@@ -160,7 +160,7 @@ class Notification < ActiveRecord::Base
   end
 
   def constructFinalAnswerSelectionActivity(viewing_user)
-    if type_of_event = "final_answer_selection"
+    if type_of_event == "final_answer_selection"
       if viewing_user == actor
         actor = "You"
       else
