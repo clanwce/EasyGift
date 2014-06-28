@@ -16,7 +16,7 @@ class Like < ActiveRecord::Base
   after_create :create_notification
 
   def create_notification
-    Notification.create_like_notification(self)
+    Notification.create_notification(self, "like")
   end
 
   def post_or_comment_owner
