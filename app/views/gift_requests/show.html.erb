@@ -52,7 +52,6 @@
 				<p> <%= like.username %> <%= like.status %>'s this post</p>
 			<% end %>
 		<% end %>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -96,7 +95,6 @@
 		<% if @gift_request_comments %> 
 			<% @gift_request_comments.each do |comment| %>
 
-		 <% @gift_request_comments.sort_by{|e| -e[:like_count]} %>
 			<p><b> <%= comment.username %> says: </b> <%= comment.description %> <br>
 			<%= comment.like_count %> people like this | <%= comment.dislike_count %> people dislike this <br>
 			<% if comment.final_answer %>
@@ -104,48 +102,87 @@
 			<% end %>
 			<% if comment.likes %>
 				<% comment.likes.each do |like| %>
-					| <%= like.username %> <%= like.status %>'s this comment |
+					 <%= like.username %> <%= like.status %> 
 				<% end %>
-
 			<% end %>
 		</p>
 
-	<form action="/likes/create" method="post">
+	<form action="/likes/create" method="post" class="inline">
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
 	    <input type="hidden" name="like[status]" value="like" />
-	    <button type="submit" class="btn btn-success btn-xs">Like</button>
+	    <button type="submit" class="btn inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 	</form>
-	<form action="/likes/create" method="post">
+	<form action="/likes/create" method="post"  class="inline">
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
 	    <input type="hidden" name="like[status]" value="dislike" />
-	    <button type="submit" class="btn btn-danger btn-xs">Dislike</button>
+	    <button type="submit" class="btn inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
 	</form>
-
-	<form action="/comments/final" method="post">
+	
+	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
-		    <button type="submit" class="btn btn-primary btn-xs">Final Answer</button>
+		   <button type="submit" class="btn inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+	<button type="submit" class="btn btn-success btn-xs" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> People Liked</button>
+	 <button type="submit" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> People disliked</button>
+ 
 	<% end %>
 <% end %>
-
-
   </div>
+
+<!-- Comment Like Modal -->
+<div class="modal fade" id="commentlikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="ModalLabel">People who liked this </h4>
+      </div>
+      <div class="modal-body" id = "likecommentbody">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Comment Dis-Like Modal -->
+<div class="modal fade" id="commentdislikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">People who disliked this </h4>
+      </div>
+      <div class="modal-body">
+      	...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <div class="tab-pane fade" id="popular">
 
 		 <% gift_request_cc = @gift_request_comments.sort_by(&:like_count) %>
-		<% @gift_request_comments = gift_request_cc.reverse %>
+		 <% @gift_request_comments = gift_request_cc.reverse %>
 		
-		<% if @gift_request_comments %> 
+		 <% if @gift_request_comments %> 
 			<% @gift_request_comments.each do |comment| %>
 
 		 <% @gift_request_comments.sort_by{|e| -e[:like_count]} %>
 			<p><b> <%= comment.username %> says: </b> <%= comment.description %> <br>
-			<%= comment.like_count %> people like this | <%= comment.dislike_count %> people dislike this <br>
+			<!-- 
+			<islike this <br> -->
 			<% if comment.final_answer %>
 				<b> FINAL ANSWER </b>
 			<% end %>
@@ -157,26 +194,27 @@
 			<% end %>
 		</p>
 
-	<form action="/likes/create" method="post">
+	<form action="/likes/create" method="post" class="inline">
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
 	    <input type="hidden" name="like[status]" value="like" />
-	    <button type="submit" class="btn btn-success btn-xs">Like</button>
+	    <button type="submit" class="btn inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 	</form>
-	<form action="/likes/create" method="post">
+	<form action="/likes/create" method="post" class="inline">
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
 	    <input type="hidden" name="like[status]" value="dislike" />
-	    <button type="submit" class="btn btn-danger btn-xs">Dislike</button>
+	    <button type="submit" class="btn inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 	</form>
 
-	<form action="/comments/final" method="post">
+	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
-		    <button type="submit" class="btn btn-primary btn-xs">Final Answer</button>
+		   <button type="submit" class="btn inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+
 	<% end %>
 <% end %>
 
