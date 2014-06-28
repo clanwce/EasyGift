@@ -20,6 +20,7 @@ class Comment < ActiveRecord::Base
     if Comment.where(gift_request_id: gift_request.id, final_answer: true).count > 0
       errors[:base ] << "A gift request cannot have more than one final answer"
     end
+    create_final_answer_notifications
   end
 
   def username
@@ -32,5 +33,12 @@ class Comment < ActiveRecord::Base
 
   def gift_request_owner_username
     gift_request_owner.username
+  end
+
+  private
+
+  def create_final_answer_notifications
+    Notification.create_notification(self, "final_answer_selected")
+    Notification.create_notification(self, "final_answer_selection")
   end
 end
