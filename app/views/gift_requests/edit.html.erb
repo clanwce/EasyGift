@@ -1,6 +1,20 @@
-<h1>Editing gift_request</h1>
+<!-- <h1 style="position: absolute; top: 10%; left: 17%">Edit Gift Request</h1> -->
+<% content_for :title, "Edit Gift Request" %>
 
+<h3 style="position: absolute; top: 15%; left: 17%">Edit Gift Request</h3>
+<br /><br />
 <%= render 'form' %>
 
-<%= link_to 'Show', @gift_request %> |
-<%= link_to 'Back', gift_requests_path %>
+<div style="display:inline">
+<table>
+	<tr>
+		<td>
+		<%= button_to "Show", @gift_request, :class => "btn btn-default", :method => :get %>
+		</td>
+		<td>
+		<%= button_to "Back", gift_requests_path, :class => "btn btn-default", :method => :get %>
+		</td>
+	</tr>
+</table>
+</div>
+<br /><br />

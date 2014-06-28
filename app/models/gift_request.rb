@@ -14,7 +14,7 @@ class GiftRequest < ActiveRecord::Base
   #   indexes :title
   #   indexes description
   # end
-  after_save ThinkingSphinx::RealTime.callback_for(:gift_request)
+#  after_save ThinkingSphinx::RealTime.callback_for(:gift_request)
 
   MAXIMUM_AMOUNT_OF_TAGS = 5
 

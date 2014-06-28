@@ -24,7 +24,7 @@ class Comment < ActiveRecord::Base
   end
 
   def username
-  	user.username
+    user.username
   end
 
   def gift_request_owner
