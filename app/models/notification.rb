@@ -6,6 +6,7 @@ class Notification < ActiveRecord::Base
 
   validates_presence_of :event_id
   validates_presence_of :type_of_event
+  validates_presence_of :actor_id
 
   validates :type_of_event, inclusion: { in: %w(like comment gift_request final_answer_selected final_answer_selection),#_selection final_answer_selected),
     message: "can only be either like, comment, gift request, final answer selection or final answer selected" }

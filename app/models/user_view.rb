@@ -10,6 +10,9 @@ class UserView < ActiveRecord::Base
   belongs_to :user
   belongs_to :gift_request
 
+  validates_presence_of :user
+  validates_presence_of :gift_request
+
   def increment_gift_request_views
   	gift_request.increment_views
   end
