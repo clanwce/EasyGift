@@ -5,6 +5,9 @@ class Like < ActiveRecord::Base
   belongs_to :gift_request
   belongs_to :comment
 
+  validates_presence_of :user
+  validates_presence_of :gift_request, :if => lambda{ |object| object.gift_request_id.present? }
+  validates_presence_of :comment, :if => lambda{ |object| object.comment_id.present? }
   validate :like_cannot_belong_to_post_and_comment
   validates_uniqueness_of :comment_id, :allow_nil => true, :scope => :user_id, :message => "can't be liked more than once"
   validates_uniqueness_of :gift_request_id, :allow_nil => true, :scope => :user_id, :message => "can't be liked more than once"

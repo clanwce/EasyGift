@@ -1,14 +1,16 @@
 class GiftRequest < ActiveRecord::Base
-  attr_accessible :description, :dislike, :likes, :public, :user_id, :like_count, :dislike_count, :title
+  attr_accessible :description, :dislike, :likes, :public, :user_id, :like_count, :dislike_count, :title, :views
   has_many :comments, :dependent => :delete_all
   belongs_to :user
   has_many :gift_requests_tags
   has_many :tags, :through => :gift_requests_tags
   has_many :likes, :dependent => :destroy
+  has_many :user_views, :dependent => :destroy
 
   validates_presence_of :user_id
   validates_presence_of :title
   validates_presence_of :description
+  validates_presence_of :user
 
   after_save ThinkingSphinx::RealTime.callback_for(:gift_request)
 
@@ -22,6 +24,11 @@ class GiftRequest < ActiveRecord::Base
 
   def username
   	user.username
+  end
+
+  def increment_views
+    new_views = views + 1
+    self.update_attributes(views: new_views)
   end
 
   def attach_tags_to_gift_request(tags)
@@ -40,6 +47,14 @@ class GiftRequest < ActiveRecord::Base
       end
     end
     return true
+  end
+
+  def self.top
+    GiftRequest.order('like_count DESC')
+  end
+
+  def self.popular
+    GiftRequest.order('views DESC')
   end
 
 end

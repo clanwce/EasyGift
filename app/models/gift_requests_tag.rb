@@ -7,6 +7,8 @@ class GiftRequestsTag < ActiveRecord::Base
   validates_uniqueness_of :gift_request_id, :allow_nil => true, :scope => :tag_id, :message => "can't be associated to a tag more than once"
 
   validate :max_tags
+  validates_presence_of :gift_request
+  validates_presence_of :tag
 
   MAXIMUM_AMOUNT_OF_TAGS = 5
 
