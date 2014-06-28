@@ -122,8 +122,9 @@ class Notification < ActiveRecord::Base
       Comment.find(event_id)
     elsif type_of_event == "gift_request"
       GiftRequest.find(event_id)
-    elsif type_of_event == "final_answer"
-      # WE NEED TO THINK ABOUT THIS
+    elsif type_of_event == "final_answer_selected"
+      Comment.find(event_id)
+    elsif type_of_event == "final_answer_selection"
       Comment.find(event_id)
     end
   end
@@ -135,7 +136,43 @@ class Notification < ActiveRecord::Base
       constructCommentActivity(viewing_user)
     elsif type_of_event == "gift_request"
       constructGiftRequestActivity(viewing_user)
-    end     
+    elsif type_of_event == "final_answer_selected"
+      constructFinalAnswerSelectedActivity(viewing_user)
+    elsif type_of_event == "final_answer_selection"
+      constructFinalAnswerSelectionActivity(viewing_user)
+    end  
+  end
+
+  def constructFinalAnswerSelectedActivity(viewing_user)
+    if type_of_event = "final_answer_selected"
+      if viewing_user == actor
+        actor = "Your"
+      else
+        actor = self.actor.username + "'s"
+      end
+      if viewing_user == event.gift_request_owner #gift request owner
+        actee = "you"
+      else
+        actee = event.gift_request_owner.username
+      end
+      "#{actor} comment on '#{event.gift_request.title}' was selected as the final answer by #{actee}"
+    end
+  end
+
+  def constructFinalAnswerSelectionActivity(viewing_user)
+    if type_of_event = "final_answer_selection"
+      if viewing_user == actor
+        actor = "You"
+      else
+        actor = self.actor.username
+      end
+      if viewing_user == event.user #comment owner
+        actee = "your"
+      else
+        actee = event.user.username + "'s"
+      end
+      "#{actor} has selected #{actee} comment on '#{event.gift_request.title}' as the final answer"
+    end
   end
 
   def constructLikeActivity(viewing_user)
@@ -143,7 +180,7 @@ class Notification < ActiveRecord::Base
       if viewing_user == actor
         like_actor = "You"
       else
-        like_actor = actor.username
+        like_actor = self.actor.username
       end
       if viewing_user == event.post_or_comment_owner
         like_actee = "your"
@@ -159,7 +196,7 @@ class Notification < ActiveRecord::Base
       if viewing_user == actor
         actor = "You"
       else
-        actor = actor.username
+        actor = self.actor.username
       end
       if viewing_user == event.post_or_comment_owner
         actee = "your"
