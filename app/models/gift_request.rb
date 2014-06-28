@@ -1,5 +1,5 @@
 class GiftRequest < ActiveRecord::Base
-  attr_accessible :description, :dislike, :likes, :public, :user_id, :like_count, :dislike_count, :title
+  attr_accessible :description, :dislike, :likes, :public, :user_id, :like_count, :dislike_count, :title, :views
   has_many :comments, :dependent => :delete_all
   belongs_to :user
   has_many :gift_requests_tags
@@ -28,6 +28,11 @@ class GiftRequest < ActiveRecord::Base
   	user.username
   end
 
+  def increment_views
+    new_views = views + 1
+    self.update_attributes(views: new_views)
+  end
+
   def attach_tags_to_gift_request(tags)
     if tags
       tags.each do |tag|
@@ -44,6 +49,14 @@ class GiftRequest < ActiveRecord::Base
       end
     end
     return true
+  end
+
+  def self.top
+    GiftRequest.order('like_count DESC')
+  end
+
+  def self.popular
+    GiftRequest.order('views DESC')
   end
 
 end

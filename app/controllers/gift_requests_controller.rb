@@ -22,6 +22,7 @@ class GiftRequestsController < ApplicationController
     @gift_request_likes = @gift_request.likes
     @gift_request_tags = @gift_request.tags
     respond_to do |format|
+      @gift_request.increment_views
       format.html # show.html.erb
       format.json { render json: @gift_request }
     end
