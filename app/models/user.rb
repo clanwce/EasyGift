@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :reset_password_token
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :reset_password_token, :points
   # attr_accessible :title, :body
 
   validates_presence_of :username
@@ -64,5 +64,10 @@ class User < ActiveRecord::Base
     end
     message_feed
   end
+
+  # def points_update(type)
+  #   case type
+  #   when "like"
+  #     update_attributes(points: new_count)
 
 end

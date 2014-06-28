@@ -61,17 +61,25 @@ class Like < ActiveRecord::Base
       if status == 'like'
         new_count = comment_likes + 1
         comment.update_attributes(like_count: new_count)
+        newpoints = comment_owner_points + 50
+        comment.user.update_attributes(points: newpoints)
       else
         new_count = comment_dislikes + 1
         comment.update_attributes(dislike_count: new_count)
+        newpoints = comment_owner_points - 50
+        comment.user.update_attributes(points: newpoints)
       end
     else
       if status == 'like'
         new_count = gift_request_likes + 1
         gift_request.update_attributes(like_count: new_count)
+        newpoints = gift_request_owner_points + 50
+        gift_request.user.update_attributes(points: newpoints)
       else
         new_count = gift_request_dislikes + 1
         gift_request.update_attributes(dislike_count: new_count)
+        newpoints = gift_request_owner_points - 50
+        gift_request.user.update_attributes(points: newpoints)
       end   
     end
   end
@@ -118,6 +126,14 @@ class Like < ActiveRecord::Base
 
   def gift_request_dislikes
     gift_request.dislike_count
+  end
+
+  def comment_owner_points
+    comment.user.points
+  end
+
+  def gift_request_owner_points
+    gift_request.user.points
   end
 
 end
