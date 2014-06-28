@@ -5,6 +5,7 @@ class GiftRequest < ActiveRecord::Base
   has_many :gift_requests_tags
   has_many :tags, :through => :gift_requests_tags
   has_many :likes, :dependent => :destroy
+  has_many :user_views, :dependent => :destroy
 
   validates_presence_of :user_id
   validates_presence_of :title
