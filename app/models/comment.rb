@@ -20,6 +20,8 @@ class Comment < ActiveRecord::Base
     if Comment.where(gift_request_id: gift_request.id, final_answer: true).count > 0
       errors[:base ] << "A gift request cannot have more than one final answer"
     else
+      newpoints = user.points + 500
+      user.update_attributes(points: newpoints)
       create_final_answer_notifications
     end
   end
