@@ -7,6 +7,8 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :user_id
   validates_presence_of :description
+  validates_presence_of :user
+  validates_presence_of :gift_request
 
   validate :one_final_answer, :if => :final_answer_changed?
 
