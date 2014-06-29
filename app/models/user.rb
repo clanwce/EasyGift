@@ -5,11 +5,18 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :reset_password_token, :points
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :reset_password_token, :points, :rank
   # attr_accessible :title, :body
 
   validates_presence_of :username
   validates_uniqueness_of :username
+
+
+  validates :rank, inclusion: { in: %w(Stone Bronze Silver Gold Platnium Diamond Master),
+    message: "can only be either Stone Bronze Silver Gold Platnium Diamond Master" }
+
+
+  before_update :rank_update, if: proc {points_changed?}
 
   has_many :authentications
 
@@ -63,6 +70,24 @@ class User < ActiveRecord::Base
       message_feed << notification_hash
     end
     message_feed
+  end
+
+  def rank_update  
+    if points < 1500
+      self.rank = "Stone"
+    elsif points< 3000
+      self.rank = "Bronze"
+    elsif points< 5000
+      self.rank = "Silver"
+    elsif points< 8000
+      self.rank = "Gold"
+    elsif points< 15000
+      self.rank = "Platinum"
+    elsif points< 30000
+      self.rank = "Diamond"
+    else
+      self.rank = "Master"
+    end  
   end
 
   # def points_update(type)
