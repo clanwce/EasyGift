@@ -4,7 +4,7 @@ gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'debugger'
+# gem 'debugger'
 gem 'mysql2', '~> 0.3.16'
 gem 'omniauth'
 gem 'omniauth-facebook'
