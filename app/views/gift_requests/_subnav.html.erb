@@ -1,14 +1,24 @@
-   <div class="inline" id="subnav">
-    <ul style="margin-left:20em" class="nav nav-pills" style="position:absolute">
-    <li><a href="/gift_requests">Gift Requests</a></li>
-    <li><a href="/tags">Tags</a></li>
-    <li><a href="#">Users</a></li>
-    <li><a href="#">Badges</a></li>
-    <li class ="" style="margin-left: 10em"><a href="/gift_requests/new">New Gift Request</a></li>
-    </ul>
-    </div>
-    <br> 
-<!--     <li ><%= link_to 'Gift Requests', gift_requests_path %></li>
-# <%= link_to 'New Gift request', new_gift_request_path %>
+<style>
+.nav-justified
+{
+    width: 80%;
+}
+</style>
 
--->
+   <div id="subnav">   
+            <ul class="nav nav-pills nav-justified " style="margin-left: 5em;">
+            <li><a href="/gift_requests">Gift Requests</a></li>
+            <li><a href="/tags">Tags</a></li>
+            <li><a href="#">Users</a></li>
+            <li><a href="#">Badges</a></li>
+            <li style="margin-left: 8em"><a href="/gift_requests/new">New Gift Request</a></li>
+            </ul>
+        </div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+    <br>
