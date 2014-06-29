@@ -1,9 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    RubyInline (3.12.3)
-      ZenTest (~> 4.3)
-    ZenTest (4.10.0)
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
       mail (~> 2.5.3)
@@ -59,8 +56,7 @@ GEM
     execjs (2.1.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
-    fuzzy-string-match (0.9.6)
-      RubyInline (>= 3.8.6)
+    fuzzy-string-match_pure (0.9.5)
     hashie (2.1.1)
     hike (1.2.3)
     httpclient (2.3.4.1)
@@ -188,7 +184,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   debugger
   devise
-  fuzzy-string-match
+  fuzzy-string-match_pure
   jquery-rails
   mysql2 (~> 0.3.16)
   omniauth

@@ -11,7 +11,8 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'devise'
 gem 'rails3-jquery-autocomplete'
-gem 'fuzzy-string-match'
+# gem 'fuzzy-string-match'
+gem 'fuzzy-string-match_pure'
 #gem "sphinx"
 gem "thinking-sphinx"
 gem 'pusher'
