@@ -19,6 +19,7 @@ EasyGift::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+  config.action_mailer.default_url_options = { :host => 'easy-gift.heroku.com' }
 
   # config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.css *.css.scss *.js *.js.coffee] 
   # config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif] 
