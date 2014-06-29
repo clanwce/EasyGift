@@ -14,6 +14,7 @@ EasyGift::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   # resources :authentications
+  match 'users/:id' => 'users#show'
   match 'users/edit_password' => 'users#edit_password'
   match 'auth/:provider/callback' => 'authentications#create'
   match 'users/update_password' => 'users#update_password'

@@ -1,0 +1,7 @@
+<% if @user = current_user %>
+
+	<h1> Your profile page </h1>
+	
+<% else %>
+	<h1> <%= @user.username %> </h1>
+<% end %>
