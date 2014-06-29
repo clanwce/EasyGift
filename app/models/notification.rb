@@ -11,6 +11,15 @@ class Notification < ActiveRecord::Base
   validates :type_of_event, inclusion: { in: %w(like comment gift_request final_answer_selected final_answer_selection),#_selection final_answer_selected),
     message: "can only be either like, comment, gift request, final answer selection or final answer selected" }
 
+  validate :event_exists
+
+  def event_exists
+    begin
+      event
+    rescue ActiveRecord::RecordNotFound => e
+      errors[:base ] << e
+    end
+  end
 
   def actor
     User.find(actor_id)
