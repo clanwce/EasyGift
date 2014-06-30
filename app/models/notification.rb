@@ -208,10 +208,10 @@ class Notification < ActiveRecord::Base
       else
         actor = self.actor.username
       end
-      if viewing_user == event.post_or_comment_owner
+      if viewing_user == event.gift_request_owner_username
         actee = "your"
       else
-        actee = event.post_or_comment_owner.username + "'s"
+        actee = event.gift_request_owner_username + "'s"
       end
       actor + " commented on " + actee + " gift request"
     end
