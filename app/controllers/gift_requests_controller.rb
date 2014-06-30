@@ -47,7 +47,6 @@ class GiftRequestsController < ApplicationController
   # POST /gift_requests
   # POST /gift_requests.json
   def create
-    debugger
     @gift_request = GiftRequest.new(user_id: current_user.id, title: params[:gift_request]["title"], description: params[:gift_request]["description"])
     respond_to do |format|
       if @gift_request.save && @gift_request.attach_tags_to_gift_request(params[:tags])
