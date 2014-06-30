@@ -1,13 +1,10 @@
 <table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-aa
+
   <% @gift_requests.each do |gift_request| %>
     <tr>
-      <td><%= gift_request.title %></td>
+
+      <%= link_to gift_request.title, {:controller => "gift_requests",:action => "show", :id => gift_request.id}, :class => "inline btn btn-link",:style => "display:inline" ,:method => :get %>
+
       <td><%= link_to 'Show', gift_request %></td>
     </tr>
   <% end %>
