@@ -1,45 +1,90 @@
+<style type="text/css">
+.scroll
+{
+width:500px;
+height:80px;
+overflow:auto;
+word-wrap:break-word;
+}
+</style>
+
 <div class="container">
 <div align = "center">
 		<div class="inline">
 		<p id="notice" style="color:red"><%= notice %></p>
 		</div>
 </div>
+
+  <%= render 'subnav' %>
+  <script type="text/javascript">
+    var node = document.getElementById("subnav").getElementsByTagName("li")[0];
+  node.setAttribute("class", "active");
+    </script>
+
+
 <div style="display:inline"> 
 
 <div style="text-align: center;">
 		<div style="width: 500px; margin: 0 auto;" class="inline">
-			<h3 > Gift Request Title : <%= @gift_request.title %> </h3>
+			<h3 > <%= @gift_request.title %> </h3>
 			<h3> Views: <%= @gift_request.views %> </h3>
 		<h5 class="inline"> Created By: <%= @gift_request.username %> </h5><br/> 
-		</div>	
+		</div>
+
 </div>
-<br/>
-<div style="width: 1000px; margin: 0 auto;">
-	<h5 class="inline"> Description:  <%= @gift_request.description %> </h5>
-<br />
-<br />
-	<form action="/likes/create" method="post" class="inline">
+<br>
+<div class="col-xs-12 col-sm-6 col-md-8" style="margin-left:6%;">
+    <!-- <td style="height: auto"> -->
+      <div class="inline col-xs-4 col-md-2" align="center">
+		<form action="/likes/create" method="post" class="inline">
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 	    <input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
 	    <input type="hidden" name="like[status]" value="like" />
 	    <button type="submit" class="btn"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
-	</form>
-	<form action="/likes/create" method="post" class="inline">
+		</form>
+
+      	<br><br>
+
+		<form action="/likes/create" method="post" class="inline">
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 	    <input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
 	    <input type="hidden" name="like[status]" value="dislike" />
 	    <button type="submit" class="btn"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
-	</form>
-<br /><br />
-<!-- 
-<b> Likes/Dislikes </b>
-	<br/>
- <%= @gift_request.like_count %> people like this | <%= @gift_request.dislike_count %> people dislike this  -->
+		</form>
+        <br><br>
+      </div>
 
- <button type="submit" class="btn btn-success btn-xs" data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> People Liked</button>
+      <div class="inline container col-xs-12 col-md-8" data-id=titlea >
+        	<h5 class="inline scroll"> Description:  <%= @gift_request.description %> 
+      </h5>
+      </div>
+		</div>
+      <br>
+</div>
+
+<br/>
+<div style="width: 1000px; margin: 0 auto;">
+<br />
+<br />
+	
+<br /><br />
+<button type="submit" class="btn btn-success btn-xs" data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> People Liked</button>
  <button type="submit" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#dislikemodal" > <%= @gift_request.dislike_count %> People disliked</button>
+<br><br>
+<div class="inline btn-link "> Tags 
+		<% if @gift_request_tags %>
+			<% @gift_request_tags.each do |tag| %>
+
+			<%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "inline btn btn-link",:style => "display:inline" ,:method => :get %>
+
+
+			<% end %>
+		<% end %>
+	</div>
+
+
 <!-- Like Modal -->
 <div class="modal fade" id="likemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -48,12 +93,27 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">People who liked this </h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow:auto" >
+      	<table class="table ">
 		<% if @gift_request_likes %>
 			<% @gift_request_likes.each do |like| %>
-				<p> <%= like.username %> <%= like.status %>'s this post</p>
+			<% if like.status=="like" %>
+			<tr >
+				<td>
+				<div class="inline">
+					<div style="background-color:#008080;width:45%">
+					<%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
+					 
+					 <%= button_to [like.username], {:controller => "users",:action => "show", :id => like.user_id}, :class => "inline btn ", :method => :get %>
+				</div>
+				</div>
+				</td>
+			</tr>
+				<% end %>
+
 			<% end %>
 		<% end %>
+	</table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -70,8 +130,29 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">People who disliked this </h4>
       </div>
-      <div class="modal-body">
-      	...
+      <div class="modal-body" style="overflow:auto" >
+      	<table class="table ">
+
+			<% if @gift_request_likes %>
+				<% @gift_request_likes.each do |like| %>
+					<% if like.status=="dislike" %>
+				
+				<tr >
+					<td>
+					<div class="inline">
+						<div style="background-color:#008080;width:45%">
+						<%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
+						 
+						 <%= button_to [like.username], {:controller => "users",:action => "show", :id => like.user_id}, :class => "inline btn ", :method => :get %>
+					</div>
+					</div>
+					</td>
+				</tr>
+					<% end %>
+
+				<% end %>
+			<% end %>
+		</table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -247,16 +328,6 @@
 </div>
 </div>
 <hr>
-<h4> <b> Tags </b> </h4>
-<br/><br/>
-<% if @gift_request_tags %>
-	<% @gift_request_tags.each do |tag| %>
-
-		<p> <%= tag.name %> </p>
-
-	<% end %>
-<% end %>
-</div> 
 
 <%= link_to 'Edit', edit_gift_request_path(@gift_request) %> |
 <%= link_to 'Back', gift_requests_path %>
