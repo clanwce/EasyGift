@@ -42,12 +42,29 @@
       </form>
 
     </div> -->
+<style type="text/css">
 
+.footer{
+  position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+</style>
 
 <div>
-  this is the home page ... under development
-          <%= button_to "Sign In", "users/sign_in", :class => "button", :method => :get  %>
+ <div style="padding-left:10px">
 
+          <p>This page is under developmet </br>
+            by EasyGift Development Team
+          </p>
+        <!--   <%= button_to "Sign In", "users/sign_in", :class => "button", :method => :get  %> -->
+  </div>
+  <div class="footer" align="center">
+    <p>CopyRights @  <a class="inline" style=""><%= image_tag 'EasyGiftsBlack.png', :alt => 'lgo', width:"150", height:"70", class: "inline" %>
+          </a></p>
+     
+  </div>
 </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->

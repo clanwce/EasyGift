@@ -13,10 +13,6 @@
   margin-top: -2.5%;
 }
 
-body{
-  background-color: #008080;
-  color: #ffffff;
-}
 
 @media {
   html {
@@ -38,7 +34,7 @@ body{
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-      <div class="container" style="width:1200px; position:">
+      <div class="container" style="width:1200px; height:80; position:">
         <div class="navbar-header" class="inline">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="float:left">
             <span class="sr-only">Toggle navigation</span>
@@ -47,31 +43,43 @@ body{
             <span class="icon-bar"></span>
           </button>
           
-          <a class="inline" href="/profile" style="padding-left:60px;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"130", height:"60", class: "inline" %>
+          <a class="inline" href="/profile" style="padding-left:60px;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"150", height:"70", class: "inline" %>
           </a>
 
 
         </div>
 
-        <div class="inline navbar-right">
+        <div class="inline navbar-right" style="padding-top:10px;">
          
-          <input  autofocus="autofocus" class="form-control inline" id="user_email" style="height: 25px; font-size: 12px;line-height: 14px; width: 150px" name="user[email]" placeholder="Email Address" required="required" size="30" value="" type="email">
+          <input  autofocus="autofocus" class="form-control inline" id="user_email" style="height: 25px; font-size: 12px;line-height: 10px; width: 170px" name="user[email]" placeholder="Email Address" required="required" size="30" value="" type="email">
    
-          <input autocomplete="off" class="form-control inline" id="user_password" style="height: 25px; font-size: 12px;line-height: 14px; width: 150px" name="user[password]" placeholder="Password" required="required" size="30" type="password">
-      
-          <input class="btn btn-lg btn-primary btn-block border inline text" name="commit" style="height: 25px; font-size: 12px;line-height: 12px; width: 90px; align:center" value="Sign in" type="submit">
+          <input autocomplete="off" class="form-control inline" id="user_password" style="text-align:center; margin:auto; height: 25px; font-size: 12px;line-height: 10px; width: 150px" name="user[password]" placeholder="Password" required="required" size="30" type="password">
+          <form action="users/sign_in" class="button_to inline" method="get"><div class="inline">
+           <input class="btn btn-info" name="commit" style="height: 24px; font-size: 12px; margin-left:15px;line-height: 12px; width: 90px; align:center" value="Sign in" type="submit">
+          </div>
+          </form>
+          
+          <br>
 
-          <br><label><a style="color: white; height: 30px; font-size: 12px;line-height: 14px; width: 150px" href="password/new"> Forgot your password</a> </label>
-
-            <a class="inline" href="/profile" style="padding-left:10px;"><%= image_tag 'fb.png', :alt => 'lgo', width:"120", height:"30"%>
-          </a>
+          <div class=" inline">
+        
+          <label style="color: white; height: 30px; padding-top:6px; padding-left:5px; font-size: 12px;line-height: 14px; width: 160px">
+            <input type="checkbox">Remember me
+          </label>
+          
+          <label><a style="color: white; height: 30px; padding-left:12px; font-size: 12px;line-height: 14px;" href="password/new"> Forgot your password</a> 
+          </label>
+          
+          <a href="/users/sign_up" class="btn btn-info" style="color:white; height: 24px; font-size: 12px; margin-left:15px;line-height: 12px; width: 90px; align:center" value="Sign up">Sign Up</a>
+          </div>
 
       </div>
     </div><!--/.nav-collapse -->
     </div>
 
-    <!-- 
-          <a href="/users/sign_up" class="btn btn-primary signupbutton border">Sign up</a> -->
+ 
+    <a class="inline" href="/profile" style="padding-left:10px;"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%>
+          </a>
     <h4>
       <!-- <%= flash[:notice] if flash[:notice] %> 
     -->
@@ -89,11 +97,5 @@ body{
 
 </body>
 <br><br><br><br>
-  <footer>
-  <div class="footer" style="background-color:#777;;border-top: 7px solid #000;">
-      <div class="container">
-        <p class="text-muted">This is the Footer.</p>
-      </div>
-    </div>
-</footer>
+
 </html>
