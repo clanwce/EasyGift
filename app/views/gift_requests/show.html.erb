@@ -1,4 +1,5 @@
-<div>
+<div class="container">
+<div align = "center">
 		<div class="inline">
 		<p id="notice" style="color:red"><%= notice %></p>
 		</div>
@@ -7,8 +8,8 @@
 
 <div style="text-align: center;">
 		<div style="width: 500px; margin: 0 auto;" class="inline">
-			<h2 > Gift Request ID <%= @gift_request.id %> </h2>
-			<h2> Views: <%= @gift_request.views %> </h2>
+			<h3 > Gift Request Title : <%= @gift_request.title %> </h3>
+			<h3> Views: <%= @gift_request.views %> </h3>
 		<h5 class="inline"> Created By: <%= @gift_request.username %> </h5><br/> 
 		</div>	
 </div>
@@ -260,3 +261,4 @@
 <%= link_to 'Edit', edit_gift_request_path(@gift_request) %> |
 <%= link_to 'Back', gift_requests_path %>
 
+</div>

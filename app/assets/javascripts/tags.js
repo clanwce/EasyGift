@@ -2,6 +2,7 @@ $( document ).ready(function() {
 
 	var tags_on_page = [];
     
+
 	$('#add_tag_to_gift_request').click(function(e) {
 		e.preventDefault();
 		create_tag_and_associate_to_gift_request($('#autocomplete_tag').val());
@@ -17,6 +18,7 @@ $( document ).ready(function() {
 		e.preventDefault();
 		remove_tag_from_page(tag_name, e);
 	});
+
 
 	function create_tag_and_associate_to_gift_request(tag_name) {
 		data = {}
@@ -78,6 +80,33 @@ $( document ).ready(function() {
 		    data: data,
 		    success: function(response) {
 		    	window.location.replace('/gift_requests/' + response.id);
+		    },
+		    error: function(response) {
+		    	alert(response.responseText);
+		    }
+	    });	
+	});
+
+	$('#edit_gift_request_button').click(function(e) {
+		
+		e.preventDefault();
+		data = {}
+		gift_request = {}
+		id = $('#id_token').val();
+		//gift_request['user_id'] = $('#new_gift_request_current_user_id').val();
+		gift_request['title'] = $('#new_gift_request_title').val();
+		gift_request['description'] = $('#new_gift_request_description').val();
+		//gift_request['public']= $('input[name=gift_request_public]:checked', '#new_gift_request_form').val()
+		data['id'] = id;
+		data['gift_request'] = gift_request;
+		 //alert(gift_request);
+	    $.ajax({
+		    type: "PUT",
+		    dataType: 'json',
+		    url: "/gift_requests/"+data['id'],
+		    data: data,
+		    success: function(response) {
+		    	window.location.replace('/gift_requests/');
 		    },
 		    error: function(response) {
 		    	alert(response.responseText);

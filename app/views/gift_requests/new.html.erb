@@ -5,11 +5,8 @@
 {
   display: inline
 }
-body{
-  background-color: #008080;
-  color: #ffffff;
-}
 
+/*
 @media {
   html {
     overflow: -moz-scrollbars-vertical; 
@@ -27,8 +24,9 @@ body{
     width:1024px;
     display: block;
 }
-
+*/
 </style>
+<% content_for :title, "New Gift Request" %>
 
 <%= render 'subnav' %>
 
@@ -36,7 +34,9 @@ body{
     var node = document.getElementById("subnav").getElementsByTagName("li")[4];
 	node.setAttribute("class", "active");
     </script>
-
+ <div style="margin-left: 10%">
+<%= link_to 'Back', gift_requests_path, :class => "btn inline btn-default"  %>
+<h3 class="inline" style="margin-left: 2%"> New Gift Request</h3>
+</div>
+<br />
 <%= render 'form' %>
-
-<%= link_to 'Back', gift_requests_path %>

@@ -1,4 +1,4 @@
-    .col-centered{
+  .col-centered{
     float: none;
     padding-left: 450px;
     display: inline;
@@ -21,6 +21,7 @@ border-style:solid;
 border-color:#ffffff;
 background-color: #2B3856;
 }
+
 .inline
 {
   display: inline;
@@ -28,7 +29,6 @@ background-color: #2B3856;
 
 .profile
 {
-
 	border-bottom: solid 1px #000000 ;
 }
 
