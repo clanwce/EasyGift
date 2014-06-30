@@ -1,96 +1,62 @@
-<div style="background-color: #ffffff">
-<h1>Search</h1>
-
- <form action="/gift_requests/searchresult" method="post">
-    <P> 
-    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    Search Gift Request <input type="text" name="keyword" id="giftrequestsearch">
-    <input type="submit" value="Submit">
-    </P>
- </form>
- <br>
-  <form action="/tags/tag_search" method="post">
-    <P> 
-    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    Search Tag <input type="text" name="keyword" id="tagsearch">
-    <input type="submit" value="Submit">
-    </P>
- </form>
-
-
-<h1>Welcome!</h1>
-
-
-<% content_for :title, "Gift Requests" %>
-
-<style type="text/css">
+<style>
 .inline
 {
-  display: inline
+  display:inline;
 }
-body{
-  background-color: #C0C0C0;
-  color: #000000;
+.scroll
+{
+width:400px;
+height:80px;
+overflow:auto;
+word-wrap:break-word;
 }
-
-@media {
-  html {
-    overflow: -moz-scrollbars-vertical; 
-    overflow-x: scroll; 
-    overflow-y: scroll;
-  }
+.btn-danger{
+  color:#000;
 }
-
-.table-nonfluid {
-   width: 70%;
-   margin: 0 auto;
-   float: none;
-}
-.table td{
-  text-align: center;
-  color: #ffffff;
-}
-.btn{
-color: #ffffff;
-   background-color: #2C3539;
-}
-
-.container {
-    width:1024px;
-    display: block;
-}
-
 </style>
-<%= render 'subnav' %>
+
+<% content_for :title, "Gift Requests" %>
+<div class="container cc">
+
+  <%= render 'subnav' %>
   <script type="text/javascript">
     var node = document.getElementById("subnav").getElementsByTagName("li")[0];
   node.setAttribute("class", "active");
     </script>
+<br>
+<div class="col-xs-12 col-sm-6 col-md-8">
+<table class="table  table-bordered table-condensed" style="width:90%; margin-left:10%;background-color:#ffffff">
+   <% @gift_requests.each do |gift_request| %>
+  <tr >
+    <td style="height: auto">
+      <div class="inline col-xs-4 col-md-2" style="background: #8EEBEC" align="center">Comments<br><strong ><%= gift_request.comments.count %></strong><br><br>Likes<br><strong><%= @gift_request.like_count %> </strong>
+        <br><br>
+      </div>
+      <div class="inline container col-xs-12 col-md-8" data-id=title<%= gift_request.id %> >
+        <h4 class="inline">
+          <%= button_to [gift_request.title], gift_request, :class => "btn ", :method => :get %></h4>
+          <div class="inline scroll"><%= gift_request.description %> 
+          </div>
+      </div>
+        <div class="inline-block col-xs-4 col-md-2" style="background: #8EEBEC" align="center">Views<br><strong ><%= gift_request.views %></strong><br><br>User<br><strong><%= gift_request.username %> </strong>
+        <br><br>
+      </div>
 
-              <div style="display:block;">
-                  <table class="table table-responsive table-hover table-nonfluid" style="background-color: #008080; float: center">
-                  <% @gift_requests.each do |gift_request| %>
-                  <tr>
-                <td data-id=title<%= gift_request.id %>><h4><%= gift_request.title %></h4></td>
-                <!-- <td data-id=title<%= gift_request.id %>><h4></h4></td> #@gift_request_comments.count-->
-                <td data-id=title><h4>COUNT TO BE CHANGED</h4></td>
-                <td data-id=show<%= gift_request.id %>><%= button_to "Show", gift_request, :class => "btn btn-default", :method => :get %> </td>
-
-                <% if current_user.id == gift_request.user.id %>
-                <td data-id=edit<%= gift_request.id %>><%= button_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-default", :method => :get  %></td>
-                <td data-id=destroy<%= gift_request.id %>><%= button_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default" %></td>
+      <div align="center">
+              <% if current_user.id == gift_request.user.id %>
+           <%= link_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-warning inline", :method => :get  %>
+                <%= link_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger inline" %>
                 <% end %>
-                 </tr>
-                <% end %>
+      </div>
+      <br>
+    </td>
+     
+    </tr>
 
-                </table>
-                <p class="inline" style="float: right; padding-right:3em">Total Questions:  <%=  GiftRequest.count %></p>
-              </div>
-        
-<br /><br /><br /><br /><br /><br />
+   <% end %>
+
+</table>
 </div>
-<!-- make destroy and edit smaller 
-User should not be able to edit it.. only the owner. requests showed be hyperlink
+  <p class="inline"><strong>Total Questions:<%=  GiftRequest.count %></strong></p>
 
-
--->
+</div> 
