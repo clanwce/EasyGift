@@ -1,7 +1,13 @@
-<% if @user = current_user %>
+<% if @user == current_user %>
 
 	<h1> Your profile page </h1>
 	
 <% else %>
 	<h1> <%= @user.username %> </h1>
+<% end %>
+
+<% @activity.each do |activity| %>
+
+<p> <%= activity["message"] %> </p>
+
 <% end %>

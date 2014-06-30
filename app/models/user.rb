@@ -52,7 +52,19 @@ class User < ActiveRecord::Base
   end
 
   def activity
-    Notification.where(actor_id: self.id)
+    Notification.where(actor_id: self.id).order("created_at DESC")
+  end
+
+  def activityMessages(viewing_user)
+    message_activity = []
+    activity.each do |notification|
+      notification_hash = {}
+      notification_hash["id"] = notification.id
+      notification_hash["message"] = notification.constructActivityMessage(viewing_user)
+      notification_hash["created_at"] = notification.created_at
+      message_activity << notification_hash
+    end
+    message_activity
   end
 
   def feed
