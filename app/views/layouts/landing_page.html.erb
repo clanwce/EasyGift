@@ -50,26 +50,28 @@ body{
           <a class="inline" href="/profile" style="padding-left:60px;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"130", height:"60", class: "inline" %>
           </a>
 
-          <a href="/users/sign_up" class="btn btn-primary signupbutton border">Sign up</a>
 
         </div>
 
-        <div class="inline">
+        <div class="inline navbar-right">
          
-          <input  autofocus="autofocus" class="form-control inline" id="user_email" style="height: 30px; font-size: 12px;line-height: 14px; width: 150px" name="user[email]" placeholder="Email Address" required="required" size="30" value="" type="email">
+          <input  autofocus="autofocus" class="form-control inline" id="user_email" style="height: 25px; font-size: 12px;line-height: 14px; width: 150px" name="user[email]" placeholder="Email Address" required="required" size="30" value="" type="email">
    
-          <input autocomplete="off" class="form-control inline" id="user_password" style="height: 30px; font-size: 12px;line-height: 14px; width: 150px" name="user[password]" placeholder="Password" required="required" size="30" type="password">
+          <input autocomplete="off" class="form-control inline" id="user_password" style="height: 25px; font-size: 12px;line-height: 14px; width: 150px" name="user[password]" placeholder="Password" required="required" size="30" type="password">
       
-          <input class="btn btn-lg btn-primary btn-block border inline" name="commit" style="height: 30px; font-size: 12px;line-height: 14px; width: 150px" value="Sign in" type="submit">
+          <input class="btn btn-lg btn-primary btn-block border inline text" name="commit" style="height: 25px; font-size: 12px;line-height: 12px; width: 90px; align:center" value="Sign in" type="submit">
 
-          <br><label><a style="color: white" href="password/new"> Forgot your password? </a> </label>
+          <br><label><a style="color: white; height: 30px; font-size: 12px;line-height: 14px; width: 150px" href="password/new"> Forgot your password</a> </label>
 
-          <%= link_to (image_tag('fb.png')), "/auth/facebook" %>
+            <a class="inline" href="/profile" style="padding-left:10px;"><%= image_tag 'fb.png', :alt => 'lgo', width:"120", height:"30"%>
+          </a>
 
       </div>
     </div><!--/.nav-collapse -->
     </div>
 
+    <!-- 
+          <a href="/users/sign_up" class="btn btn-primary signupbutton border">Sign up</a> -->
     <h4>
       <!-- <%= flash[:notice] if flash[:notice] %> 
     -->
