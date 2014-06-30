@@ -1,11 +1,62 @@
+<style>
+.inline
+{
+  display:inline;
+}
+.scroll
+{
+width:400px;
+height:80px;
+overflow:auto;
+word-wrap:break-word;
+}
+.btn-danger{
+  color:#000;
+}
+</style>
+
 <% content_for :title, "Gift Requests" %>
-<div class="container">
+<div class="container cc">
 
   <%= render 'subnav' %>
   <script type="text/javascript">
     var node = document.getElementById("subnav").getElementsByTagName("li")[0];
   node.setAttribute("class", "active");
     </script>
+<br>
+<div class="col-xs-12 col-sm-6 col-md-8">
+<table class="table  table-bordered table-condensed" style="width:90%; margin-left:10%;background-color:#ffffff">
+   <% @gift_requests.each do |gift_request| %>
+  <tr >
+    <td style="height: auto">
+      <div class="inline col-xs-4 col-md-2" style="background: #8EEBEC" align="center">Comments<br><strong ><%= gift_request.comments.count %></strong><br><br>Likes<br><strong><%= @gift_request.like_count %> </strong>
+        <br><br>
+      </div>
+      <div class="inline container col-xs-12 col-md-8" data-id=title<%= gift_request.id %> >
+        <h4 class="inline">
+          <%= button_to [gift_request.title], gift_request, :class => "btn ", :method => :get %></h4>
+          <div class="inline scroll"><%= gift_request.description %> 
+          </div>
+      </div>
+        <div class="inline-block col-xs-4 col-md-2" style="background: #8EEBEC" align="center">Views<br><strong ><%= gift_request.views %></strong><br><br>User<br><strong><%= gift_request.username %> </strong>
+        <br><br>
+      </div>
 
+      <div align="center">
+              <% if current_user.id == gift_request.user.id %>
+           <%= link_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-warning inline", :method => :get  %>
+                <%= link_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger inline" %>
+                <% end %>
+      </div>
+      <br>
+    </td>
+     
+    </tr>
 
+   <% end %>
+
+</table>
 </div>
+  <p class="inline"><strong>Total Questions:<%=  GiftRequest.count %></strong></p>
+
+</div> 

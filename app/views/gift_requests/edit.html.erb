@@ -1,20 +1,22 @@
 <!-- <h1 style="position: absolute; top: 10%; left: 17%">Edit Gift Request</h1> -->
 <% content_for :title, "Edit Gift Request" %>
 
-<h3 style="position: absolute; top: 15%; left: 17%">Edit Gift Request</h3>
-<br /><br />
-<%= render 'form' %>
+<%= render 'subnav' %>
 
-<div style="display:inline">
-<table>
-	<tr>
-		<td>
-		<%= button_to "Show", @gift_request, :class => "btn btn-default", :method => :get %>
-		</td>
-		<td>
-		<%= button_to "Back", gift_requests_path, :class => "btn btn-default", :method => :get %>
-		</td>
-	</tr>
-</table>
+    <script type="text/javascript">
+    var node = document.getElementById("subnav").getElementsByTagName("li")[4];
+	node.setAttribute("class", "active");
+    </script>
+ <div style="margin-left: 10%">
+<%= link_to 'Back', gift_requests_path, :class => "btn inline btn-default"  %>
+<%= link_to "Show Request", @gift_request, :class => "btn inline btn-default", :method => :get %>
+<br><br>
+<h3 class="inline" style="margin-left: 2%"> Edit Gift Request</h3>
+ <input id="id_token" type="" value="<%= @gift_request.id %>" />
+
 </div>
+<br />
+<%= render 'formedit' %>
+
+
 <br /><br />
