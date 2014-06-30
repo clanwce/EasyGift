@@ -15,12 +15,8 @@ gem 'fuzzy-string-match_pure'
 #gem "sphinx"
 gem "thinking-sphinx"
 gem 'pusher'
-<<<<<<< HEAD
-#gem 'pg'
-=======
 gem 'pg'
 gem 'flying-sphinx', '1.2.0'
->>>>>>> 8fa2de43aa8f25f1ac7188e8fe921e384dd526df
 
 group :development do
   gem "debugger"
