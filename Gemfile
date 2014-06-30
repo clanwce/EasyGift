@@ -15,7 +15,6 @@ gem 'fuzzy-string-match_pure'
 #gem "sphinx"
 gem "thinking-sphinx"
 gem 'pusher'
-
 gem 'pg'
 gem 'flying-sphinx', '1.2.0'
 
