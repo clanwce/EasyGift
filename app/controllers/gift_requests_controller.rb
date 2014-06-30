@@ -47,7 +47,7 @@ class GiftRequestsController < ApplicationController
   # POST /gift_requests
   # POST /gift_requests.json
   def create
-    @gift_request = GiftRequest.new(params[:gift_request])
+    @gift_request = GiftRequest.new(user_id: current_user.id, title: params[:gift_request]["title"], description: params[:gift_request]["title"])
     respond_to do |format|
       if @gift_request.save && @gift_request.attach_tags_to_gift_request(params[:tags])
           format.html { redirect_to @gift_request, notice: 'Gift request was successfully created.' }
