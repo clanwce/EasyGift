@@ -69,7 +69,7 @@ $( document ).ready(function() {
 		gift_request = {}
 		gift_request['user_id'] = $('#new_gift_request_current_user_id').val();
 		gift_request['title'] = $('#new_gift_request_title').val();
-		gift_request['description'] = $('# 	').val();
+		gift_request['description'] = $('#new_gift_request_description').val();
 		gift_request['public']= $('input[name=gift_request_public]:checked', '#new_gift_request_form').val()
 		data['gift_request'] = gift_request;
 		data['tags'] = tags_on_page;
@@ -93,18 +93,20 @@ $( document ).ready(function() {
 		data = {}
 		gift_request = {}
 		id = $('#id_token').val();
-		// gift_request['user_id'] = $('#new_gift_request_current_user_id').val();
-		// gift_request['title'] = $('#new_gift_request_title').val();
-		// gift_request['description'] = $('# 	').val();
-		// gift_request['public']= $('input[name=gift_request_public]:checked', '#new_gift_request_form').val()
+		//gift_request['user_id'] = $('#new_gift_request_current_user_id').val();
+		gift_request['title'] = $('#new_gift_request_title').val();
+		gift_request['description'] = $('#new_gift_request_description').val();
+		//gift_request['public']= $('input[name=gift_request_public]:checked', '#new_gift_request_form').val()
 		data['id'] = id;
+		data['gift_request'] = gift_request;
+		 //alert(gift_request);
 	    $.ajax({
 		    type: "PUT",
 		    dataType: 'json',
-		    url: "/gift_requests",
+		    url: "/gift_requests/"+data['id'],
 		    data: data,
 		    success: function(response) {
-		    	window.location.replace('/gift_requests/' + response.id);
+		    	window.location.replace('/gift_requests/');
 		    },
 		    error: function(response) {
 		    	alert(response.responseText);
