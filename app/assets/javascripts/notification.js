@@ -17,7 +17,7 @@ $( document ).ready(function() {
     function addNotificationToNav(data) {
     	$('#user_notification_ul').prepend("<li data-id=" + data["user_notification_id"] + " class='new_notification' ><a href='" + data["url"] + "'>" + data["message"] + "</a></li><hr>");
     	new_count = $('#navigation_count').data("count") + 1;
-    	$('#navigation_count').data("count", new_count)
+    	$('#navigation_count').data("count", new_count);
     	$('#navigation_count').html(new_count);
     }
 
@@ -40,6 +40,7 @@ $( document ).ready(function() {
 		    	$( ".new_notification" ).each(function( index ) {
 					$(this).removeClass("new_notification");
 				});
+				$('#navigation_count').data("count", new_count);
 				$('#navigation_count').html("");
 		    }
 	    });
