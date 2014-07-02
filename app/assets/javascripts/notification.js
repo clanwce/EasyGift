@@ -10,22 +10,6 @@ $( document ).ready(function() {
     var user_channel_name = 'user' + $('#user_navigation_bar').data('user-id') + '_channel';
     var user_channel = pusher.subscribe(user_channel_name);
     user_channel.bind('new_notification', function(data) {
-      //var newtext = document.createTextNode("new text");
-  //     	var spanXyz = document.getElementById("notify");
-		// //spanXyz.appendChild(newtext);
-		// // var elem = document.getElementById('notify');
-		// // var li =document.createElement("li");
-		// // var p = document.createTextNode(data.message);
-		// alert(data);
-		// // li.appendChild(p);
-		// $("#notify").append("<li>" + data.message + "</li><hr>");
-		// // elem.insertBefore(li, elem.getElementsByTagName("li")[0]);
-		// setTimeout(function() {
-
-		// 	$("#notify").empty();
-		// 	// var li = $("#notify").closest('li')
-		// 	// li.fadeOut('slow', function() { li.empty(); });
-		// }, 5000);
     	addNotificationToNav(data);
 
     });
