@@ -40,7 +40,7 @@ $( document ).ready(function() {
 		    	$( ".new_notification" ).each(function( index ) {
 					$(this).removeClass("new_notification");
 				});
-				$('#navigation_count').data("count", new_count);
+				$('#navigation_count').data("count", 0);
 				$('#navigation_count').html("");
 		    }
 	    });
