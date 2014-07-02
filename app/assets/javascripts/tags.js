@@ -142,21 +142,21 @@ $( document ).ready(function() {
 		// }, 5000);
   //   });
 
-var countclick = 0;
-	$( "#clickable" ).click(function() {
-			  //$( "li" ).each(function() {
-//			  	var aa = $( this ).find('.new');
-			  	//alert(aa); 
-				if(countclick == 1)
-				{
-					$('.new').each(function() {
-			    //alert($( this ).text());
-			    $(this).removeClass( "new" );
-			 	 });
-				}
-				$("#badge").text("");
-			countclick ++;
-			});
+// var countclick = 0;
+// 	$( "#clickable" ).click(function() {
+// 			  //$( "li" ).each(function() {
+// //			  	var aa = $( this ).find('.new');
+// 			  	//alert(aa); 
+// 				if(countclick == 1)
+// 				{
+// 					$('.new').each(function() {
+// 			    //alert($( this ).text());
+// 			    $(this).removeClass( "new" );
+// 			 	 });
+// 				}
+// 				$("#badge").text("");
+// 			countclick ++;
+// 			});
 	
 
 });
