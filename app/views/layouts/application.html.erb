@@ -83,9 +83,9 @@ body{
                     <% @notifications.each do |notification| %>
                     <% if notification.updated_at > current_user.last_sign_in_at %> 
                     <% @count += 1 %>                 
-                    <li class="new" ><%= notification.message %></li><hr>
+                    <li class="new" ><%= link_to notification.message, notification.notification_url %></li><hr>
                     <% else %>  
-                    <li><%= notification.message %></li><hr>
+                    <li><%= link_to notification.message, notification.notification_url %></li><hr>
                     <% end %>
               <% end %>
             </ul>

@@ -30,6 +30,14 @@ class Like < ActiveRecord::Base
     end
   end
 
+  def gift_request_object
+    if type == "gift request"
+      gift_request
+    else
+      comment.gift_request
+    end
+  end
+
   def type
     if gift_request_id
       "gift request"
