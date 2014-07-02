@@ -21,13 +21,19 @@ $( document ).ready(function() {
     	$('#navigation_count').html(new_count);
     }
 
+var flag = false;
 	$('#user_notification_dropdown').on("click", function(e) {
 		e.preventDefault();
 		ids = [];
 		$( ".new_notification" ).each(function( index ) {
 		  ids.push($(this).data("id"));
+		  	flag = true;
 		});
 
+	
+		if (flag== true)
+		{
+			alert('hi');
 		data = {};
 		data["ids"] = ids;
 		$.ajax({
@@ -44,10 +50,11 @@ $( document ).ready(function() {
 				$('#navigation_count').html("");
 		    },
 			error: function(response) {
-		    	//alert(response.responseText);
+		    	alert(response.responseText);
 		    }	    
 
-		});
+			});
+		}
 	});
 	
 
