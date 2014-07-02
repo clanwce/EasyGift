@@ -42,8 +42,12 @@ $( document ).ready(function() {
 				});
 				$('#navigation_count').data("count", 0);
 				$('#navigation_count').html("");
-		    }
-	    });
+		    },
+			error: function(response) {
+		    	//alert(response.responseText);
+		    }	    
+
+		});
 	});
 	
 
