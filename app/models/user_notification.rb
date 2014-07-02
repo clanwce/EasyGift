@@ -15,12 +15,18 @@ class UserNotification < ActiveRecord::Base
 
   def push_notification
   	channel = 'user' + user.id.to_s + '_channel'
-  	Pusher[channel].trigger('like_event', {
-  	  message: message
+  	Pusher[channel].trigger('new_notification', {
+  	  message: message,
+      user_notification_id: id,
+      url: notification_formatted_url
   	})
   end
 
-  def notification_url
-    notification.url
+  def notification_formatted_url
+    notification.formatted_url
+  end
+
+  def notification_link_to_url
+    notification.link_to_url
   end
 end

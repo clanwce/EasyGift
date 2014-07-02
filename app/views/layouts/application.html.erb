@@ -74,16 +74,16 @@ body{
         <% if current_user %>
           <li id="user_notification_dropdown"> <a href="#" style= "" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
               <% @count = current_user.user_notifications.where(read: false).count %>
-            <h4><span  class="glyphicon glyphicon-globe"><span id="badge" class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>
+            <h4><span class="glyphicon glyphicon-globe"><span id="navigation_count" data-count=<%= @count %> class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>
           </a>
-          <ul class="dropdown-menu" style="width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
+          <ul id="user_notification_ul" class="dropdown-menu" style="width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
               
                     <% @notifications = current_user.user_notifications.order("notification_id desc") %>
                     <% @notifications.each do |notification| %>
                     <% if !notification.read %>              
-                      <li data-id=<%= notification.id %> class="new_notification" ><%= link_to notification.message, notification.notification_url %></li><hr>
+                      <li data-id=<%= notification.id %> class="new_notification" ><%= link_to notification.message, notification.notification_link_to_url %></li><hr>
                     <% else %>  
-                      <li><%= link_to notification.message, notification.notification_url %></li><hr>
+                      <li data-id=<%= notification.id %> ><%= link_to notification.message, notification.notification_link_to_url %></li><hr>
                     <% end %>
               <% end %>
           </ul>
