@@ -38,6 +38,7 @@ EasyGift::Application.routes.draw do
 
   post '/gift_requests/autocomplete_tag_name'
   post '/tags/create'
+  post '/user_notifications/batch_read' => 'user_notifications#batch_read'
 
   # match 'gift_requests/autocomplete_gift_request_title'
 

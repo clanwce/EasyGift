@@ -23,5 +23,4 @@ class UserNotification < ActiveRecord::Base
   def notification_url
     notification.url
   end
-
 end
