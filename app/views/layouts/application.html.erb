@@ -63,6 +63,8 @@ body{
         
         </div>
         <div id="user_navigation_bar" <% if current_user %> data-user-id=<%= current_user.id %> <% end %> class="navbar-collapse collapse">
+          <% if current_page?("/gift_requests") %>
+
             <form class="navbar-form navbar-left" role="search" style="padding-left:190px; padding-top:10px" action="/gift_requests/searchresult" method = "post">
                   <div class="form-group">
                     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
@@ -70,6 +72,17 @@ body{
                   </div>
                   <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
                 </form>
+            <% end %>
+          <% if current_page?("/tags") %>
+           <form class="navbar-form navbar-left" role="search" style="padding-left:190px; padding-top:10px" action="/tags/tag_search" method = "post">
+                <div class="form-group">
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+                <input type="text" id="giftrequestsearch" name="keyword" style="height: 28px; font-size: 12px;line-height: 12px; width: 320px" class="form-control" placeholder="Search">
+                  </div>
+                <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
+             </form>
+
+            <% end %>
           <ul class="nav navbar-nav navbar-right" style="padding-top:5px;">
         <% if current_user %>
           <li id="user_notification_dropdown"> <a href="#" style= "" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
