@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
   end
 
   def likes
-    @comment = Comment.find(params[:comment_id])
+    @comment = Comment.find(params[:id])
     render json: @comment.likes
   end
 
