@@ -41,5 +41,10 @@ class CommentsController < ApplicationController
     end
   end
 
+  def likes
+    @comment = Comment.find(params[:comment_id])
+    render json: @comment.likes
+  end
+
 end
 
