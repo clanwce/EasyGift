@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140629204105) do
+ActiveRecord::Schema.define(:version => 20140706043705) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -33,16 +33,30 @@ ActiveRecord::Schema.define(:version => 20140629204105) do
     t.datetime "updated_at",                     :null => false
   end
 
+  create_table "gift_request_black_lists", :force => true do |t|
+    t.integer  "gift_request_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "gift_request_white_lists", :force => true do |t|
+    t.integer  "gift_request_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "gift_requests", :force => true do |t|
     t.integer  "user_id"
     t.text     "description"
     t.integer  "like_count",    :default => 0
     t.integer  "dislike_count", :default => 0
-    t.boolean  "public"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "title"
     t.integer  "views",         :default => 0
+    t.boolean  "private_post",  :default => false
   end
 
   create_table "gift_requests_tags", :force => true do |t|
