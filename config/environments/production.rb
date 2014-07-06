@@ -69,6 +69,9 @@ EasyGift::Application.configure do
   # Enable threaded mode
   # config.threadsafe!
 
+  ENV['FACEBOOK_KEY'] = '563804037067616'
+  ENV['FACEBOOK_SECRET'] = '88b4d03810c510ced21861f2026fc68e'
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true

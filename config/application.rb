@@ -55,7 +55,7 @@ module EasyGift
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    
+
     config.assets.initialize_on_precompile = false
     config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif] 
 
