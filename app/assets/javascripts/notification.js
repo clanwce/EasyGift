@@ -33,7 +33,6 @@ var flag = false;
 	
 		if (flag== true)
 		{
-			alert('hi');
 		data = {};
 		data["ids"] = ids;
 		$.ajax({
