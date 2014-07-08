@@ -123,6 +123,24 @@ class Notification < ActiveRecord::Base
     #   end
     # end
 
+  def formatted_url
+    "/gift_requests/" + link_to_url.id.to_s
+  end
+
+  def link_to_url
+    if type_of_event == "like"
+      event.gift_request_object
+    elsif type_of_event == "comment"
+      event.gift_request
+    elsif type_of_event == "gift_request"
+      event
+    elsif type_of_event == "final_answer_selected"
+      event.gift_request
+    elsif type_of_event == "final_answer_selection"
+      event.gift_request
+    end
+  end
+
 
 
   def event

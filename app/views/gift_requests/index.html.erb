@@ -25,29 +25,47 @@ word-wrap:break-word;
     </script>
 <br>
 <div class="col-xs-12 col-sm-6 col-md-8">
-<table class="table  table-bordered table-condensed" style="width:90%; margin-left:10%;background-color:#ffffff">
+<table class="table  table-bordered table-condensed" style="width:100%; margin-left:10%;background-color:#ffffff">
    <% @gift_requests.each do |gift_request| %>
-  <tr >
-    <td style="height: auto">
-      <div class="inline col-xs-4 col-md-2" style="background: #8EEBEC" align="center">Comments<br><strong ><%= gift_request.comments.count %></strong><br><br>Likes<br><strong><%= @gift_request.like_count %> </strong>
+  <tr>
+    <td >
+      <div class="inline col-xs-4 col-md-2" style="background: #8EEBEC" align="center"><br>Comments<br><strong ><%= gift_request.comments.count %></strong><br><br>Likes<br><strong><%= @gift_request.like_count %> </strong>
         <br><br>
       </div>
-      <div class="inline container col-xs-12 col-md-8" data-id=title<%= gift_request.id %> >
+      <div class="inline container col-xs-12 col-md-8"  data-id=title<%= gift_request.id %> >
         <h4 class="inline">
           <%= button_to [gift_request.title], gift_request, :class => "btn ", :method => :get %></h4>
-          <div class="inline scroll"><%= gift_request.description %> 
+          <div class=" scroll" ><%= gift_request.description %> 
           </div>
-      </div>
-        <div class="inline-block col-xs-4 col-md-2" style="background: #8EEBEC" align="center">Views<br><strong ><%= gift_request.views %></strong><br><br>User<br><strong><%= gift_request.username %> </strong>
-        <br><br>
-      </div>
+          <br>
+          <% if gift_request.tags %>
+            <% gift_request.tags.each do |tags| %>
+            <a class="btn btn-default" href="/tags/<%= tags.id %>"><%= tags.name %></a>
+            <% end %>
+          <% end %>
+          <br>
+                <div align="right">Asked <%= gift_request.created_at.strftime("%b %d, %Y %H:%M") %>
+      </div><br>
 
-      <div align="center">
+          <div align="center" > 
               <% if current_user.id == gift_request.user.id %>
            <%= link_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-warning inline", :method => :get  %>
                 <%= link_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger inline" %>
                 <% end %>
+                <br><br>
+
       </div>
+      </div>
+        <div class="inline-block col-xs-4 col-md-2" style="background: #8EEBEC" align="center"><br>Views<br><strong ><%= gift_request.views %></strong><br><br><div class="inline"><a href="/users/<%= gift_request.user.id %>"><%= gift_request.username %></a><br><%= gift_request.user.rank %>  <%= gift_request.user.points %> </div>
+        <br><br>
+
+      </div>
+      <div align="right">
+        <% if gift_request.comments.last %>
+        <strong> last answered by <%= gift_request.comments.last.username %> </strong>
+        <% end %>
+      </div>
+
       <br>
     </td>
      
@@ -57,6 +75,7 @@ word-wrap:break-word;
 
 </table>
 </div>
+<div align="center">
   <p class="inline"><strong>Total Questions:<%=  GiftRequest.count %></strong></p>
-
+</div>
 </div> 

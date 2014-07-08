@@ -19,4 +19,10 @@ class HomeController < ApplicationController
 	def profile
 	end
 
+
+
+	def privacy_policy
+
+	end
+
 end

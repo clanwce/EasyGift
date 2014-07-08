@@ -23,6 +23,7 @@ EasyGift::Application.routes.draw do
   match 'userhome' => 'home#userhome'
   match 'gift_requests/searchresult' => 'gift_requests#gift_request_search', :via => [:post]
   match 'tags/tag_search' => 'tags#tag_search', :via => [:post]
+  match 'comments/:id/:status' => 'comments#likes'
   # match '/helloworld' => 'home#hello_world'
   #get 'gift_requests/searchresult' => 'gift_requests#tag_search'
 
@@ -38,6 +39,7 @@ EasyGift::Application.routes.draw do
 
   post '/gift_requests/autocomplete_tag_name'
   post '/tags/create'
+  post '/user_notifications/batch_read' => 'user_notifications#batch_read'
 
   # match 'gift_requests/autocomplete_gift_request_title'
 

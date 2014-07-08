@@ -41,5 +41,18 @@ class CommentsController < ApplicationController
     end
   end
 
+  def likes
+    @commentu = Array.new
+    @comment = Comment.find(params[:id])
+    @status = params[:status]
+    @comment.likes.each do |like|
+      if like.status == @status
+      @commentu.push(like.user_id => like.username)
+      end
+    end
+    #@commentu = {:comment => @comment.likes.as_json , :user => @commentu}
+    render json: @commentu
+  end
+
 end
 

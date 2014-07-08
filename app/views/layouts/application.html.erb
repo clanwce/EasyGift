@@ -8,7 +8,7 @@
   .inline{
    display: inline;
   }
-.new{
+.new_notification{
   background-color:#98AFC7;
 }
 .navbar-static-top {
@@ -63,6 +63,8 @@ body{
         
         </div>
         <div id="user_navigation_bar" <% if current_user %> data-user-id=<%= current_user.id %> <% end %> class="navbar-collapse collapse">
+          <% if current_page?("/gift_requests") %>
+
             <form class="navbar-form navbar-left" role="search" style="padding-left:190px; padding-top:10px" action="/gift_requests/searchresult" method = "post">
                   <div class="form-group">
                     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
@@ -70,25 +72,33 @@ body{
                   </div>
                   <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
                 </form>
+            <% end %>
+          <% if current_page?("/tags") %>
+           <form class="navbar-form navbar-left" role="search" style="padding-left:190px; padding-top:10px" action="/tags/tag_search" method = "post">
+                <div class="form-group">
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+                <input type="text" id="giftrequestsearch" name="keyword" style="height: 28px; font-size: 12px;line-height: 12px; width: 320px" class="form-control" placeholder="Search">
+                  </div>
+                <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
+             </form>
+
+            <% end %>
           <ul class="nav navbar-nav navbar-right" style="padding-top:5px;">
         <% if current_user %>
-          <li > <a href="#" style= "" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
-
-            <%  @count = current_user.user_notifications.where("updated_at > :time",{ time: current_user.last_sign_in_at }).count %>
-            <h4><span  class="glyphicon glyphicon-globe"><span id="badge" class="badge" style="background-color:red;"><%= @count %></span></span> </h4>
+          <li id="user_notification_dropdown"> <a href="#" style= "" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
+              <% @count = current_user.user_notifications.where(read: false).count %>
+            <h4><span class="glyphicon glyphicon-globe"><span id="navigation_count" data-count=<%= @count %> class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>
           </a>
-          <ul class="dropdown-menu" style="width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
-              
-                    <% @notifications = current_user.user_notifications.order("notification_id desc") %>
+          <ul id="user_notification_ul" class="dropdown-menu" style="width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
+                                  <% @notifications = current_user.user_notifications.order("notification_id desc") %>
                     <% @notifications.each do |notification| %>
-                    <% if notification.updated_at > current_user.last_sign_in_at %> 
-                    <% @count += 1 %>                 
-                    <li class="new" ><%= notification.message %></li><hr>
+                    <% if !notification.read %>              
+                      <li data-id=<%= notification.id %> class="new_notification" ><%= link_to notification.message, notification.notification_link_to_url %></li><hr>
                     <% else %>  
-                    <li><%= notification.message %></li><hr>
+                      <li data-id=<%= notification.id %> ><%= link_to notification.message, notification.notification_link_to_url %></li><hr>
                     <% end %>
               <% end %>
-            </ul>
+          </ul>
           </li>
         <% end %>
         <li  style="color:#ffffff;padding-left:10px;"><a href="/gift_requests">Home</a></li>
@@ -107,13 +117,11 @@ body{
     </div>
 
     <h4>
-      <!-- <%= flash[:notice] if flash[:notice] %> 
-    -->
-    <% if flash[:notice] %>
-      <script type="text/javascript">
-      alert("<%= flash[:notice] if flash[:notice] %>");
-    </script>
-    <% end %>
+<!--    #    <!-- <%= flash[:notice] if flash[:notice] %> 
+   # 
+   #   <% if flash[:notice] %>
+   #    <%= flash[:notice] if flash[:notice] %>
+   #  <% end %> -->
     </h4>
 <!--     <p class="notice"><%= notice %></p> -->
     <p class="alert"><%= alert %></p>

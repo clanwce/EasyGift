@@ -35,6 +35,9 @@ class User < ActiveRecord::Base
   has_many :notifications, :through => :user_notifications
   has_many :user_vews, :dependent => :destroy
 
+  has_many :gift_request_black_list
+  has_many :gift_request_white_list
+
   def apply_omniauth(omniauth)
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
