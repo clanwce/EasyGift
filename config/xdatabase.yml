@@ -11,7 +11,7 @@ development:
 #   adapter: postgresql
 #   encoding: unicode
 #   database: easy_gift_dev
-#   host: localhost
+#   username: myapp
 
 # test:
 #   adapter: postgresql
