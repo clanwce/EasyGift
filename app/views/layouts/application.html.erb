@@ -12,6 +12,14 @@
   background-color:#98AFC7;
 }
 
+.footer {
+  height: 100px; 
+  width:100%;
+  position: absolute;
+  left: 0;
+  bottom: 0; 
+}
+
 span.glyphicon-globe {
     font-size: 1.2em;
 }
@@ -71,7 +79,7 @@ body{
                 </form>
             <% end %>
           <% if current_page?("/tags") %>
-           <form class="navbar-form navbar-left" role="search" style="padding-left:190px; padding-top:10px" action="/tags/tag_search" method = "post">
+           <form class="navbar-form navbar-left" role="search" style="padding-left:140px; padding-top:20px" action="/tags/tag_search" method = "post">
                 <div class="form-group">
                 <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
                 <input type="text" id="giftrequestsearch" name="keyword" style="height: 28px; font-size: 12px;line-height: 12px; width: 320px" class="form-control" placeholder="Search">
@@ -129,12 +137,10 @@ body{
 </body>
 
 
-  <footer>
-    <div class="footer" align="center">
+<div class="footer" align="center">
       CopyRights @  
       <a class="inline" style=""><%= image_tag 'EasyGiftsBlack.png', :alt => 'lgo', width:"150", height:"70", class: "inline" %></a>
         -  
       <a >Privacy Agreement</a>  
     </div>
-  </footer>
 </html>
