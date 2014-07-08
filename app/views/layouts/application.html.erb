@@ -11,9 +11,6 @@
 .new_notification{
   background-color:#98AFC7;
 }
-.navbar-static-top {
-  margin-top: -2.5%;
-}
 
 span.glyphicon-globe {
     font-size: 1.2em;
@@ -48,8 +45,8 @@ body{
 <body>
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-      <div class="container-fluid" style="width:1200px; position: relative;">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background:#000000;">
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="float:left">
             <span class="sr-only">Toggle navigation</span>
@@ -57,16 +54,16 @@ body{
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          
-          <a class="inline" href="/profile" style="padding-left:60px;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"130", height:"60", class: "inline" %>
+          <div style="padding-top:3px; padding-bottom:3px">
+          <a class="inline" href="/profile" style=""><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
           </a>
-        
+          </div>
         </div>
         <div id="user_navigation_bar" <% if current_user %> data-user-id=<%= current_user.id %> <% end %> class="navbar-collapse collapse">
           <% if current_page?("/gift_requests") %>
 
-            <form class="navbar-form navbar-left" role="search" style="padding-left:190px; padding-top:10px" action="/gift_requests/searchresult" method = "post">
-                  <div class="form-group">
+            <form class="navbar-form navbar-left" role="search" style="padding-left:140px; padding-top:20px" action="/gift_requests/searchresult" method = "post">
+                  <div class="form-group" style="">
                     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
                     <input type="text" id="giftrequestsearch" name="keyword" style="height: 28px; font-size: 12px;line-height: 12px; width: 320px" class="form-control" placeholder="Search">
                   </div>
@@ -101,16 +98,16 @@ body{
           </ul>
           </li>
         <% end %>
-        <li  style="color:#ffffff;padding-left:10px;"><a href="/gift_requests">Home</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span></a>
+        <li  style="color:#ffffff;padding-left:10px; padding-top:10px"><a href="/gift_requests">Home</a></li>
+        <li class="dropdown" style="padding-top:15px">
+          <a href="#" class="dropdown-toggle" style="padding-top:10px" data-toggle="dropdown">Settings <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Change Password</a></li>
+            <li ><a href="#" >Change Password</a></li>
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
           </ul>
         </li>
-        <li><a href="/users/sign_out" data-method="delete" rel="nofollow">Logout</a></li>
+        <li style="padding-top:10px"><a href="/users/sign_out" data-method="delete" rel="nofollow">Logout</a></li>
       </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -130,12 +127,14 @@ body{
 <%= yield %>
 
 </body>
-<br><br><br><br>
+
+
   <footer>
-  <div class="footer" style="background-color:#777;;border-top: 7px solid #000;">
-      <div class="container">
-        <p class="text-muted">This is the Footer.</p>
-      </div>
+    <div class="footer" align="center">
+      CopyRights @  
+      <a class="inline" style=""><%= image_tag 'EasyGiftsBlack.png', :alt => 'lgo', width:"150", height:"70", class: "inline" %></a>
+        -  
+      <a >Privacy Agreement</a>  
     </div>
-</footer>
+  </footer>
 </html>
