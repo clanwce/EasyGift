@@ -1,3 +1,4 @@
+<!-- =begin
 <% if @user == current_user %>
 
 	<h1> Your profile page </h1>
@@ -10,4 +11,224 @@
 
 <p> <%= activity["message"] %> </p>
 
+<% end %>=end -->
+
+<style>
+.inline
+{
+  display:inline;
+}
+.scroll
+{
+  width:400px;
+  height:80px;
+  overflow:auto;
+  word-wrap:break-word;
+}
+
+.info-block 
+{
+position: relative;
+margin-bottom: 30px;
+}
+.info-block .info-text {
+  margin-bottom: 20px;
+  padding-right: 275px;
+}
+.info-block .list {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 220px;
+  margin-bottom: 10px;
+}
+
+
+@media (max-width: 500px) {
+.info-block .info-text {
+    padding-right: 0;   
+  }
+  .info-block .list {
+    position: static;
+    width: auto;
+  }
+}
+
+</style>
+
+<!-- <div class="container">
+  <div class="profile">
+    <div class="row show-grid">
+      <div class="col-xs-3">
+        <img src="/assets/user.png" alt="Sample Image" height="180px" width="180px">
+      </div>
+
+      <div class="col-xs-5">
+        <div class="row">
+          <div class="col-xs-3">
+            <h2>Librari</h2>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="col-xs-4">
+            <h4>Last activity: </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-2">
+            <button type="button" class="btn btn-default">Friends</button>
+          </div>
+          <div class="col-xs-4">
+            <button type="button" class="btn btn-primary">Private Message</button>
+          </div>
+          <div class="col-xs-2">
+            <button type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-cog"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">
+      <h4>Gender:</h4>
+    </div>
+    
+    <div class="col-xs-1 col-xs-offset-1">
+      <h4>Male</h4>
+    </div>
+
+    <div class="col-xs-2 col-xs-offset-3">
+      <h4>Achievements</h4>
+    </div>
+    <div class="col-xs-1">
+      <h4>Comments</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">
+      <h4>Age:</h4>
+    </div>
+    <div class="col-xs-1 col-xs-offset-1">
+      <h4>21</h4>
+    </div>
+    <div class="col-xs-2 col-xs-offset-3">
+      <button type="button" class="btn btn-success">
+        <span class="glyphicon glyphicon-asterisk">
+        </span>
+        666
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-comment">
+        </span>
+        14
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2">
+      <h4>Member Since:</h4>
+    </div>
+    <div class="col-xs-2">
+      <h4>April 14,2014</h4>
+    </div>
+    <div class="col-xs-2 col-xs-offset-2">
+      <h4>Followers</h4>
+    </div>
+    <div class="col-xs-1">
+      <h4>Requests</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-6">
+      <button type="button" class="btn btn-danger">
+        <span class="glyphicon glyphicon-heart">
+        </span>
+        23
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="btn btn-warning">
+        <span class="glyphicon glyphicon-gift">
+        </span>
+        55
+      </button>
+    </div>
+  </div>
+</div>
+
+<br/><br/> -->
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="thumbnail">
+       <img src="/assets/gift.png" alt="Sample Image" height="180px" width="180px">
+       <div class="list group">
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-gift"></span>
+          <span class="badge">10</span>
+          Gift Requests
+        </li>
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-comment"></span>
+          <span class="badge">10</span>
+          Comments
+        </li>
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-heart"></span>
+          <span class="badge">10</span>
+          Followers
+        </li>
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-asterisk"></span>
+          <span class="badge">10</span>
+          Achievements
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 left-block">
+    <div class="info-block">
+      <div class="info-text">
+        <h3> <%= current_user.username %></h3>
+         <!--  <p>Points: <%= current_user.points %> </p>  
+         <p>Rank: <%= current_user.rank %> </p>   -->
+         
+          <p>Proin vitae volutpat tellus. Fusce erat libero, ultrices in egestas id, tincidunt quis ante. Nam volutpat purus sed justo hendrerit, ac pellentesque odio volutpat. Integer vitae purus tortor. Aenean ultricies porta rhoncus. Nullam eleifend, tortor quis porta consectetur, enim nunc rutrum erat, ut convallis augue libero ac orci.
+
+            Aenean ultricies porta rhoncus eleifend tortor quis.</p>
+          
+        </div>
+        <div class="list">
+          <ul class="list-group inverse-theme">
+            <li class="list-group-item">
+              <h4>Summary</h4>
+            </li>
+            <li class="list-group-item">
+              <span class="badge"><%=current_user.points%></span>
+              Points:
+            </li>
+            <li class="list-group-item">
+              <span class="badge"><%=current_user.rank%></span>
+              Rank:
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<h2>Recent Activity: </h2>
+
+<% @activity.each do |activity| %>
+
+<p> <%= activity["message"] %> </p>
+
 <% end %>
+</div>
