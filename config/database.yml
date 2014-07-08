@@ -1,25 +1,25 @@
-# development:
-#   adapter: mysql2
-#   encoding: utf8
-#   database: easy_gift_dev
-#   username: root
-#   password:
-#   host: 127.0.0.1
-#   port: 3306
-
 development:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
   database: easy_gift_dev
-  host: localhost
+  username: root
+  password:
+  host: 127.0.0.1
+  port: 3306
 
-test:
-  adapter: postgresql
-  encoding: unicode
-  database: easy_gift_test
-  host: localhost
+# development:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: easy_gift_dev
+#   username: myapp
 
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: easy_gift_production
+# test:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: easy_gift_test
+#   host: localhost
+
+# production:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: easy_gift_production
