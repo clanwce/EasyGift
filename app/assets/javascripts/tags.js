@@ -76,7 +76,7 @@ $( document ).ready(function() {
 	    $.ajax({
 		    type: "POST",
 		    dataType: 'json',
-		    url: "/gift_requests",
+		    url: "/gift_requests?authenticity_token=" + $('#new_gift_request_authenticity_token').val(),
 		    data: data,
 		    success: function(response) {
 		    	window.location.replace('/gift_requests/' + response.id);
