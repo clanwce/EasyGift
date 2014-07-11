@@ -188,7 +188,7 @@ margin-bottom: 30px;
         <li class="list-group-item">
           <span class="glyphicon glyphicon-asterisk"></span>
           <span class="badge">10</span>
-          Achievements
+          Following
         </li>
       </div>
     </div>
@@ -224,11 +224,28 @@ margin-bottom: 30px;
     </div>
   </div>
 
-<h2>Recent Activity: </h2>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#recentactivity" role="tab" data-toggle="tab">Recent Activity</a></li>
+  <li><a href="#giftrequests" role="tab" data-toggle="tab">Gift Requests</a></li>
+  <li><a href="#comments" role="tab" data-toggle="tab">Comments</a></li>
+  <li><a href="#badges" role="tab" data-toggle="tab">Badges</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="recentactivity">
+    <h2>Recent Activity: </h2>
 
 <% @activity.each do |activity| %>
 
 <p> <%= activity["message"] %> </p>
 
 <% end %>
+  </div>
+  <div class="tab-pane fade" id="giftrequests">...</div>
+  <div class="tab-pane fade" id="comments">...</div>
+  <div class="tab-pane fade" id="badges">...</div>
+</div>
+
 </div>
