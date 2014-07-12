@@ -70,11 +70,7 @@ $( document ).ready(function() {
          } else if (response.error) {
              alert('Facebook share error: ' + response.error.message);
          } else {
-           document.getElementById('result').innerHTML =
-             '<a href=\"https://www.facebook.com/me/activity/' +
-             response.id + '\">' +
-             'Story created.  ID is ' +
-             response.id + '</a>';
+         	alert(objectToLike);
          }
        }
     );
