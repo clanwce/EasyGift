@@ -2,7 +2,6 @@ $( document ).ready(function() {
 
   // You probably don't want to use globals, but this is just example code
   var fbAppId = '563804037067616';
-  var objectToLike = 'http://easy-gift.herokuapp.com/gift_requests';
 
   /*
    * This is boilerplate code that is used to initialize
@@ -59,6 +58,7 @@ $( document ).ready(function() {
    */
 
   function shareGiftRequest() {
+  	objectToLike = window.location.href;
     FB.api(
        'https://graph.facebook.com/me/easy-gift:post',
        'post',
