@@ -43,6 +43,7 @@ EasyGift::Application.routes.draw do
   post '/tags/create'
   post '/user_notifications/batch_read' => 'user_notifications#batch_read'
 
+resources :users, only: [:index, :show]
   # match 'gift_requests/autocomplete_gift_request_title'
 
   # The priority is based upon order of creation:

@@ -14,12 +14,12 @@ class HomeController < ApplicationController
 	end
 
 	def account_settings
+
 	end
 
 	def profile
+
 	end
-
-
 
 	def privacy_policy
 

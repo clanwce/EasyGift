@@ -28,8 +28,8 @@
 
 .info-block 
 {
-position: relative;
-margin-bottom: 30px;
+  position: relative;
+  margin-bottom: 30px;
 }
 .info-block .info-text {
   margin-bottom: 20px;
@@ -45,7 +45,7 @@ margin-bottom: 30px;
 
 
 @media (max-width: 500px) {
-.info-block .info-text {
+  .info-block .info-text {
     padding-right: 0;   
   }
   .info-block .list {
@@ -200,9 +200,9 @@ margin-bottom: 30px;
          <!--  <p>Points: <%= current_user.points %> </p>  
          <p>Rank: <%= current_user.rank %> </p>   -->
          
-          <p>Proin vitae volutpat tellus. Fusce erat libero, ultrices in egestas id, tincidunt quis ante. Nam volutpat purus sed justo hendrerit, ac pellentesque odio volutpat. Integer vitae purus tortor. Aenean ultricies porta rhoncus. Nullam eleifend, tortor quis porta consectetur, enim nunc rutrum erat, ut convallis augue libero ac orci.
+         <p>Proin vitae volutpat tellus. Fusce erat libero, ultrices in egestas id, tincidunt quis ante. Nam volutpat purus sed justo hendrerit, ac pellentesque odio volutpat. Integer vitae purus tortor. Aenean ultricies porta rhoncus. Nullam eleifend, tortor quis porta consectetur, enim nunc rutrum erat, ut convallis augue libero ac orci.
 
-            Aenean ultricies porta rhoncus eleifend tortor quis.</p>
+          Aenean ultricies porta rhoncus eleifend tortor quis.</p>
           
         </div>
         <div class="list">
@@ -221,31 +221,33 @@ margin-bottom: 30px;
           </ul>
         </div>
       </div>
+      <a href="#" class="btn btn-info btn-large"><span class="glyphicon glyphicon-plus"></span>
+      </i> Follow</a>
     </div>
   </div>
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#recentactivity" role="tab" data-toggle="tab">Recent Activity</a></li>
-  <li><a href="#giftrequests" role="tab" data-toggle="tab">Gift Requests</a></li>
-  <li><a href="#comments" role="tab" data-toggle="tab">Comments</a></li>
-  <li><a href="#badges" role="tab" data-toggle="tab">Badges</a></li>
-</ul>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#recentactivity" role="tab" data-toggle="tab">Recent Activity</a></li>
+    <li><a href="#giftrequests" role="tab" data-toggle="tab">Gift Requests</a></li>
+    <li><a href="#comments" role="tab" data-toggle="tab">Comments</a></li>
+    <li><a href="#badges" role="tab" data-toggle="tab">Badges</a></li>
+  </ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane fade in active" id="recentactivity">
-    <h2>Recent Activity: </h2>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="recentactivity">
+      <h2>Recent Activity: </h2>
 
-<% @activity.each do |activity| %>
+      <% @activity.each do |activity| %>
 
-<p> <%= activity["message"] %> </p>
+      <p> <%= activity["message"] %> </p>
 
-<% end %>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="giftrequests">...</div>
+    <div class="tab-pane fade" id="comments">...</div>
+    <div class="tab-pane fade" id="badges">...</div>
   </div>
-  <div class="tab-pane fade" id="giftrequests">...</div>
-  <div class="tab-pane fade" id="comments">...</div>
-  <div class="tab-pane fade" id="badges">...</div>
-</div>
 
 </div>
