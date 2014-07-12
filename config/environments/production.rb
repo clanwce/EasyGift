@@ -22,7 +22,6 @@ EasyGift::Application.configure do
   # config.assets.compress = true
   # config.assets.digest = true
   # config.assets.compile = false
-  config.assets.version = '2.2'
 
   # Generate digests for assets URLs
   config.assets.digest = true
