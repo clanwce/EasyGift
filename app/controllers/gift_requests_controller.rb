@@ -18,7 +18,7 @@ class GiftRequestsController < ApplicationController
   # GET /gift_requests/1.json
   def show
     @gift_request = GiftRequest.find(params[:id])
-    if @gift_request.user_has_access(current_user.id) == false
+    if @gift_request.user_has_access?(current_user.id) == false
       redirect_to '/gift_requests'
     end
 
