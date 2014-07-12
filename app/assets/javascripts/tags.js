@@ -28,7 +28,7 @@ $( document ).ready(function() {
 	    $.ajax({
 		    type: "POST",
 		    dataType: 'json',
-		    url: "/tags/create",
+		    url: "/tags/create?authenticity_token="+ $('#new_gift_request_authenticity_token').val(),
 		    data: data,
 		    success: function(response) {
 		    	associate_tag_to_gift_request(response);
@@ -103,7 +103,7 @@ $( document ).ready(function() {
 	    $.ajax({
 		    type: "PUT",
 		    dataType: 'json',
-		    url: "/gift_requests/"+data['id'],
+		    url: "/gift_requests/"+data['id']+"?authenticity_token="+ $('#new_gift_request_authenticity_token').val(),
 		    data: data,
 		    success: function(response) {
 		    	window.location.replace('/gift_requests/');
@@ -113,50 +113,4 @@ $( document ).ready(function() {
 		    }
 	    });	
 	});
-
-  //   Pusher.log = function(message) {
-  //     if (window.console && window.console.log) {
-  //       window.console.log(message);
-  //     }
-  //   };
-
-  //   var pusher = new Pusher('ae0c513bd7bc7a412781');
-  //   var user_channel_name = 'user' + $('#user_navigation_bar').data('user-id') + '_channel';
-  //   var user_channel = pusher.subscribe(user_channel_name);
-  //   user_channel.bind('like_event', function(data) {
-  //     //var newtext = document.createTextNode("new text");
-  //     	var spanXyz = document.getElementById("notify");
-		// //spanXyz.appendChild(newtext);
-		// // var elem = document.getElementById('notify');
-		// // var li =document.createElement("li");
-		// // var p = document.createTextNode(data.message);
-		// alert(data);
-		// // li.appendChild(p);
-		// $("#notify").append("<li>" + data.message + "</li><hr>");
-		// // elem.insertBefore(li, elem.getElementsByTagName("li")[0]);
-		// setTimeout(function() {
-
-		// 	$("#notify").empty();
-		// 	// var li = $("#notify").closest('li')
-		// 	// li.fadeOut('slow', function() { li.empty(); });
-		// }, 5000);
-  //   });
-
-// var countclick = 0;
-// 	$( "#clickable" ).click(function() {
-// 			  //$( "li" ).each(function() {
-// //			  	var aa = $( this ).find('.new');
-// 			  	//alert(aa); 
-// 				if(countclick == 1)
-// 				{
-// 					$('.new').each(function() {
-// 			    //alert($( this ).text());
-// 			    $(this).removeClass( "new" );
-// 			 	 });
-// 				}
-// 				$("#badge").text("");
-// 			countclick ++;
-// 			});
-	
-
 });
