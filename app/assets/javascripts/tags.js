@@ -4,7 +4,6 @@ $( document ).ready(function() {
     
 
 	$('#add_tag_to_gift_request').click(function(e) {
-		alert("GO FUCK YOURSELF HEROKU");
 		e.preventDefault();
 		create_tag_and_associate_to_gift_request($('#autocomplete_tag').val());
 	});
