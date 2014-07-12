@@ -1,23 +1,4 @@
-<!-- <h1>Listing tags</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @tags.each do |tag| %>
-  <tr>
-    <td><%= tag.name %></td>
-    <td><%= link_to 'Show', tag %></td>
-
-    <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br /> -->
 <style type="text/css">
 
 
@@ -40,6 +21,17 @@
           margin-bottom: 4px;
         }
 
+        .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+    border-bottom:  1px solid #ddd;
+}
+
 
 </style>
  
@@ -49,20 +41,31 @@
     var node = document.getElementById("subnav").getElementsByTagName("li")[1];
   node.setAttribute("class", "active");
     </script>
-<br />
 
- <div class="container">
+
+ <div class="container" style="margin-left:8%">
 <!-- Nav tabs -->
-           <form class="navbar-form navbar-left" role="search" style="padding-left:140px; padding-top:20px" action="/tags/tag_search" method = "post">
+         <!--   <form class="ylnavbar-form navbar-left" role="search" style="padding-left:140px; padding-top:20px" action="/tags/tag_search" method = "post">
                 <div class="form-group">
                 <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-                <!-- <input type="text" id="giftrequestsearch" name="keyword" style="height: 28px; font-size: 12px;line-height: 12px; width: 320px" class="form-control" placeholder="Search"> -->
-                <input name="keyword" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
+                <input type="text" id="giftrequestsearch" name="keyword" style="height: 28px; font-size: 12px;line-height: 12px; width: 320px" class="form-control" placeholder="Search">
+                <input name="keyword" id="giftrequestsearch" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
                   </div>
                 <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
+            </form> -->
+<h4><strong> Tags </strong></h4>
+<h5>A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.
+</h5>
+Type to find tags: 
+  <form class="form-inline inline" role="search"  action="/tags/tag_search" method = "post">
+                <div class="form-group">
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+                <input name="keyword" id="giftrequestsearch" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
+                  </div>
+                <input type="submit" class="btn btn-default" style="font-size: 15px;" value="Submit">
             </form>
-
-<ul class="nav nav-tabs">
+<hr>
+<ul class="nav nav-tabs ">
   <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
   <li><a href="#name" data-toggle="tab">Name</a></li>
   <li><a href="#new" data-toggle="tab">New</a></li>
@@ -73,37 +76,28 @@
 <div class="tab-content">
   <div class="tab-pane fade in active" id="popular">
 
-<!--     <table>   
-      <tr>
-        <% (@tags).each do |tag| %>
-          <td class="tag-cell">
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+        <% i = 0 %>
+        <% @tags.each do |tag| %>
+          <% if i == 4 %>
+          <% i = 0 %>
+          </tr>
+          <tr> 
+          <% end %> 
+            <td class="tag-cell">
             <div class="excerpt">
-              <td><%= tag.name %></td>
+              <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
+              <%= tag.gift_request_count %>
+              
             </div>
           </td>
+          <% i = i+1 %>
         <% end %>
-      </tr>
-    </table> -->
-
-
-
-<table>
-    <div class="row">
-        <% (@tags).each do |tag| %>
-            <div class="col-sm-3">
-              <div class="tag-cell">
-              <div class="excerpt">
-                <%=link_to tag.name, tag %>
-              </div>
-              </div>    
-            </div>
-        <% end %>
-     </div>
-   
-
-</table>
-
-
+    </tr>
+  </table>
+</div>
 
 
 <!--       <tr>
