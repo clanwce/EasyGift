@@ -1,8 +1,7 @@
-<meta property="og:type" content="Gift Request" />
 <script type="text/javascript">
   // You probably don't want to use globals, but this is just example code
   var fbAppId = '563804037067616';
-  var objectToLike = 'http://easy-gift.herokuapp.com/gift_requests/11';
+  var objectToLike = 'http://easy-gift.herokuapp.com/gift_requests';
 
   // This check is just here to make sure you set your app ID. You don't
   // need to use it in production. 
@@ -66,9 +65,9 @@
 
   function postLike() {
     FB.api(
-       'https://graph.facebook.com/me/objects/easy-gift:gift_request',
+       'https://graph.facebook.com/me/easy-gift:post',
        'post',
-       { object: objectToLike,
+       { gift_request: objectToLike,
          privacy: {'value': 'SELF'} },
        function(response) {
          if (!response) {
