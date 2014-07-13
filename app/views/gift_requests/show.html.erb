@@ -7,6 +7,10 @@ overflow:auto;
 word-wrap:break-word;
 }
 
+.fAnswer{
+	background-color:#8EFAB2;
+}
+
 .btn-class
 {
 background-color:#EEEEEE;
@@ -178,20 +182,33 @@ background-color:#EEEEEE;
 
 
 <div class="tab-content">
+
   <div class="tab-pane fade in active" id="date">
-		
+			
+
 		<% if @gift_request_comments %> 
-			<% @gift_request_comments.each do |comment| %>
-		<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b><br>
-			<p class="scroll" style="width:80;height:auto"%><%= comment.description %>
-		</p>	
+		<% @gift_request_comments.each do |comment| %>
+		
+			<% if comment.final_answer %>
+		
+		<div class="fAnswer">
+			<% else %>
+			<div>
+				<% end %>
+		<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b>
+
+		<br>
+
+		<p class="scroll" style="width:80;height:auto"%><%= comment.description %></p>	
 			<% if comment.final_answer %>
 				<b> FINAL ANSWER </b>
 			<% end %>
 			
-		<!-- </p> -->
-
-	<div align="right"><b><a href="/users/<%= comment.user_id %>"> <%= comment.username %></a><br>Rank: <%= comment.user.rank %> Points: <%= comment.user.points %> </b> </div>
+<div align="right">
+		<b>
+			<a href="/users/<%= comment.user_id %>"> <%= comment.username %></a><br>Rank: <%= comment.user.rank %> Points: <%= comment.user.points %> 
+		</b> 
+</div>
 
 	<form action="/likes/create" method="post" class="inline">
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
@@ -222,9 +239,9 @@ background-color:#EEEEEE;
 		<% if comment.dislike_count > 0 %>	
 		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> People disliked</button>
 		<% end %>
-
-
+		</div>
  <hr style="background-color: #C0C0C0;height: 1px;"> 
+
 
 	<% end %>
 <% end %>
@@ -277,6 +294,14 @@ background-color:#EEEEEE;
 		 <% if @gift_request_comments %> 
 			<% @gift_request_comments.each do |comment| %>
 
+			<% if comment.final_answer %>
+		
+
+		<div class="fAnswer">
+			<% else %>
+			<div>
+				<% end %>
+
 		<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b><br>
 			<p class="scroll" style="width:80%;height:auto"><%= comment.description %>
 			</p>	
@@ -318,6 +343,7 @@ background-color:#EEEEEE;
 		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> People disliked</button>
 		<% end %>
 
+			</div>
 
  <hr style="background-color: #C0C0C0;height: 1px;"> 
 

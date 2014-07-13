@@ -36,6 +36,21 @@ word-wrap:break-word;
       <div class="inline container col-xs-12 col-md-8"  data-id=title<%= gift_request.id %> >
         <h4 class="inline">
           <%= button_to [gift_request.title], gift_request, :class => "btn ", :method => :get %></h4>
+         
+          <% @flag = false %>
+          <% @gf = GiftRequest.find(gift_request.id) %>
+          <% @gf.comments.each do |comment| %>
+              <% if comment.final_answer == true %>
+                <% @flag = true %>
+              <% end %>
+          <% end %>
+         
+          <% if @flag == true %>
+         <h5 class="">
+          <span class="label label-success inline">FINAL ANSWER
+          </span></h5>          
+         <% end %>
+         
           <div class=" scroll" ><%= gift_request.description %> 
           </div>
           <br>
