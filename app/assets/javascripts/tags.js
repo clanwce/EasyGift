@@ -86,7 +86,14 @@ $( document ).ready(function() {
 				    object: {"app_id":563804037067616,"url":"http:\/\/samples.ogp.me\/331257847005141","title":"\"Sample Opinion\"","image":"https:\/\/s-static.ak.fbcdn.net\/images\/devsite\/attachment_blank.png","description":"\"\""}
 				  },
 				  function(response) {
-				    // handle the response
+			         if (!response) {
+			           alert('Error occurred.');
+			         } else if (response.error) {
+			             alert('Facebook share error: ' + response.error.message);
+			         } else {
+			         	alert(response.id);
+			         	window.location.replace('/gift_requests/' + response.id);
+			         }
 				  }
 				);
 		    	
@@ -101,14 +108,14 @@ $( document ).ready(function() {
 				//     title: gift_request['title']
 				//   },
 				//   function(response) {
-			 //         if (!response) {
-			 //           alert('Error occurred.');
-			 //         } else if (response.error) {
-			 //             alert('Facebook share error: ' + response.error.message);
-			 //         } else {
-			 //         	alert(response.id);
-			 //         	window.location.replace('/gift_requests/' + response.id);
-			 //         }
+			         // if (!response) {
+			         //   alert('Error occurred.');
+			         // } else if (response.error) {
+			         //     alert('Facebook share error: ' + response.error.message);
+			         // } else {
+			         // 	alert(response.id);
+			         // 	window.location.replace('/gift_requests/' + response.id);
+			         // }
 				//   }
 				// );
 		    },
