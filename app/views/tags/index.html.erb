@@ -59,11 +59,12 @@
 Type to find tags: 
   <form class="form-inline inline" role="search"  action="/tags/tag_search" method = "post">
                 <div class="form-group">
-                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-                <input name="keyword" id="giftrequestsearch" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
+                <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>" />
+                <input name="keyword" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
                   </div>
                 <input type="submit" class="btn btn-default" style="font-size: 15px;" value="Submit">
             </form>
+            <button onclick="onclicktagsearch()">as</button>
 <hr>
 <ul class="nav nav-tabs ">
   <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
@@ -75,73 +76,92 @@ Type to find tags:
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane fade in active" id="popular">
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+            <% i = 0 %>
 
-<div class="table-responsive">
-  <table class="table">
-    <tr>
-        <% i = 0 %>
-        <% @tags.each do |tag| %>
-          <% if i == 4 %>
-          <% i = 0 %>
-          </tr>
-          <tr> 
-          <% end %> 
-            <td class="tag-cell">
-            <div class="excerpt">
-              <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
-              <%= tag.gift_request_count %>
-              
-            </div>
-          </td>
-          <% i = i+1 %>
-        <% end %>
-    </tr>
-  </table>
-</div>
+           <% tt = @tags.sort_by(&:gift_request_count) %>
+           <% @tags = tt.reverse %>
 
-
-<!--       <tr>
-        <td class="tag-cell">
-          <div class="excerpt">
-            sdfdsfsf
-          </div>
-         </td>
-          <td class="tag-cell">
-          <div class="excerpt">
-            sdfdsfsf
-          </div>
-         </td>
-          <td class="tag-cell">
-          <div class="excerpt">
-            sdfdsfsf
-          </div>
-         </td>
-          <td class="tag-cell">
-          <div class="excerpt">
-            sdfdsfsf
-          </div>
-         </td>
-          <td class="tag-cell">
-          <div class="excerpt">
-            sdfdsfsf
-          </div>
-         </td>
-      </tr>
-    </table> -->
-
-
-
-
-
-
-
+            <% @tags.each do |tag| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
+                  <%= tag.gift_request_count %>
+                  
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
+    </div>
+  
   </div>
+
   <div class="tab-pane fade" id="name">
 
+  <div class="table-responsive">
+      <table class="table">
+        <tr>
+            <% i = 0 %>
 
+           <% @tags = @tags.sort_by(&:name) %>
+            <% @tags.each do |tag| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
+                  <%= tag.gift_request_count %>
+                  
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
+    </div>
     
   </div>
-  <div class="tab-pane fade" id="new">...
+  <div class="tab-pane fade" id="new">
+
+  <div class="table-responsive">
+      <table class="table">
+        <tr>
+            <% i = 0 %>
+
+           <% tt = @tags.sort_by(&:created_at) %>
+           <% @tags = tt.reverse %>
+
+            <% @tags.each do |tag| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
+                  <%= tag.gift_request_count %>
+                  
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
+    </div>
+
   </div>
 </div>
 

@@ -42,6 +42,30 @@ function onclickbttn(obj,likestatus)
 	  })
 
 	}
+}
 
+function onclicktagsearch()
+{
+		var link = "/tags/tag_search";
+		data = {};
+		tag = {};
+		tag['keyword'] = $('#autocomplete_tag').val();
+		tag['authenticity_token'] = $('#authenticity_token').val();
+		alert(tag['keyword']);		
+	    $.ajax({
+		    type: "POST",
+		    url: "/tags/tag_search",
+		    data: tag,
+		    success: function(tags) {
+				$.each(tags, function(index,value) {
+				  $.each(value, function(k, v) {
+						
+		   		  });
+				});
+			},
+		    error: function(response) {
+		    	// /alert(response.responseText);
+		    }
+	    });	
 
 }
