@@ -79,7 +79,26 @@ $( document ).ready(function() {
 		    url: "/gift_requests?authenticity_token=" + $('#new_gift_request_authenticity_token').val(),
 		    data: data,
 		    success: function(response) {
-		    	window.location.replace('/gift_requests/' + response.id);
+		    	FB.api(
+				  'me/objects/easy-gift:gift_request',
+				  'post',
+				  {
+				    app_id: 563804037067616,
+				    type: "easy-gift:gift_request",
+				    url: "/gift_requests/' + response.id",
+				    title: gift_request['title']
+				  },
+				  function(response) {
+			         if (!response) {
+			           alert('Error occurred.');
+			         } else if (response.error) {
+			             alert('Facebook share error: ' + response.error.message);
+			         } else {
+			         	alert(response.id);
+			         	window.location.replace('/gift_requests/' + response.id);
+			         }
+				  }
+				);
 		    },
 		    error: function(response) {
 		    	alert(response.responseText);
