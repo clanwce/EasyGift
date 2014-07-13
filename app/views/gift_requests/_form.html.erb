@@ -19,14 +19,16 @@ document.getElementById("gift_request_public").className = "btn btn-sm";
     <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
 	<div class="form-group">
 	    <label for="new_gift_request_title" class="col-sm-2 control-label">Title:</label>
-	    <div class="col-sm-2">
-	      <input maxlength="100" type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
+	    <div class="col-xs-6 col-md-8">
+	      <input maxlenth="100" type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
+
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="new_gift_request_description" class="col-sm-2 control-label">Description:</label>
-	    <div class="col-sm-2">
-	      <input type="text" name="gift_request[description]" class="form-control" id="new_gift_request_description" placeholder="Description">
+	    <div class="col-xs-6 col-md-8">
+	      <textarea class="form-control" rows="7"></textarea>
+
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -39,18 +41,18 @@ document.getElementById("gift_request_public").className = "btn btn-sm";
 	<div class="form-group">
 
 	    <label class="col-sm-2 control-label">Tags:</label>
-	    <div class="col-sm-2">
+	    <div class="col-sm-1">
 	    <div style="margin:0;padding:0;display:inline">
 	        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	    </div>
-        <input data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
+        <input data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/><div id='tag_holder'> </div>
         <br>
     </div>
     <div>
         <input id="add_tag_to_gift_request" class=" btn btn-default" type="submit" value="Add">
-    	        <div id='tag_holder' class="inline">
+<!--     	        <div id='tag_holder' class="inline">
     		</div>
-	    </div>
+ -->	    </div>
 	  </div>
 
    <div class="form-group">
