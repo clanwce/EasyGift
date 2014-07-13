@@ -63,10 +63,10 @@ $( document ).ready(function() {
     return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
   }
 
-// $("a.popup").click(function(e) {
-//   popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
-//   e.stopPropagation(); return false;
-// });
+  $("a.popup").click(function(e) {
+    popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
+    e.stopPropagation(); return false;
+  });
 
 //    $('.facebook_login_button').on('click', function(e) {
 //       FB.login(function(response) {

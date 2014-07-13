@@ -79,6 +79,8 @@ EasyGift::Application.configure do
   ENV['FACEBOOK_SECRET'] = '88b4d03810c510ced21861f2026fc68e'
   ENV['FACEBOOK_LOGIN_URL'] = "http://easy-gift.herokuapp.com/auth/facebook"
 
+  ENV['HOMEPAGE_SIGN_IN'] = "http://easy-gift.herokuapp.com/users/sign_in"
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
