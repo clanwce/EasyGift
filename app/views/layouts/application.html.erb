@@ -51,6 +51,8 @@ body{
 </head>
 <body>
 
+    <div id="facebook_login_url" data-url="<%= ENV['FACEBOOK_LOGIN_URL'] %>"></div>
+
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation" style="background:#000000;">
       <div class="container">
@@ -107,8 +109,12 @@ body{
     </div>
 
     <h4>
-    <%= flash[:notice] if flash[:notice] %>
-    <p class="alert"><%= alert %></p>
+    <br>
+    <div align = "center">
+        <div class="inline">
+        <p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
+        </div>
+    </div>
   
    
 <%= yield %>

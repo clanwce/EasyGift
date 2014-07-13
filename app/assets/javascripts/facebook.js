@@ -60,11 +60,11 @@ $( document ).ready(function() {
   function popupCenter(url, width, height, name) {
     var left = (screen.width/2)-(width/2);
     var top = (screen.height/2)-(height/2);
-    wndw = window.open("", name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
-    link = $('#hacky_facebook_fix');
-    link.href = url;
-    link.target = name; 
-    link.click(); 
+    wndw = window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+    // link = $('#hacky_facebook_fix');
+    // link.href = url;
+    // link.target = name; 
+    // link.click(); 
   }
 
   $("a.popup").click(function(e) {
@@ -89,7 +89,7 @@ $( document ).ready(function() {
 //     //                     'width': width});
 // });
 
-  function shareGiftRequest() {
+  function shareGiftRequest(e) {
     uri = window.location.href;
     encoded_uri = encodeURI(uri);
     image = "https://dl.dropboxusercontent.com/u/70856403/gift.png";
@@ -107,7 +107,16 @@ $( document ).ready(function() {
            if (!facebook_response) {
              alert('Error occurred.');
            } else if (facebook_response.error) {
-               alert('Facebook share error: ' + facebook_response.error.message);
+               // alert('Facebook share error: ' + facebook_response.error.message);
+              if(facebook_response.error.code == 2500) {
+                $('#notice').html("Please connect to facebook first");
+                $('#facebook_login_button').removeAttr('style');
+                // popupCenter($('#facebook_login_url').data("url"), 600, 400, "authPopup");
+                // shareGiftRequest();
+              }
+              else {
+                alert('Facebook share error: ' + facebook_response.error.message);
+              }
            } else {
            }
       }
@@ -116,7 +125,7 @@ $( document ).ready(function() {
 
 	$('#facebook_share').click(function(e) {
 		e.preventDefault();
-		shareGiftRequest();
+		shareGiftRequest(e);
 	});
 
 });

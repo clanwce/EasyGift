@@ -17,12 +17,19 @@ background-color:#EEEEEE;
 }
 </style>
 
+<br>
 <div class="container">
 <div align = "center">
 		<div class="inline">
-		<p id="notice" style="color:red"><%= notice %></p>
+		<p id="notice" style="color:red"></p>
 		</div>
 </div>
+
+    <div align = "center">
+        <div class="inline">
+    	  	<a style='display:none' id="facebook_login_button" href=<%= ENV['FACEBOOK_LOGIN_URL'] %> class="popup" data-height="400" data-width="600"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
+        </div>
+    </div>
 
   <%= render 'subnav' %>
   <script type="text/javascript">
@@ -44,6 +51,7 @@ background-color:#EEEEEE;
     <br>
 
     <a id="facebook_share" href="#"><img src="/images/Facebook-icon.png" height="30" width="30"></a>
+
 
 </div>
  <div class="inline container " data-id=titlea >

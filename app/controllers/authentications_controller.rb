@@ -4,7 +4,6 @@ class AuthenticationsController < ApplicationController
   # POST /authentications
   # POST /authentications.json
   def create
-    debugger
     referrer = request.env["HTTP_REFERER"]
     omniauth = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
