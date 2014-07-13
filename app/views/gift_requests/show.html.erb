@@ -68,11 +68,11 @@ background-color:#EEEEEE;
 		</form>
 		
 	<% if @gift_request.like_count > 0 %>	
-	<button type="submit" class="btn btn-success btn-xs" data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> People Liked</button>
+	<button type="submit" class="btn btn-success btn-xs" data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> Liked</button>
 		<% end %>
 		
 		<% if @gift_request.dislike_count > 0 %>
-	 <button type="submit" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#dislikemodal" > <%= @gift_request.dislike_count %> People disliked</button>
+	 <button type="submit" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#dislikemodal" > <%= @gift_request.dislike_count %> Disliked</button>
 		<% end %>
 
       </div>
@@ -233,11 +233,11 @@ background-color:#EEEEEE;
 		</form>
 
 		<% if comment.like_count > 0 %>	
-		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> People Liked</button>
+		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
 		<% end %>
 
 		<% if comment.dislike_count > 0 %>	
-		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> People disliked</button>
+		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> Disliked</button>
 		<% end %>
 		</div>
  <hr style="background-color: #C0C0C0;height: 1px;"> 
@@ -336,11 +336,11 @@ background-color:#EEEEEE;
 		</form>
 
 		<% if comment.like_count > 0 %>	
-		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> People Liked</button>
+		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
 		<% end %>
 
 		<% if comment.dislike_count > 0 %>	
-		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> People disliked</button>
+		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> Disliked</button>
 		<% end %>
 
 			</div>
