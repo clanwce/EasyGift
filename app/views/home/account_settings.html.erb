@@ -3,98 +3,24 @@
 {
 	display: inline
 }
-body{
-	background-color: #008080;
-	color: #ffffff;
-}
+
 
 .jumbotron{
 	background-color:#c0c0c0;
 	color:#000000;
 }
 
-@media {
-	html {
-		overflow: -moz-scrollbars-vertical; 
-		overflow-x: scroll; 
-		overflow-y: scroll;
-	}
-}
 
-.container {
-	width: 1024px;
-	display: block;
-}
+
 </style>
 
 <div class="container">
-	<div class="mycontainertab">
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#accountinfo" data-toggle="tab">Account Info</a></li>
-			<li><a href="#editprofile" data-toggle="tab">Edit Profile</a></li>
-			<li><a href="#changepassword" data-toggle="tab">Change Password</a></li>
-		</ul>
-	</div>
-	<!-- Tab panes -->
-	<br/>
 
 	<div class="jumbotron">
-		<div class="tab-content">
-			<div class="tab-pane fade in active" id="accountinfo">
-				<h3>Account Information</h3>
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<label for="username1" class="col-sm-2 control-label">Username:</label>
-						<div class="col-sm-5">
-							<input type="username" class="form-control" id="username1" placeholder="Username">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Email:</label>
-						<div class="col-sm-5">
-							<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-2 control-label">Password:</label>
-						<div class="col-sm-5">
-							<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-						</div>
-					</div>
 
-				</form>
-
-			</div>
-			<div class="tab-pane fade" id="editprofile">
-				<h3>Edit Profile</h3>
-				<br/>
-				About Me:
-				
-				<textarea class="form-control" rows="3"></textarea>
-				<br/>
-				Gender:
-				<label class="radio-inline">
-					<input type="radio" name="optionsradios" id="optionsradios1" value="option1" checked>
-					Male
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="optionsradios" id="optionsradios2" value="option2" checked>
-					Female
-				</label>
-				<br/><br/>
-				<div class="form-group">
-					<label for="exampleInputFile">Avatar Image</label>
-					<input type="file" id="exampleInputFile">
-					<p class="help-block">(jpeg, gif, or png format at least 180 x 180 pixels)</p>
-				</div>
-
-			</div>
-			<div class="tab-pane fade" id="changepassword">
-				<h3>Change password</h3>
-				<%= render :template => 'users/edit_password_form', 
-				:locals => { :resource => current_user, :resource_name => "user" } %>
-			</div>
-		</div>
+		<h3>Change password</h3>
+		<%= render :template => 'users/edit_password_form', 
+		:locals => { :resource => current_user, :resource_name => "user" } %>
 	</div>
 </div>
 
