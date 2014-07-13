@@ -38,7 +38,7 @@ background-color:#EEEEEE;
 
 <div style="text-align: center;">
 		<div style="width: 500px; margin: 0 auto;" class="inline">
-			<h3 > <%= @gift_request.title %> </h3>
+			<h3 id="gift_request_title"><%= @gift_request.title %></h3>
 			<h3> Views: <%= @gift_request.views %> </h3>
 		<h5 class="inline"> Created By: <%= @gift_request.username %> </h5><br/> 
 		<%= link_to 'Edit Gift Request', edit_gift_request_path(@gift_request), :class => "btn-link",:style => "color:blue" %>
