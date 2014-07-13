@@ -63,43 +63,45 @@
       </div>
 
       <div class="navbar-right" style="margin-bottom:10px;">
+
+        <%= form_for(:user, :url => session_path(:user)) do |f| %>
+        
          <ul class="nav navbar-nav">
             <li>
-                <input  autofocus="autofocus" class="form-control" id="user_email" style="height: 25px; font-size: 12px;line-height: 10px; width: 160px" name="user[email]" placeholder="Email Address" required="required" size="30" value="" type="email">
+              <%= f.text_field :email, :class => "form-control", :autofocus =>"autofocus", :id =>"user_email", :style => "height: 25px; font-size: 12px;line-height: 16px; width: 160px", :name => "user[email]", :placeholder => "Email Address",       :required => "required", :type => "email"  %>
             </li>
 
             <li>
-                <input autocomplete="off" class="form-control" id="user_password" style=" margin-left:10px; height: 25px; font-size: 12px;line-height: 10px; width: 150px" name="user[password]" placeholder="Password" required="required" size="30" type="password">
-            </li>
-
+              <%= f.password_field :password, :class => "form-control", :autocomplete => "off", :id =>"user_password", :style => "margin-left:10px; height: 25px; font-size: 12px;line-height: 25px; width: 150px", :name => "user[password]", :required => "required", :placeholder => "Password", :size => "30", :type => "password" %>
+            </li> 
+            
             <li>
-                <form action="/users/sign_in" class="button_to" method="get">
-                  <input class="btn btn-default" name="commit" style="height: 24px; font-size: 12px; margin-left:20px;line-height: 12px; width: 90px; align:center" value="Sign in" type="submit">
-                </form>
+               <%= f.submit :class => "btn btn-default", :style => "height: 24px; font-size: 12px; margin-left:20px;line-height: 12px; width: 90px; align:center", :value => "Sign in", :name => "commit", :type => "submit"%>
             </li>
-          </ul>
+        </ul>
 
           <br>
 
-          <ul class="nav navbar-nav" style="padding-top:10px">           
+        <ul class="nav navbar-nav" style="padding-top:10px">           
             <li>
-                <label style="color: white; height: 20px; font-size: 12px;line-height: 14px; width: 170px">
-                  <input type="checkbox"> Remember me
-                </label>
+                <%= f.check_box :remember_me, :type => "checkbox" %>
+                <%= f.label :remember_me, :style => "color: white; height: 20px; font-size: 12px;line-height: 14px; width: 152px"%>
             </li>
 
             <li>
-              <label>
-               <a style="color: white; height: 30px; font-size: 12px;line-height: 14px;" href="password/new">Forgot password</a> 
+               <label style="color: white; height: 30px; font-size: 12px;line-height: 14px; background: transparent;" data-toggle="modal" data-target="#forgot">Forgot password
               </label>
             </li>
 
-            <li>
-              <form action="users/sign_up" class="button_to" method="get">
-                  <input class="btn btn-default" name="commit" style="height: 24px; font-size: 12px; margin-left:18px;line-height: 12px; width: 90px; align:center" value="Sign Up" type="submit">
-              </form>
+            <% end %>
+
+            <li>  
+
+              <input class="btn btn-default" data-toggle="modal" data-target="#signUp" style="height: 24px; font-size: 12px; margin-left:18px;line-height: 12px; width: 90px; align:center" value="Sign Up"> 
+
             </li>
           </ul>
+        
         </div>
 
       </div><!--/.nav-collapse -->
@@ -183,6 +185,42 @@
         <a class="inline" style=""><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"150", height:"70", class: "inline" %></a>   
     </div>
  
+  <!-- Modal -->
+  <div class="modal fade" id="forgot" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        <div class="modal-body">
+
+          <br>
+
+          <h4 style="color:black; text-transform: none;">
+            Please enter registered email to recieve password-reset link.
+          </h4>
+          
+          <%= form_for(:user, :url => password_path(:user)) do |f| %>
+          
+          <div class="container-fluid" align="center">
+            <%= f.email_field :email, :autofocus =>"autofocus", :required => "true",:placeholder => "Email Address", :type => "email", :style => "height: 35px; font-size: 15px; line-height: 30px; width: 300px", :class => "form-control" %>
+          </div>
+
+          <br>
+
+          <div class="container-fluid" align="center">
+            <%= f.submit "Send instructions", :class => "btn  btn-default", :style => "height: 24px; font-size: 12px;line-height: 12px; align:center" %>
+          
+            <button type="button" class="btn btn-default" data-dismiss="modal" style="height: 24px; font-size: 12px; margin-left:20px;line-height: 12px; align:center">Close</button>
+          </div>
+          <% end %>
+          
+          <br>
+        
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- Core JavaScript Files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -191,5 +229,4 @@
     <!-- Custom Theme JavaScript -->
    <script src="https://dl.dropboxusercontent.com/u/70856403/landingPage.js"></script>
 </body>
-
 </html>
