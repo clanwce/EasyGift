@@ -9,6 +9,10 @@ word-wrap:break-word;
 
 .fAnswer{
 	background-color:#8EFAB2;
+	padding-right: 0.5%;
+	padding-left: 0.3%; 
+	padding-bottom: 0.3%; 
+	border: 1px groove #8EFAB2;
 }
 
 .btn-class
@@ -204,13 +208,15 @@ background-color:#EEEEEE;
 			<div>
 				<% end %>
 		<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b>
-
-		<br>
-
-		<p class="scroll" style="width:80;height:auto"%><%= comment.description %></p>	
+			<div class="inline" style="float:right">
 			<% if comment.final_answer %>
 				<b> FINAL ANSWER </b>
 			<% end %>
+			</div>
+		<br>
+
+		<p class="scroll" style="width:80;height:auto"%><%= comment.description %></p>	
+			
 			
 <div align="right">
 		<b>
