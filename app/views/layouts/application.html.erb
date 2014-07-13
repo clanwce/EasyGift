@@ -44,7 +44,6 @@ body{
   </style>
   <title><%= yield(:title) %></title>
   <!-- Additional header tags here -->
-  <%= yield(:head) %>
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application"  %>
@@ -63,7 +62,7 @@ body{
             <span class="icon-bar"></span>
           </button>
           <div style="padding-top:3px; padding-bottom:3px">
-          <a class="inline" href="/profile" style=""><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
+          <a class="inline" href="/profile" style="background-color:transparent;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
           </a>
           </div>
         </div>
@@ -77,11 +76,11 @@ body{
                 </form>
           <ul class="nav navbar-nav navbar-right" style="padding-top:5px;">
         <% if current_user %>
-          <li id="user_notification_dropdown"> <a href="#" style= "" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
+          <li id="user_notification_dropdown"> <a href="#" style= "background-color:transparent;" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
               <% @count = current_user.user_notifications.where(read: false).count %>
             <h4><span class="glyphicon glyphicon-globe"><span id="navigation_count" data-count=<%= @count %> class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>
           </a>
-          <ul id="user_notification_ul" class="dropdown-menu" style="width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
+          <ul id="user_notification_ul" class="dropdown-menu" style=" margin-top:7px; width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
                                   <% @notifications = current_user.user_notifications.order("notification_id desc") %>
                     <% @notifications.each do |notification| %>
                     <% if !notification.read %>              
@@ -126,7 +125,7 @@ body{
 
 <div class="footer" align="center">
       CopyRights @  
-      <a class="inline" style=""><%= image_tag 'EasyGiftsBlack.png', :alt => 'lgo', width:"150", height:"70", class: "inline" %></a>
+      <a class="inline" style="background-color:transparent;"><%= image_tag 'EasyGiftsBlack.png', :alt => 'lgo', width:"150", height:"70", class: "inline" %></a>
         -  
       <a  href="/privacy_policy">Privacy Agreement</a>  
     </div>
