@@ -84,7 +84,7 @@ $( document ).ready(function() {
 				  'post',
 				  {
 				    app_id: 563804037067616,
-				    type: "easy-gift:gift_request",
+				    // type: "easy-gift:gift_request",
 				    url: "/gift_requests/' + response.id",
 				    title: gift_request['title']
 				  },
