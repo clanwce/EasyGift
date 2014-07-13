@@ -24,6 +24,11 @@ node.setAttribute("class", "active padd");
 </script>
 
 <div class="container cc">
+<div align = "center">
+    <div class="inline">
+    <p id="notice" style="color:red"><%= notice %></p>
+    </div>
+</div>
 
   <div align="center">
    <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  GiftRequest.count %></strong></p>
@@ -70,8 +75,9 @@ node.setAttribute("class", "active padd");
 
               <div align="center" > 
                 <% if current_user.id == gift_request.user.id %>
-                <%= link_to 'Edit', edit_gift_request_path(gift_request), :class => "btn btn-warning inline", :method => :get  %>
-                <%= link_to 'Destroy', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger inline" %>
+                <h5 class="inline"><%= link_to '', edit_gift_request_path(gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline", :method => :get  %></h5>
+                <h5 class="inline"> <%= link_to '', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger glyphicon glyphicon-remove inline" %>  
+               
                 <% end %>
                 <br><br>
 
