@@ -21,12 +21,12 @@ class User < ActiveRecord::Base
   has_many :authentications
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  has_many :followed_users, through: :relationships, source: :followed
+  has_many :followed_users, through: :relationships, source: :followed #people you are following
 
   has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
                                    dependent:   :destroy
-  has_many :followers, through: :reverse_relationships, source: :follower
+  has_many :followers, through: :reverse_relationships, source: :follower #people following you
   has_many :gift_request, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :comments, :dependent => :destroy
@@ -80,6 +80,7 @@ class User < ActiveRecord::Base
     feed.each do |notification|
       notification_hash = {}
       notification_hash["id"] = notification.id
+      notification_hash["url"] = notification.formatted_url
       notification_hash["message"] = notification.constructActivityMessage(self)
       notification_hash["created_at"] = notification.created_at
       message_feed << notification_hash

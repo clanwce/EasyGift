@@ -17,6 +17,12 @@ EasyGift::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
 
+  # fix
+  # config.serve_static_assets = false
+  # config.assets.compress = true
+  # config.assets.digest = true
+  # config.assets.compile = false
+
   # Generate digests for assets URLs
   config.assets.digest = true
 
@@ -82,4 +88,16 @@ EasyGift::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+    # Compress JavaScripts and CSS
+    class NoCompression
+         def compress(string)
+             # do nothing
+             string
+         end
+     end
+
+     config.assets.compress = true
+     config.assets.js_compressor = NoCompression.new
+     config.assets.css_compressor = NoCompression.new
 end

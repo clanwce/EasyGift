@@ -11,6 +11,7 @@ class GiftRequest < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :description
   validates_presence_of :user
+  validates :title, length: { maximum: 100 }
 
   after_save ThinkingSphinx::RealTime.callback_for(:gift_request)
 

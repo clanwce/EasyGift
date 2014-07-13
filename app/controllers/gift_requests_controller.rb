@@ -17,7 +17,12 @@ class GiftRequestsController < ApplicationController
   # GET /gift_requests/1
   # GET /gift_requests/1.json
   def show
+    @request = request.fullpath
     @gift_request = GiftRequest.find(params[:id])
+    if @gift_request.user_has_access?(current_user.id) == false
+      redirect_to '/gift_requests'
+    end
+
     @gift_request_comments = @gift_request.comments
     @gift_request_likes = @gift_request.likes
     @gift_request_tags = @gift_request.tags
