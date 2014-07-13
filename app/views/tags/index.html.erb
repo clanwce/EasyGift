@@ -15,10 +15,25 @@
          .excerpt
         {
           font-size: 12px;
-          height: 39px;
+          height: 50px;
           line-height: 14px;
           overflow: hidden;
           margin-bottom: 4px;
+        }
+
+        .tagpost
+        {
+          color: #4a6b82;
+          background-color:#e0eaf1;
+          border-bottom:1px solid #b3cee1;
+          border-right: 1px solid #b3cee1;
+          /*padding: 3px 4px 3px 4px;*/
+          margin: 2px 2px 2px 0;
+          text-decoration: none;
+          /*font-size: 90%;*/
+          line-height: 1.4;
+          white-space: nowrap;
+          display: inline-block;
         }
 
         .tab-content {
@@ -91,9 +106,10 @@ Type to find tags:
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
+                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm tagpost"%> x
                   <%= tag.gift_request_count %>
-                  
+               <br>
+                  New Request <%= time_ago_in_words(tag.updated_at) %> ago
                 </div>
               </td>
               <% i = i+1 %>
@@ -120,9 +136,11 @@ Type to find tags:
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
+                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm tagpost"%> x
                   <%= tag.gift_request_count %>
-                  
+                               <br>
+                  New Request <%= time_ago_in_words(tag.updated_at) %> ago
+  
                 </div>
               </td>
               <% i = i+1 %>
@@ -150,9 +168,11 @@ Type to find tags:
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm"%> x
+                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm tagpost"%> x
                   <%= tag.gift_request_count %>
-                  
+                               <br>
+                  New Request <%= time_ago_in_words(tag.updated_at) %> ago
+  
                 </div>
               </td>
               <% i = i+1 %>
