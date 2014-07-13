@@ -30,12 +30,6 @@
       
       <div class="container">
 
-<!-- <div align = "center">
-    <div class="inline">
-    <p id="notice" style="color:red"><%= notice %></p>
-    </div>
-</div>
- -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">          
             <span class="sr-only">Toggle navigation</span>
@@ -43,8 +37,6 @@
             <span class="icon-bar"></span>          
             <span class="icon-bar"></span>         
           </button>
-          
-          <!-- <a class="inline" href="/profile" style="padding-left:20px;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"160", height:"85"%></a> -->
 
         </div>
 
@@ -152,7 +144,7 @@
                     <p>You can connect your Facebook account right away to share your Easygift posts with your friends. How awesome is that!</p>
                     <br>
                     <br>
-                    <a class="inline" href="/profile" style="padding-left:10px;"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
+                    <a class="inline" href="/auth/facebook" style="padding-left:10px;"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
                 </div>
             </div>
         </div>
@@ -202,7 +194,7 @@
           <br>
 
           <h4 style="color:black; text-transform: none;">
-            Enter registered email to get password-reset link.
+            Enter registered email to get password-reset link
           </h4>
           
           <%= form_for(:user, :url => password_path(:user)) do |f| %>
@@ -214,7 +206,7 @@
           <br>
 
           <div class="container-fluid" align="center">
-            <%= f.submit "Send instructions", :class => "btn  btn-default", :style => "height: 28px; font-size: 12px;line-height: 12px; align:center" %>
+            <%= f.submit "Send reset instructions", :class => "btn  btn-default", :style => "height: 28px; font-size: 12px;line-height: 12px; align:center" %>
           
             <button type="button" class="btn btn-default" data-dismiss="modal" style="height: 28px; font-size: 12px; margin-left:20px;line-height: 12px; align:center">Cancel</button>
           </div>
@@ -257,8 +249,8 @@
             <br>
 
             <div class="container-fluid" align ="center">
-            <%= f.submit "Sign Up", :class => "btn  btn-default", :style => "height: 28px; font-size: 12px;line-height: 12px; align:center"%>
-            <button type="button" class="btn btn-default" data-dismiss="modal" style="height: 28px; font-size: 12px; margin-left:20px;line-height: 12px; align:center">Cancel</button>
+            <%= f.submit "Sign Up", :class => "btn  btn-default", :style => "height: 28px; font-size: 12px;line-height: 12px; margin-left:20px;"%>
+            <button type="button" class="btn btn-default" data-dismiss="modal" style="height: 28px; font-size: 12px; margin-left:20px; line-height: 12px;">Cancel</button>
             <% end %>
             </div>
             
