@@ -79,26 +79,38 @@ $( document ).ready(function() {
 		    url: "/gift_requests?authenticity_token=" + $('#new_gift_request_authenticity_token').val(),
 		    data: data,
 		    success: function(response) {
-		    	FB.api(
+				FB.api(
 				  'me/objects/easy-gift:gift_request',
 				  'post',
 				  {
-				    app_id: 563804037067616,
-				    // type: "easy-gift:gift_request",
-				    url: "/gift_requests/' + response.id",
-				    title: gift_request['title']
+				    object: {"app_id":563804037067616,"url":"http:\/\/samples.ogp.me\/331257847005141","title":"\"Sample Opinion\"","image":"https:\/\/s-static.ak.fbcdn.net\/images\/devsite\/attachment_blank.png","description":"\"\""}
 				  },
 				  function(response) {
-			         if (!response) {
-			           alert('Error occurred.');
-			         } else if (response.error) {
-			             alert('Facebook share error: ' + response.error.message);
-			         } else {
-			         	alert(response.id);
-			         	window.location.replace('/gift_requests/' + response.id);
-			         }
+				    // handle the response
 				  }
 				);
+		    	
+		  //   	FB.api(
+				//   'me/objects/easy-gift:gift_request',
+				//   'post',
+				//   {
+				//     app_id: 563804037067616,
+				//     encodeURI(uri);
+				//     // type: "easy-gift:gift_request",
+				//     url: "/gift_requests/' + response.id",
+				//     title: gift_request['title']
+				//   },
+				//   function(response) {
+			 //         if (!response) {
+			 //           alert('Error occurred.');
+			 //         } else if (response.error) {
+			 //             alert('Facebook share error: ' + response.error.message);
+			 //         } else {
+			 //         	alert(response.id);
+			 //         	window.location.replace('/gift_requests/' + response.id);
+			 //         }
+				//   }
+				// );
 		    },
 		    error: function(response) {
 		    	alert(response.responseText);
