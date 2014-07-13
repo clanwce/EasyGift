@@ -19,15 +19,15 @@ document.getElementById("gift_request_public").className = "btn btn-sm";
     <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
 	<div class="form-group">
 	    <label for="new_gift_request_title" class="col-sm-2 control-label">Title:</label>
-	    <div class="col-xs-6 col-md-8">
+	    <div class="col-xs-6 col-md-6">
 	      <input maxlenth="100" type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
 
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="new_gift_request_description" class="col-sm-2 control-label">Description:</label>
-	    <div class="col-xs-6 col-md-8">
-	      <textarea class="form-control" rows="7"></textarea>
+	    <div class="col-xs-6 col-md-6">
+	      <textarea class="form-control" name="gift_request[description]" id="new_gift_request_description" data-provide="markdown" rows="7"></textarea>
 
 	    </div>
 	  </div>
