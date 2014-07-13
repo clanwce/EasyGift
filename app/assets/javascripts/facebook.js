@@ -57,25 +57,33 @@ $( document ).ready(function() {
    *   https://developers.facebook.com/docs/reference/api/privacy-parameter
    */
 
-   $('.facebook_login_button').on('click', function(e) {
-      FB.login(function(response) {
-       if (response.authResponse) {
-         console.log('Welcome!  Fetching your information.... ');
-         FB.api('/me', function(response) {
-           console.log('Good to see you, ' + response.name + '.');
-         });
-       } else {
-         console.log('User cancelled login or did not fully authorize.');
-       }
-     });
-    // var src = $(this).attr('data-src');
-    // var height = $(this).attr('data-height') || 300;
-    // var width = $(this).attr('data-width') || 400;
+  function popupCenter(url, width, height, name) {
+    var left = (screen.width/2)-(width/2);
+    var top = (screen.height/2)-(height/2);
+    return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+  }
+
+// $("a.popup").click(function(e) {
+//   popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
+//   e.stopPropagation(); return false;
+// });
+
+//    $('.facebook_login_button').on('click', function(e) {
+//       FB.login(function(response) {
+//        if (response.authResponse) {
+
+//        } else {
+//          console.log('User cancelled login or did not fully authorize.');
+//        }
+//       });
+//     // var src = $(this).attr('data-src');
+//     // var height = $(this).attr('data-height') || 300;
+//     // var width = $(this).attr('data-width') || 400;
     
-    // $("#myModal iframe").attr({'src':src,
-    //                     'height': height,
-    //                     'width': width});
-});
+//     // $("#myModal iframe").attr({'src':src,
+//     //                     'height': height,
+//     //                     'width': width});
+// });
 
   function shareGiftRequest() {
     uri = window.location.href;
