@@ -57,15 +57,14 @@
 <h5>A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.
 </h5>
 Type to find tags: 
-  <form class="form-inline inline" role="search"  action="/tags/tag_search" method = "post">
-                <div class="form-group">
+            <div class="inline">
                 <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>" />
-                <input name="keyword" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
-                  </div>
-                <input type="submit" class="btn btn-default" style="font-size: 15px;" value="Submit">
-            </form>
-            <button onclick="onclicktagsearch()">as</button>
-<hr>
+                <input name="keyword" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control inline" style="width:20%" placeholder="Find Tag" id="autocomplete_tag"/>
+            <button onclick="onclicktagsearch()" class="btn btn-default" style="font-size: 15px;">Submit</button>
+            </div>
+<br/><br/><br/>
+
+<div id="divcontainer" >
 <ul class="nav nav-tabs ">
   <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
   <li><a href="#name" data-toggle="tab">Name</a></li>
@@ -163,6 +162,7 @@ Type to find tags:
     </div>
 
   </div>
+</div>
 </div>
 
 </div>
