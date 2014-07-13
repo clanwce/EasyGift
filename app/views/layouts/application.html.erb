@@ -77,13 +77,13 @@ body{
                   </div>
                   <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
                 </form>
-          <ul class="nav navbar-nav navbar-right" style="padding-top:5px;">
+          <ul class="nav navbar-nav navbar-right" style="padding-top:10px;">
         <% if current_user %>
-          <li id="user_notification_dropdown"> <a href="#" style= "background-color:transparent;" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
+          <li id="user_notification_dropdown"> <a href="#" style= "background-color:transparent; color:white;" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
               <% @count = current_user.user_notifications.where(read: false).count %>
             <h4><span class="glyphicon glyphicon-globe"><span id="navigation_count" data-count=<%= @count %> class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>
           </a>
-          <ul id="user_notification_ul" class="dropdown-menu" style=" margin-top:7px; width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
+          <ul id="user_notification_ul" class="dropdown-menu" style=" margin-top:1px; width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
                                   <% @notifications = current_user.user_notifications.order("notification_id desc") %>
                     <% @notifications.each do |notification| %>
                     <% if !notification.read %>              
@@ -95,16 +95,15 @@ body{
           </ul>
           </li>
         <% end %>
-        <li  style="color:#ffffff;padding-left:5px; padding-top:10px"><a href="/gift_requests">Home</a></li>
+        <li  style="color:#ffffff;padding-left:5px; padding-top:10px"><a href="/gift_requests" style= "background-color:transparent; color:white;">Home</a></li>
         <li class="dropdown" style="padding-top:10px;padding-left:5px;">
-          <a href="#" class="dropdown-toggle" style="" data-toggle="dropdown">Settings <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
+          <a href="#" class="dropdown-toggle" style= "background-color:transparent; color:white;" data-toggle="dropdown">Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" style="margin-top:15px;">
             <li ><a href="/account_settings" >Change Password</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <!-- <li class="divider"></li> -->
           </ul>
         </li>
-        <li style="padding-top:10px;padding-left:5px;"><a href="/users/sign_out" data-method="delete" rel="nofollow">Logout</a></li>
+        <li style="padding-top:10px;padding-left:5px;"><a href="/users/sign_out" data-method="delete" style= "background-color:transparent; color:white;" rel="nofollow">Logout</a></li>
       </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -18,9 +18,13 @@
 
 	<div class="jumbotron">
 
-		<h3>Change password</h3>
+		<ul class="nav nav-pills">
+		  <li class="active"><a href="#">Change Password</a></li>
+		</ul>
+
 		<%= render :template => 'users/edit_password_form', 
 		:locals => { :resource => current_user, :resource_name => "user" } %>
+
 	</div>
 </div>
 

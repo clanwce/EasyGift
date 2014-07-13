@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   	def authenticate_user!
   		unless signed_in?
-  			redirect_to '/users/sign_in'
+  			redirect_to '/'
   		end
   	end
 end
