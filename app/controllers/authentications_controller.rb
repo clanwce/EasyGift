@@ -4,6 +4,7 @@ class AuthenticationsController < ApplicationController
   # POST /authentications
   # POST /authentications.json
   def create
+    debugger
     referrer = request.env["HTTP_REFERER"]
     omniauth = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
@@ -18,7 +19,7 @@ class AuthenticationsController < ApplicationController
     elsif authentication && current_user == authentication.user
       flash[:notice] = "Already connected"
       if referrer == ENV['HOMEPAGE_SIGN_IN']
-        redirect_to '/'
+        redirect_to '/gift_requests'
       else
         render 'callback', :layout => false
       end
@@ -26,14 +27,14 @@ class AuthenticationsController < ApplicationController
       current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
       flash[:notice] = "Third-party authentication connected."
       if referrer == ENV['HOMEPAGE_SIGN_IN']
-        redirect_to '/'
+        redirect_to '/gift_requests'
       else
         render 'callback', :layout => false
       end
     elsif authentication && current_user && authentication.user != current_user #third-party authentication found & user is logged in & user is incorrect user
       flash[:notice] = "Facebook account already connected to another account"
       if referrer == ENV['HOMEPAGE_SIGN_IN']
-        redirect_to '/'
+        redirect_to '/gift_requests'
       else
         render 'callback', :layout => false
       end      

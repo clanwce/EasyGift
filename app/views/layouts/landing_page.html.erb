@@ -107,8 +107,6 @@
     
     </div>
 
-<%= flash[:notice] if flash[:notice] %>
-    <p class="alert"><%= alert %></p>
     <section class="intro">
         <div class="intro-body">
             <div class="container">
@@ -146,7 +144,7 @@
                     <p>You can connect your Facebook account right away to share your Easygift posts with your friends. How awesome is that!</p>
                     <br>
                     <br>
-  <a id="facebook_login_button" href="http://localhost:3000/auth/facebook" class="popup" data-height="400" data-width="600"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
+  <a id="facebook_login_button" href=<%= ENV['FACEBOOK_LOGIN_URL'] %>><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
                 </div>
             </div>
         </div>
