@@ -3,33 +3,24 @@
 {
 	display: inline
 }
-body{
-	background-color: #008080;
-	color: #ffffff;
-}
+
 
 .jumbotron{
 	background-color:#c0c0c0;
 	color:#000000;
 }
 
-@media {
-	html {
-		overflow: -moz-scrollbars-vertical; 
-		overflow-x: scroll; 
-		overflow-y: scroll;
-	}
-}
+
 
 </style>
 
 <div class="container">
 
 	<div class="jumbotron">
-	
-				<h3>Change password</h3>
-				<%= render :template => 'users/edit_password_form', 
-				:locals => { :resource => current_user, :resource_name => "user" } %>
+
+		<h3>Change password</h3>
+		<%= render :template => 'users/edit_password_form', 
+		:locals => { :resource => current_user, :resource_name => "user" } %>
 	</div>
 </div>
 
