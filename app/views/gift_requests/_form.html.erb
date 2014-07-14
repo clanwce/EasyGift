@@ -15,7 +15,7 @@ document.getElementById("gift_request_public").className = "btn btn-sm";
 </script>
 
  <form id="new_gift_request_form" class="form-horizontal" role="form" action="/gift_requests" method="post">
-  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+  <input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
     <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
 	<div class="form-group">
 	    <label for="new_gift_request_title" class="col-sm-2 control-label">Title:</label>
