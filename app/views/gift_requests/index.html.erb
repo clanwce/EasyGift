@@ -103,14 +103,14 @@ node.setAttribute("class", "active padd");
               <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-20px;"> 
                  <% if gift_request.tags %>
                   <% gift_request.tags.each do |tags| %>
-                      <h4>
+                      <h4 class="inline">
                         <a class="label label-info" href="/tags/<%= tags.id %> "><%= tags.name %></a>
                       </h4>
                     <% end %>
                   <% end %>
               </div>
           </div>
-          
+          <br>
           <div align="left">
             <div align="center">
               <span> Asked on: <%= gift_request.created_at.strftime("%b %d, %Y %H:%M") %>
