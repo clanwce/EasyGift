@@ -32,6 +32,8 @@ node.setAttribute("class", "active padd");
 
   <div align="center">
    <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  GiftRequest.count %></strong></p>
+   <br>
+   <%= paginate @gift_requests %>
   </div>
 
   <br>

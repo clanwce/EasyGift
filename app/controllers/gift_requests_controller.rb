@@ -4,9 +4,10 @@ class GiftRequestsController < ApplicationController
   autocomplete :tag, :name, :gift_request_count => [:description]
   # GET /gift_requests
   # GET /gift_requests.json
+
   def index
     @gift_request = GiftRequest.new
-    @gift_requests = GiftRequest.all
+    @gift_requests = GiftRequest.order('gift_requests.created_at DESC').page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # index.html.erb

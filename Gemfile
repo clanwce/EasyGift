@@ -17,6 +17,7 @@ gem "thinking-sphinx"
 gem 'pusher'
 # gem 'pg'
 gem 'flying-sphinx', '1.2.0'
+gem 'kaminari'
 
 group :development do
   gem "debugger"
