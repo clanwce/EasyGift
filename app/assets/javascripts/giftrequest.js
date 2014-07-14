@@ -80,9 +80,10 @@ function onclicktagsearch()
 							i==0;
 	        				html = html + "</tr><tr>";
 						}
-
-	            		html = html + "<td class='tag-cell'><div class='excerpt'>";
-	            		html = html + "<a href='/tags/'"+value['id']+" class='btn btn-default btn-sm'>"+value['name']+"</a> x";
+						var id = value['id'];
+						var tagname = value['name'];
+						html = html + "<td class='tag-cell'><div class='excerpt'><h4 class='inline'>";
+	            		html = html + "<a href='/tags/"+id+ "'"+"class='label label-info inline'>"+tagname+"</a></h4> x";
 	            		html = html + " " +value['gift_request_count'] + "</div></td>";
 	              		i++;
 
