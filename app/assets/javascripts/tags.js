@@ -25,10 +25,11 @@ $( document ).ready(function() {
 		tag = {}
 		tag['name'] = tag_name
 		data['tag'] = tag
+		data['authenticity_token'] = $('#new_gift_request_authenticity_token').val();
 	    $.ajax({
 		    type: "POST",
 		    dataType: 'json',
-		    url: "/tags/create?authenticity_token="+ $('#new_gift_request_authenticity_token').val(),
+		    url: "/tags/create",
 		    data: data,
 		    success: function(response) {
 		    	associate_tag_to_gift_request(response);
@@ -73,10 +74,11 @@ $( document ).ready(function() {
 		gift_request['public']= $('input[name=gift_request_public]:checked', '#new_gift_request_form').val()
 		data['gift_request'] = gift_request;
 		data['tags'] = tags_on_page;
+		data['authenticity_token'] = $('#new_gift_request_authenticity_token').val();
 	    $.ajax({
 		    type: "POST",
 		    dataType: 'json',
-		    url: "/gift_requests?authenticity_token=" + $('#new_gift_request_authenticity_token').val(),
+		    url: "/gift_requests",
 		    data: data,
 		    success: function(gift_request) {
 				window.location.replace('/gift_requests/' + gift_request.id);
@@ -99,11 +101,12 @@ $( document ).ready(function() {
 		//gift_request['public']= $('input[name=gift_request_public]:checked', '#new_gift_request_form').val()
 		data['id'] = id;
 		data['gift_request'] = gift_request;
+		data['authenticity_token'] = $('#new_gift_request_authenticity_token').val();
 		 //alert(gift_request);
 	    $.ajax({
 		    type: "PUT",
 		    dataType: 'json',
-		    url: "/gift_requests/"+data['id']+"?authenticity_token="+ $('#new_gift_request_authenticity_token').val(),
+		    url: "/gift_requests/"+data['id'],
 		    data: data,
 		    success: function(response) {
 		    	window.location.replace('/gift_requests/');
