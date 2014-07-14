@@ -23,7 +23,61 @@ var node = document.getElementById("subnav").getElementsByTagName("li")[1];
 node.setAttribute("class", "active padd");
 </script>
 
+  <script>
+  function func(object) {
+    if(object.id == "top" )
+    {
+    window.location.href = "/gift_requests?filter=top";
+    }
+    else if (object.id == "popular")
+    {
+    window.location.href = "/gift_requests?filter=popular";      
+    }
+    else
+    {
+    window.location.href = "/gift_requests";      
+    }
+  }
+
+function chck()
+{
+   var sPageURL = window.location.search.substring(1);
+   if(sPageURL=="")
+    {
+      document.getElementById("allli").className = "active";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "";
+    }
+   else
+   {
+      var s = sPageURL.split("=");
+      if(s[1]=="popular")
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "active";
+      document.getElementById("topli").className = "";
+      }
+      else
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "active";
+      }
+   }
+    
+}
+  </script>
+
 <div class="container cc">
+<ul class="nav nav-tabs" id="tabs" style="margin-left: 15px" >
+  <li id="allli" class="active"><a id="all" data-toggle="tab" onclick="func(this)">All</a></li>
+  <li id="popularli" class=""><a id="popular" data-toggle="tab" onclick="func(this)">Popular</a></li>
+  <li id="topli" class=""><a id="top" data-toggle="tab" onclick="func(this)">Top</a></li>
+</ul>
+
+<script>
+chck();
+</script>
 <div align = "center">
     <div class="inline">
       <% if flash[:notice] %>
@@ -31,23 +85,26 @@ node.setAttribute("class", "active padd");
         <% end %>
     </div>
 </div>
-
+<!-- 
   <a href="?filter=top">Top</a>
   <a href="?filter=popular">Popular</a>
-
+ -->
   <div align="center">
    <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  GiftRequest.count %></strong></p><br>
-  <%= paginate @gift_requests %>
+    <%= paginate @gift_requests %>
 
   </div>
-     <br>
+
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="all">
+       <!-- <br> -->
 
   <div class="container-fluid">
     <table class="table" align="center" style="background-color:#ffffff; width:80%;">
      <% @gift_requests.each do |gift_request| %>
      <tr>
       <td >
-        <div class="row" align="center" style="padding-top:10px;" min-width="500px;">
+        <div class="row" align="center" style="padding-top:10px;">
 
           <div class="inline col-xs-12 col-md-8"  data-id=title<%= gift_request.id %> align="left" style="padding-left:40px;">
 
@@ -123,7 +180,7 @@ node.setAttribute("class", "active padd");
               </span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
               Comments:&nbsp;<strong><%= gift_request.comments.count %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
               Views:&nbsp;<strong><%= gift_request.views %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-              Likes:&nbsp;<strong><%= @gift_request.like_count %></strong> 
+              Likes:&nbsp;<strong><%= gift_request.like_count %></strong> 
             </div>
           </div>
         </div>
@@ -136,4 +193,9 @@ node.setAttribute("class", "active padd");
       <% end %>
     </table>
   </div>
-</div> 
+</div>
+
+
+</div>
+
+</div> <!-- end of main cc div -->  
