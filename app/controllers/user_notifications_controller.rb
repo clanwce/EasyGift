@@ -1,5 +1,7 @@
 class UserNotificationsController < ApplicationController
 
+	skip_before_filter :verify_authenticity_token
+
 	def batch_read
 		result = {}
 		result["success"] = true

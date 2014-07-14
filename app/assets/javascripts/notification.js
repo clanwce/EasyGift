@@ -33,26 +33,27 @@ var flag = false;
 	
 		if (flag== true)
 		{
-		data = {};
-		data["ids"] = ids;
-		$.ajax({
-		    type: "POST",
-		    dataType: 'json',
-		    url: "/user_notifications/batch_read",
-		    data: data,
-		    success: function(response) {
-		    	//clean count & mark read
-		    	$( ".new_notification" ).each(function( index ) {
-					$(this).removeClass("new_notification");
+			data = {};
+			data["ids"] = ids;
+			if(ids.length > 0) {
+				$.ajax({
+				    type: "POST",
+				    dataType: 'json',
+				    url: "/user_notifications/batch_read",
+				    data: data,
+				    success: function(response) {
+				    	//clean count & mark read
+				    	$( ".new_notification" ).each(function( index ) {
+							$(this).removeClass("new_notification");
+						});
+						$('#navigation_count').data("count", 0);
+						$('#navigation_count').html("");
+				    },
+					error: function(response) {
+				    	alert(response.responseText);
+				    }	    
 				});
-				$('#navigation_count').data("count", 0);
-				$('#navigation_count').html("");
-		    },
-			error: function(response) {
-		    	alert(response.responseText);
-		    }	    
-
-			});
+			}
 		}
 	});
 	
