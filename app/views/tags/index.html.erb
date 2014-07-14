@@ -69,7 +69,7 @@
                 <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
             </form> -->
 <h4><strong> Tags </strong></h4>
-<h5>A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.
+<h5>A tag is a keyword or label that categorizes your request with other, similar requests. Using the right tags makes it easier for others to find and comment your request.
 </h5>
 Type to find tags: 
             <div class="inline">
@@ -106,9 +106,10 @@ Type to find tags:
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm tagpost"%> x
-                  <%= tag.gift_request_count %>
-               <br>
+                  <h4 class="inline">
+                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+                  <%= tag.gift_request_count %> 
+               <br><br>
                   New Request <%= time_ago_in_words(tag.updated_at) %> ago
                 </div>
               </td>
@@ -136,11 +137,11 @@ Type to find tags:
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm tagpost"%> x
-                  <%= tag.gift_request_count %>
-                               <br>
+                  <h4 class="inline">
+                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+                  <%= tag.gift_request_count %> 
+               <br><br>
                   New Request <%= time_ago_in_words(tag.updated_at) %> ago
-  
                 </div>
               </td>
               <% i = i+1 %>
@@ -168,11 +169,11 @@ Type to find tags:
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                  <%= link_to tag.name, tag, :class => "btn btn-default btn-sm tagpost"%> x
-                  <%= tag.gift_request_count %>
-                               <br>
+                  <h4 class="inline">
+                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+                  <%= tag.gift_request_count %> 
+               <br><br>
                   New Request <%= time_ago_in_words(tag.updated_at) %> ago
-  
                 </div>
               </td>
               <% i = i+1 %>
