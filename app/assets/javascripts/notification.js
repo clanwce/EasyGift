@@ -21,39 +21,31 @@ $( document ).ready(function() {
     	$('#navigation_count').html(new_count);
     }
 
-var flag = false;
 	$('#user_notification_dropdown').on("click", function(e) {
-		e.preventDefault();
 		ids = [];
 		$( ".new_notification" ).each(function( index ) {
 		  ids.push($(this).data("id"));
-		  	flag = true;
 		});
-
-	
-		if (flag== true)
-		{
-			data = {};
-			data["ids"] = ids;
-			if(ids.length > 0) {
-				$.ajax({
-				    type: "POST",
-				    dataType: 'json',
-				    url: "/user_notifications/batch_read",
-				    data: data,
-				    success: function(response) {
-				    	//clean count & mark read
-				    	$( ".new_notification" ).each(function( index ) {
-							$(this).removeClass("new_notification");
-						});
-						$('#navigation_count').data("count", 0);
-						$('#navigation_count').html("");
-				    },
-					error: function(response) {
-				    	alert(response.responseText);
-				    }	    
-				});
-			}
+		data = {};
+		data["ids"] = ids;
+		if(ids.length > 0) {
+			$.ajax({
+			    type: "POST",
+			    dataType: 'json',
+			    url: "/user_notifications/batch_read",
+			    data: data,
+			    success: function(response) {
+			    	//clean count & mark read
+			    	$( ".new_notification" ).each(function( index ) {
+						$(this).removeClass("new_notification");
+					});
+					$('#navigation_count').data("count", 0);
+					$('#navigation_count').html("");
+			    },
+				error: function(response) {
+			    	alert(response.responseText);
+			    }	    
+			});
 		}
 	});
 	
