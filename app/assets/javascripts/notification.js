@@ -49,7 +49,11 @@ $( document ).ready(function() {
 	// 	}
 	// });
 
-	$('#new_notification').on("click", function(e) {
+	$('.new_notification').on("click", function(e) {
+		e.preventDefault();
+		var li_element = $(this);
+		data = {};
+		data["id"] = $(this).data("id");
 		$.ajax({
 		    type: "POST",
 		    dataType: 'json',
@@ -57,7 +61,7 @@ $( document ).ready(function() {
 		    data: data,
 		    success: function(response) {
 		    	//clean count & mark read
-				$(this).removeClass("new_notification");
+				li_element.removeClass("new_notification");
 				new_count = $('#navigation_count').data("count") - 1;
     			$('#navigation_count').data("count", new_count);
     			if (new_count > 0) {
