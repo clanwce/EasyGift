@@ -54,9 +54,9 @@ node.setAttribute("class", "active padd");
 
           </div>
   
-          <div class="col-xs-4 col-md-4" style="">
+          <div class="col-xs-4 col-md-4" style="padding-right:40px;">
             
-            <div style="">
+            <div style="" align="right">
             <% @flag = false %>
             <% @gf = GiftRequest.find(gift_request.id) %>
             <% @gf.comments.each do |comment| %>
@@ -65,8 +65,8 @@ node.setAttribute("class", "active padd");
               <% end %>
             <% end %>
             <% if @flag == true %>
-              <h4 class="inline">
-                <span class="label label-success">ANSWERED
+              <h4 class="inline" >
+                <span class="label label-success" style="">ANSWERED
                 </span>
               </h4>          
             <% end %>
@@ -99,8 +99,8 @@ node.setAttribute("class", "active padd");
 
           </div>
         
-          <div class="row" align="center" style="padding-left:40px; margin-top:-20px;">
-              <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-20px;"> 
+          <div class="row" align="center" style="padding-left:40px;">
+              <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-15px;"> 
                  <% if gift_request.tags %>
                   <% gift_request.tags.each do |tags| %>
                       <h4 class="inline">
