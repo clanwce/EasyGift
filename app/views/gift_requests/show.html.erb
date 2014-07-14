@@ -25,7 +25,9 @@ background-color:#EEEEEE;
 <div class="container">
 <div align = "center">
 		<div class="inline">
-		<p id="notice" style="color:red"></p>
+			<% if flash[:notice] %>
+        <p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
+        <% end %>
 		</div>
 </div>
 
