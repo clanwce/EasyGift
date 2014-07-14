@@ -10,6 +10,7 @@ EasyGift::Application.routes.draw do
 
   match 'likes/create' => 'likes#create', :via => [:post]
   match 'comments/final' => 'comments#final', :via => [:post]
+  match '/user_notifications/create' => 'user_notifications#create'
 
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
