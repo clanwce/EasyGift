@@ -13,6 +13,13 @@
   color:#000;
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
+
 </style>
 
 <% content_for :title, "Gift Requests" %>
@@ -90,9 +97,11 @@ chck();
   <a href="?filter=popular">Popular</a>
  -->
   <div align="center">
+
+    <br>
    <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  GiftRequest.count %></strong></p><br>
     <%= paginate @gift_requests %>
-
+    <br>
   </div>
 
 <div class="tab-content">
@@ -100,7 +109,7 @@ chck();
        <!-- <br> -->
 
   <div class="container-fluid">
-    <table class="table" align="center" style="background-color:#ffffff; width:80%;">
+    <table class="table" align="center" style="background-color:#ffffff; width:90%;">
      <% @gift_requests.each do |gift_request| %>
      <tr>
       <td >
@@ -199,3 +208,7 @@ chck();
 </div>
 
 </div> <!-- end of main cc div -->  
+<br>
+<br>
+<br>
+<br>

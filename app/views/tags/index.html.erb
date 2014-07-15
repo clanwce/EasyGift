@@ -47,6 +47,12 @@
     border-bottom:  1px solid #ddd;
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
 
 </style>
  
@@ -58,7 +64,7 @@
     </script>
 
 
- <div class="container" style="margin-left:8%">
+ <div class="container-fluid" align="center" style="width:85%;">
 <!-- Nav tabs -->
          <!--   <form class="ylnavbar-form navbar-left" role="search" style="padding-left:140px; padding-top:20px" action="/tags/tag_search" method = "post">
                 <div class="form-group">
@@ -69,13 +75,15 @@
                 <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
             </form> -->
 <h4><strong> Tags </strong></h4>
-<h5>A tag is a keyword or label that categorizes your request with other, similar requests. Using the right tags makes it easier for others to find and comment your request.
+
+<h5>A tag is a keyword or label that categorizes your request with other similar requests. Using the right tags makes it easier for others to find your posts.
 </h5>
+<br>
 Type to find tags: 
             <div class="inline">
                 <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>" />
                 <input name="keyword" data-autocomplete="/gift_requests/autocomplete_tag_name" class=" form-control inline" style="width:20%" placeholder="Find Tag" id="autocomplete_tag"/>
-            <button onclick="onclicktagsearch()" class="btn btn-default" style="font-size: 15px;">Submit</button>
+            <button onclick="onclicktagsearch()" class="btn btn-default" style="height: 24px; font-size: 12px; margin-left:20px;line-height: 12px; width: 90px;">Submit</button>
             </div>
 <br/><br/><br/>
 
@@ -187,3 +195,8 @@ Type to find tags:
 </div>
 
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
