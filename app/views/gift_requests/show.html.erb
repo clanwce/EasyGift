@@ -236,11 +236,13 @@ background-color:#EEEEEE;
 	</form>
 
 	<% if current_user.username == @gift_request.username %>
+	<div class="finalans inline">
 	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
 		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+	</div>
 	<% end %>
 
 		<% if comment.like_count > 0 %>	
@@ -340,12 +342,14 @@ background-color:#EEEEEE;
 	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
 	</form>
 
-	<% if current_user == @gift_request.username %>
+	<% if current_user.username == @gift_request.username %>
+	<div class="finalans inline">
 	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
 		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+	</div>
 	<% end %> 
 
 		<% if comment.like_count > 0 %>	
@@ -383,6 +387,16 @@ background-color:#EEEEEE;
 
 </div>
 </div>
+
+<script>
+$(document).ready(function(){
+	var ele= document.getElementsByClassName("finalans");
+    for(var i=0;i<ele.length;i++)
+    {
+      ele[i].innerHTML="";
+    }
+});
+</script>
 
 <!-- <%= link_to 'Back', gift_requests_path %>
 -->
