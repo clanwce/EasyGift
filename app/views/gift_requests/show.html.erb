@@ -198,7 +198,7 @@ background-color:#EEEEEE;
 		
 			<% if comment.final_answer %>
 		
-		<div class="fAnswer">
+		<div id="fans" class="fAnswer">
 			<% else %>
 			<div>
 				<% end %>
@@ -319,7 +319,7 @@ background-color:#EEEEEE;
 			<p class="scroll" style="width:80%;height:auto"><%= comment.description %>
 			</p>	
 			<% if comment.final_answer %>
-				<b> FINAL ANSWER </b>
+				<b><div> FINAL ANSWER </b>
 			<% end %>
 				
 		<!-- </p> -->
@@ -390,10 +390,14 @@ background-color:#EEEEEE;
 
 <script>
 $(document).ready(function(){
-	var ele= document.getElementsByClassName("finalans");
-    for(var i=0;i<ele.length;i++)
+    var foundin = document.getElementById("fans");
+    if(foundin)
     {
-      ele[i].innerHTML="";
+		var ele= document.getElementsByClassName("finalans");
+	    for(var i=0;i<ele.length;i++)
+	    {
+	      ele[i].innerHTML="";
+	    }
     }
 });
 </script>
