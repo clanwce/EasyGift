@@ -64,8 +64,8 @@ function onclicktagsearch()
 		    data: tag,
 		    success: function(tags) {
 		    	$("#divcontainer").html("");
-		    	var html = "<h4> Tag search for "+$('#autocomplete_tag').val();
-		    	html = html + "</h4><div class='table-responsive'><table class='table'><tr>";
+		    	var html = "<h4> Tag search for: &nbsp;<strong>"+$('#autocomplete_tag').val();
+		    	var html = html + "</strong></h4><br><div class='table-responsive' style='background-color:white; padding-left:120px;'><table class='table'><br><tr>";
 		     		
 		    	i = 0;
 		    	if(tags ==  null || tags == "")
