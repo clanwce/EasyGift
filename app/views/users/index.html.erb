@@ -51,7 +51,8 @@ node.setAttribute("class", "active padd");
     <div class="tab-pane fade in active" id="popular">
 
       <div class="row">
-        <% @users = User.all %>
+        <% @uu = current_user %>
+        <% @users = @uu.followed_users %>
         <% @users.each do |user| %>
         <div class="col-sm-3">
           <div class="tag-cell">
