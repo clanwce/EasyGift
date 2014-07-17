@@ -5,17 +5,13 @@
    .tag-cell
         {
             width: 180px;
-            border-bottom: 1px dotted #808080;
-            padding-bottom: 12px;
-            padding-right: 6px;
-            padding-top: 6px;
             vertical-align: top;
         }
 
          .excerpt
         {
           font-size: 12px;
-          height: 50px;
+          height: 70px;
           line-height: 14px;
           overflow: hidden;
           margin-bottom: 4px;
@@ -88,7 +84,7 @@ Type to find tags:
 <br/><br/><br/>
 
 <div id="divcontainer" >
-<ul class="nav nav-tabs ">
+<ul class="nav nav-tabs " >
   <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
   <li><a href="#name" data-toggle="tab">Name</a></li>
   <li><a href="#new" data-toggle="tab">New</a></li>
@@ -96,7 +92,7 @@ Type to find tags:
 
 
 <!-- Tab panes -->
-<div class="tab-content">
+<div class="tab-content" style="background-color:white;">
   <div class="tab-pane fade in active" id="popular">
     <div class="table-responsive">
       <table class="table">
@@ -178,7 +174,7 @@ Type to find tags:
                 <td class="tag-cell">
                 <div class="excerpt">
                   <h4 class="inline">
-                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4>
                   <%= tag.gift_request_count %> 
                <br><br>
                   New Request <%= time_ago_in_words(tag.updated_at) %> ago
