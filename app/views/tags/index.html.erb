@@ -97,6 +97,7 @@ Type to find tags:
     <div class="table-responsive">
       <table class="table">
         <tr>
+          <br>
             <% i = 0 %>
 
            <% tt = @tags.sort_by(&:gift_request_count) %>
@@ -114,7 +115,7 @@ Type to find tags:
                   <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
                   <%= tag.gift_request_count %> 
                <br><br>
-                  New Request <%= time_ago_in_words(tag.updated_at) %> ago
+                  Last used <%= time_ago_in_words(tag.updated_at) %> ago
                 </div>
               </td>
               <% i = i+1 %>
