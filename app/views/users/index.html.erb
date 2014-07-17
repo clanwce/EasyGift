@@ -40,43 +40,121 @@ node.setAttribute("class", "active padd");
 <div class="container">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
-    <li><a href="#name" data-toggle="tab">Name</a></li>
-    <li><a href="#new" data-toggle="tab">New</a></li>
+    <li class="active"><a href="#followers" data-toggle="tab">Followers</a></li>
+    <li><a href="#following" data-toggle="tab">Following</a></li>
+    <li><a href="#all" data-toggle="tab">All</a></li>
   </ul>
 
 
   <!-- Tab panes -->
   <div class="tab-content" style="background-color:white;">
-    <div class="tab-pane fade in active" id="popular">
-
+    <div class="tab-pane fade in active" id="followers">
+    <div class="table-responsive">
       <div class="row">
-        <% @uu = current_user %>
-        <% @users = @uu.followed_users %>
-        <% @users.each do |user| %>
-        <div class="col-sm-3">
-          <div class="tag-cell">
-            <div class="excerpt">
-              <div class="userimage">
-              <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
-              </div>
-              <%= link_to user.username, user %>
-              <br>
-              <b><%= user.points %></b>
-              <br>
-              <%= user.rank %></b>
-            </div>
-          </div> 
-        </div>
-        <% end %>
+      <table class="table">
+        <tr>
+            <% i = 0 %>
+
+           <% @users = current_user.followed_users %>
+
+            <% @users.each do |user| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                    <div class="userimage">
+                      <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
+                      </div>
+                      <%= link_to user.username, user %>
+                      <br>
+                      <b><%= user.points %></b>
+                      <br>
+                      <%= user.rank %></b>
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
       </div>
     </div>
-    <div class="tab-pane fade" id="name">
 
+    </div>
+
+    <div class="tab-pane fade" id="following">
+
+    <div class="table-responsive">
+      <div class="row">
+      <table class="table">
+        <tr>
+            <% i = 0 %>
+
+           <% @users = current_user.followers %>
+
+            <% @users.each do |user| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                    <div class="userimage">
+                      <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
+                      </div>
+                      <%= link_to user.username, user %>
+                      <br>
+                      <b><%= user.points %></b>
+                      <br>
+                      <%= user.rank %></b>
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
+      </div>
+    </div>
 
 
     </div>
-    <div class="tab-pane fade" id="new">...
+    <div class="tab-pane fade" id="all">
+    <div class="table-responsive">
+      <div class="row">
+      <table class="table">
+        <tr>
+            <% i = 0 %>
+
+           <% @users = User.all %>
+
+            <% @users.each do |user| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                    <div class="userimage">
+                      <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
+                      </div>
+                      <%= link_to user.username, user %>
+                      <br>
+                      <b><%= user.points %></b>
+                      <br>
+                      <%= user.rank %></b>
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
+      </div>
+    </div>
+
     </div>
   </div>
 </div>
