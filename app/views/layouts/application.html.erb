@@ -45,16 +45,18 @@ body{
 <style>
     #note {
         position: absolute;
+        color: white;
+        opacity: 0.95;
         padding-top: 10px;
         z-index: 6001;
         top: 0;
         left: 0;
         right: 0;
-        background: #fde073;
+        background: #FF6347;
         text-align: center;
         line-height: 3;
         overflow: hidden; 
-        -webkit-box-shadow: 0 0 5px black;
+        -webkit-box-shadow: 0 0 10px black;
         -moz-box-shadow:    0 0 5px black;
         box-shadow:         0 0 5px black;
     }
@@ -148,7 +150,7 @@ body{
     <br>
 
     <% if flash[:notice] %>
-    <div id="note" align = "center">
+    <div id="note" align = "center" style="">
         <div class="inline">
         <p id="flash_alert"><%= flash[:notice] if flash[:notice] %></p>
         </div>
