@@ -142,21 +142,21 @@ body{
         <li style="padding-top:10px;padding-left:5px;"><a href="/users/sign_out" data-method="delete" style= "background-color:transparent; color:white;" rel="nofollow">Logout</a></li>
       </ul>
         </div><!--/.nav-collapse -->
+      
+      <% if flash[:notice] %>
+          <div id="note" align = "center" style="">
+            <div class="inline">
+                <p id="flash_alert"><%= flash[:notice] if flash[:notice] %></p>
+            </div>
+          </div>
+      <% end %>
+  
       </div>
     </div>
 
     <br>
     <br>
     <br>
-
-    <% if flash[:notice] %>
-    <div id="note" align = "center" style="">
-        <div class="inline">
-        <p id="flash_alert"><%= flash[:notice] if flash[:notice] %></p>
-        </div>
-    </div>
-    <% end %>
-  
    
 <%= yield %>
 
