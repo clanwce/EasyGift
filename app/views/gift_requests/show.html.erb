@@ -235,11 +235,13 @@ background-color:#EEEEEE;
 	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
 	</form>
 	
+	<% if current_user == @gift_request.username %>
 	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
 		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+	<% end %>
 
 		<% if comment.like_count > 0 %>	
 		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
@@ -337,12 +339,14 @@ background-color:#EEEEEE;
 	    <button type="submit" class="btn btn-class inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
 	</form>
-	
+
+	<% if current_user == @gift_request.username %>
 	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
 		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+	<% end %> 
 
 		<% if comment.like_count > 0 %>	
 		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
