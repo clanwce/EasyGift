@@ -13,6 +13,13 @@
   color:#000;
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
+
 </style>
 
 <% content_for :title, "Gift Requests" %>
@@ -23,25 +30,90 @@ var node = document.getElementById("subnav").getElementsByTagName("li")[1];
 node.setAttribute("class", "active padd");
 </script>
 
+  <script>
+  function func(object) {
+    if(object.id == "top" )
+    {
+    window.location.href = "/gift_requests?filter=top";
+    }
+    else if (object.id == "popular")
+    {
+    window.location.href = "/gift_requests?filter=popular";      
+    }
+    else
+    {
+    window.location.href = "/gift_requests";      
+    }
+  }
+
+function chck()
+{
+   var sPageURL = window.location.search.substring(1);
+   if(sPageURL=="")
+    {
+      document.getElementById("allli").className = "active";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "";
+    }
+   else
+   {
+      var s = sPageURL.split("=");
+      if(s[1]=="popular")
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "active";
+      document.getElementById("topli").className = "";
+      }
+      else
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "active";
+      }
+   }
+    
+}
+  </script>
+
 <div class="container cc">
+<ul class="nav nav-tabs" id="tabs" style="margin-left: 15px" >
+  <li id="allli" class="active"><a id="all" data-toggle="tab" onclick="func(this)">All</a></li>
+  <li id="popularli" class=""><a id="popular" data-toggle="tab" onclick="func(this)">Popular</a></li>
+  <li id="topli" class=""><a id="top" data-toggle="tab" onclick="func(this)">Top</a></li>
+</ul>
+
+<script>
+chck();
+</script>
 <div align = "center">
     <div class="inline">
-    <p id="notice" style="color:red"><%= notice %></p>
+      <% if flash[:notice] %>
+        <p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
+        <% end %>
     </div>
 </div>
-
+<!-- 
+  <a href="?filter=top">Top</a>
+  <a href="?filter=popular">Popular</a>
+ -->
   <div align="center">
-   <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  GiftRequest.count %></strong></p>
+
+    <br>
+   <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  GiftRequest.count %></strong></p><br>
+    <%= paginate @gift_requests %>
+    <br>
   </div>
 
-  <br>
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="all" align="center">
+       <!-- <br> -->
 
-  <div class="container-fluid" align="center" style="width:80%;">
-    <table class="table" style="background-color:#ffffff">
+  <div class="container-fluid">
+    <table class="table" align="center" style="background-color:#ffffff; width:90%;">
      <% @gift_requests.each do |gift_request| %>
      <tr>
       <td >
-        <div class="row" align="center" style="padding-top:10px;" min-width="500px;">
+        <div class="row" align="center" style="padding-top:10px;">
 
           <div class="inline col-xs-12 col-md-8"  data-id=title<%= gift_request.id %> align="left" style="padding-left:40px;">
 
@@ -54,9 +126,9 @@ node.setAttribute("class", "active padd");
 
           </div>
   
-          <div class="col-xs-4 col-md-4" style="">
+          <div class="col-xs-4 col-md-4" style="padding-right:40px;">
             
-            <div style="">
+            <div style="" align="right">
             <% @flag = false %>
             <% @gf = GiftRequest.find(gift_request.id) %>
             <% @gf.comments.each do |comment| %>
@@ -65,8 +137,8 @@ node.setAttribute("class", "active padd");
               <% end %>
             <% end %>
             <% if @flag == true %>
-              <h4 class="inline">
-                <span class="label label-success">ANSWERED
+              <h4 class="inline" >
+                <span class="label label-success" style="">ANSWERED
                 </span>
               </h4>          
             <% end %>
@@ -99,8 +171,8 @@ node.setAttribute("class", "active padd");
 
           </div>
         
-          <div class="row" align="center" style="padding-left:40px; margin-top:-20px;">
-              <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-20px;"> 
+          <div class="row" align="center" style="padding-left:40px;">
+              <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-5px;"> 
                  <% if gift_request.tags %>
                   <% gift_request.tags.each do |tags| %>
                       <h4 class="inline">
@@ -117,12 +189,13 @@ node.setAttribute("class", "active padd");
               </span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
               Comments:&nbsp;<strong><%= gift_request.comments.count %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
               Views:&nbsp;<strong><%= gift_request.views %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-              Likes:&nbsp;<strong><%= @gift_request.like_count %></strong> 
+              Likes:&nbsp;<strong><%= gift_request.like_count %></strong> 
             </div>
           </div>
         </div>
-
-        <hr style="width:70%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
+        <div align="center">
+        <hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
+        <div>
         </td>
 
       </tr>
@@ -130,4 +203,13 @@ node.setAttribute("class", "active padd");
       <% end %>
     </table>
   </div>
-</div> 
+</div>
+
+
+</div>
+
+</div> <!-- end of main cc div -->  
+<br>
+<br>
+<br>
+<br>

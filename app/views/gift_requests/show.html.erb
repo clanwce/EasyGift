@@ -23,11 +23,6 @@ background-color:#EEEEEE;
 
 <br>
 <div class="container">
-<div align = "center">
-		<div class="inline">
-		<p id="notice" style="color:red"></p>
-		</div>
-</div>
 
     <div align = "center">
         <div class="inline">
@@ -37,8 +32,8 @@ background-color:#EEEEEE;
 
   <%= render 'subnav' %>
   <script type="text/javascript">
-    var node = document.getElementById("subnav").getElementsByTagName("li")[0];
-  node.setAttribute("class", "active");
+    var node = document.getElementById("subnav").getElementsByTagName("li")[1];
+  node.setAttribute("class", "active padd");
   </script>
 
 
@@ -203,7 +198,7 @@ background-color:#EEEEEE;
 		
 			<% if comment.final_answer %>
 		
-		<div class="fAnswer">
+		<div id="fans" class="fAnswer">
 			<% else %>
 			<div>
 				<% end %>
@@ -239,12 +234,16 @@ background-color:#EEEEEE;
 	    <button type="submit" class="btn btn-class inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
 	</form>
-	
+
+	<% if current_user.username == @gift_request.username %>
+	<div class="finalans inline">
 	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
 		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+	</div>
+	<% end %>
 
 		<% if comment.like_count > 0 %>	
 		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
@@ -320,7 +319,7 @@ background-color:#EEEEEE;
 			<p class="scroll" style="width:80%;height:auto"><%= comment.description %>
 			</p>	
 			<% if comment.final_answer %>
-				<b> FINAL ANSWER </b>
+				<b><div> FINAL ANSWER </b>
 			<% end %>
 				
 		<!-- </p> -->
@@ -342,12 +341,16 @@ background-color:#EEEEEE;
 	    <button type="submit" class="btn btn-class inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
 	</form>
-	
+
+	<% if current_user.username == @gift_request.username %>
+	<div class="finalans inline">
 	<form action="/comments/final" method="post" class="inline">
 			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
 		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 		</form>
+	</div>
+	<% end %> 
 
 		<% if comment.like_count > 0 %>	
 		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
@@ -384,6 +387,20 @@ background-color:#EEEEEE;
 
 </div>
 </div>
+
+<script>
+$(document).ready(function(){
+    var foundin = document.getElementById("fans");
+    if(foundin)
+    {
+		var ele= document.getElementsByClassName("finalans");
+	    for(var i=0;i<ele.length;i++)
+	    {
+	      ele[i].innerHTML="";
+	    }
+    }
+});
+</script>
 
 <!-- <%= link_to 'Back', gift_requests_path %>
 -->

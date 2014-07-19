@@ -6,7 +6,7 @@
 
 
 .jumbotron{
-	background-color:#c0c0c0;
+	background-color:#DADADA;
 	color:#000000;
 }
 
@@ -15,12 +15,10 @@
 </style>
 
 <div class="container">
-
-	<div class="jumbotron">
-
-		<ul class="nav nav-pills">
+<ul class="nav nav-pills">
 		  <li class="active"><a href="#">Change Password</a></li>
 		</ul>
+	<div class="jumbotron">
 
 		<%= render :template => 'users/edit_password_form', 
 		:locals => { :resource => current_user, :resource_name => "user" } %>

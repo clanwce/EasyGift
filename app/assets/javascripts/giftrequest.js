@@ -3,6 +3,7 @@ function onclickbttn(obj,likestatus)
 	id= document.getElementById(obj);
 	id= obj.id;
 	var link = "/comments/"+id+"/"+likestatus;
+	newText="";
 	// alert(likestatus);
 
 	if(likestatus == "like")
@@ -10,7 +11,8 @@ function onclickbttn(obj,likestatus)
 	$.get( link, function() {
 	})
 	  .done(function(response) {
-
+	  	newText="";
+	  	$('#liketable').html("");
 		$.each(response, function(index,value) {
 		  $.each(value, function(k, v) {
 			newText='<tr class="child"><td><div class="inline"><div style="background-color:#008080;width:45%"><img src="/images/user.png" width="80" heigth="80" class="inline"><button onclick="location.href=\'/users/'+k+'\'" class="inline btn" id="'+k+'">'+v+'</button></td></tr>';
@@ -64,8 +66,8 @@ function onclicktagsearch()
 		    data: tag,
 		    success: function(tags) {
 		    	$("#divcontainer").html("");
-		    	var html = "<h4> Tag search for "+$('#autocomplete_tag').val();
-		    	html = html + "</h4><div class='table-responsive'><table class='table'><tr>";
+		    	var html = "<h4> Tag search for: &nbsp;<strong>"+$('#autocomplete_tag').val();
+		    	var html = html + "</strong></h4><br><div class='table-responsive' style='background-color:white; padding-left:120px;'><table class='table'><br><tr>";
 		     		
 		    	i = 0;
 		    	if(tags ==  null || tags == "")
@@ -80,9 +82,10 @@ function onclicktagsearch()
 							i==0;
 	        				html = html + "</tr><tr>";
 						}
-
-	            		html = html + "<td class='tag-cell'><div class='excerpt'>";
-	            		html = html + "<a href='/tags/'"+value['id']+" class='btn btn-default btn-sm'>"+value['name']+"</a> x";
+						var id = value['id'];
+						var tagname = value['name'];
+						html = html + "<td class='tag-cell'><div class='excerpt'><h4 class='inline'>";
+	            		html = html + "<a href='/tags/"+id+ "'"+"class='label label-info inline'>"+tagname+"</a></h4> x";
 	            		html = html + " " +value['gift_request_count'] + "</div></td>";
 	              		i++;
 

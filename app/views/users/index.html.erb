@@ -5,7 +5,6 @@
 .tag-cell
 {
   width: 180px;
-  border-bottom: 1px dotted #808080;
   padding-bottom: 12px;
   padding-right: 6px;
   padding-top: 6px;
@@ -14,17 +13,19 @@
 
 .excerpt
 {
+  padding-left: 40px;
+  padding-top: 15px;
   font-size: 12px;
-  height: 39px;
-  line-height: 14px;
+  height: 70px;
+  line-height: 13px;
   overflow: hidden;
   margin-bottom: 4px;
 }
 
 .userimage{
   float: left;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
 }
 
 </style>
@@ -35,48 +36,129 @@
 var node = document.getElementById("subnav").getElementsByTagName("li")[3];
 node.setAttribute("class", "active padd");
 </script>
-<br />
 
 <div class="container">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
-    <li><a href="#name" data-toggle="tab">Name</a></li>
-    <li><a href="#new" data-toggle="tab">New</a></li>
+    <li class="active"><a href="#followers" data-toggle="tab">Followers</a></li>
+    <li><a href="#following" data-toggle="tab">Following</a></li>
+    <li><a href="#all" data-toggle="tab">All</a></li>
   </ul>
 
 
   <!-- Tab panes -->
-  <div class="tab-content">
-    <div class="tab-pane fade in active" id="popular">
-
+  <div class="tab-content" style="background-color:white;">
+    <div class="tab-pane fade in active" id="followers">
+    <div class="table-responsive">
       <div class="row">
-        <% @users = User.all %>
-        <% @users.each do |user| %>
-        <div class="col-sm-3">
-          <div class="tag-cell">
-            <div class="excerpt">
-              <div class="userimage">
-              <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
-              </div>
-              <%= link_to user.username, user %>
-              <br>
-              <b><%= user.points %></b>
-              <br>
-              <%= user.rank %></b>
-            </div>
-          </div> 
-        </div>
-        <% end %>
+      <table class="table">
+        <tr>
+            <% i = 0 %>
+
+           <% @users = current_user.followed_users %>
+
+            <% @users.each do |user| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                    <div class="userimage">
+                      <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
+                      </div>
+                      <b><%= link_to user.username, user %>
+                      <br>
+                      <%= user.points %>
+                      <br>
+                      <%= user.rank %></b>
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
       </div>
     </div>
-    <div class="tab-pane fade" id="name">
 
+    </div>
+
+    <div class="tab-pane fade" id="following">
+
+    <div class="table-responsive">
+      <div class="row">
+      <table class="table">
+        <tr>
+            <% i = 0 %>
+
+           <% @users = current_user.followers %>
+
+            <% @users.each do |user| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                    <div class="userimage">
+                      <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
+                      </div>
+                      <b><%= link_to user.username, user %>
+                      <br>
+                      <%= user.points %>
+                      <br>
+                      <%= user.rank %></b>
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
+      </div>
+    </div>
 
 
     </div>
-    <div class="tab-pane fade" id="new">...
+    <div class="tab-pane fade" id="all">
+    <div class="table-responsive">
+      <div class="row">
+      <table class="table">
+        <tr>
+            <% i = 0 %>
+
+           <% @users = User.all %>
+
+            <% @users.each do |user| %>
+              <% if i == 4 %>
+              <% i = 0 %>
+              </tr>
+              <tr> 
+              <% end %> 
+                <td class="tag-cell">
+                <div class="excerpt">
+                    <div class="userimage">
+                      <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
+                      </div>
+                      <b><%= link_to user.username, user %></b>
+                      <br>
+                      <b><%= user.points %>
+                      <br>
+                      <%= user.rank %></b>
+                </div>
+              </td>
+              <% i = i+1 %>
+            <% end %>
+        </tr>
+      </table>
+      </div>
+    </div>
+
     </div>
   </div>
-
 </div>
+<br>
+<br>
+<br>
+<br>

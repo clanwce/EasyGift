@@ -4,7 +4,6 @@ EasyGift::Application.routes.draw do
   root :to => 'home#profile'
   match 'testpage' => 'home#test'
   match 'landing' => 'home#index'
-
   match 'account_settings' => 'home#account_settings'
   match 'profile'   => 'home#profile'
 

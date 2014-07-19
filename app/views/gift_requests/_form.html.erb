@@ -12,49 +12,62 @@ document.getElementById("gift_request_private").className = "active btn btn-prim
 document.getElementById("gift_request_public").className = "btn btn-sm";
 }
 }
+
+$(document).ready(function(){
+	$('#new_gift_request_description').val("");
+});
+
 </script>
 
  <form id="new_gift_request_form" class="form-horizontal" role="form" action="/gift_requests" method="post">
   <input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
     <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
+	
 	<div class="form-group">
-	    <label for="new_gift_request_title" class="col-sm-2 control-label">Title:</label>
-	    <div class="col-sm-2">
+	    <label for="new_gift_request_title" class="col-sm-4 control-label">Title:</label>
+	    <div class="col-sm-4">
 	      <input type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
 	    </div>
 	  </div>
-	  <div class="form-group">
-	    <label for="new_gift_request_description" class="col-sm-2 control-label">Description:</label>
-	    <div class="col-sm-2">
-	      <input type="text" name="gift_request[description]" class="form-control" id="new_gift_request_description" placeholder="Description">
+
+	<div class="form-group">
+	    <label for="new_gift_request_description" class="col-sm-4 control-label">Description:</label>
+	    <div class="col-sm-4">
+	    	<textarea rows="5" cols="50" name="gift_request[description]" class="form-control" id="new_gift_request_description" placeholder="Description">
+	    	</textarea>
 	    </div>
-	  </div>
-	  <div class="form-group">
-	    <label class="col-sm-2 control-label">Accessor:</label>
-	    <div class="col-sm-2">
+	</div>
+	
+	<div class="form-group">
+	    <label class="col-sm-4 control-label">Accessor:</label>
+	    <div class="col-sm-4">
  	  	<button type="button" id="gift_request_public" name="gift_request_public" class=" active btn btn-primary btn-sm" onclick="validate('1')">Public</button>
  	  	<button type="button" id="gift_request_private" name="gift_request_private" class=" btn  btn-sm" onclick="validate('2')">Private</button>
 	    </div>
-	  </div>
+	</div>
+	
 	<div class="form-group">
-
-	    <label class="col-sm-2 control-label">Tags:</label>
-	    <div class="col-sm-2">
+	    <label class="col-sm-4 control-label">Tags:</label>
+	    <div class="col-sm-3">
 	    <div style="margin:0;padding:0;display:inline">
 	    </div>
-        <input data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag"/>
-        <br>
+        <input data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag" placeholder="Tags"/>
+        
     </div>
+    
     <div>
-        <input id="add_tag_to_gift_request" class=" btn btn-default" type="submit" value="Add">
-    	        <div id='tag_holder' class="inline">
+        <input id="add_tag_to_gift_request" style="padding-left:32px; padding-right:32px;" class=" btn btn-default" type="submit" value="Add">
+    	     
+	</div>
+	</div>
+	   <div id='tag_holder' class="" align="center">
     		</div>
-	    </div>
-	  </div>
-
+<br>
    <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-5" style="padding-left:60px">
     	<button id="create_gift_request_button" type="submit"  class="btn btn-default" value="Submit">Submit</button>
     </div>
-  </div>
+   </div>
 </form> 
+<br>
+<br>
