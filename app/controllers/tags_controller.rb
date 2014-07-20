@@ -2,6 +2,8 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
+
+
     @tags = Tag.all
 
     respond_to do |format|
@@ -16,6 +18,13 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     @tag_gift_request = @tag.gift_requests
 
+    if(params[:filter].nil?)
+      @tag_gift_request = @tag.gift_requests.order('gift_requests.created_at DESC').page(params[:page]).per(10)
+    elsif params[:filter] == "popular"
+      @tag_gift_request = @tag.gift_requests.popular.page(params[:page]).per(10)
+    elsif params[:filter] == "top"
+      @tag_gift_request = @tag.gift_requests.top.page(params[:page]).per(10)
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @tag }

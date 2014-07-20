@@ -1,10 +1,216 @@
+
+<style>
+.inline
+{
+  display:inline;
+}
+.scroll
+{
+  height:80px;
+  overflow:auto;
+  word-wrap:break-word;
+}
+.btn-danger{
+  color:#000;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
+
+</style>
+
+<% content_for :title, "Tags Show" %>
+
+<%= render :partial => 'gift_requests/subnav' %>
+<script type="text/javascript">
+var node = document.getElementById("subnav").getElementsByTagName("li")[2];
+node.setAttribute("class", "active padd");
+</script>
+
+  <script>
+  function func(object,id) {
+    if(object.id == "top" )
+    {
+    window.location.href = "/tags/"+id+"?filter=top";
+    }
+    else if (object.id == "popular")
+    {
+    window.location.href = "/tags/"+id+"?filter=popular";      
+    }
+    else
+    {
+    window.location.href = "/tags/"+id+"";      
+    }
+  }
+
+function chck()
+{
+   var sPageURL = window.location.search.substring(1);
+   if(sPageURL=="")
+    {
+      document.getElementById("allli").className = "active";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "";
+    }
+   else
+   {
+      var s = sPageURL.split("=");
+      if(s[1]=="popular")
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "active";
+      document.getElementById("topli").className = "";
+      }
+      else
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "active";
+      }
+   }
+    
+}
+  </script>
+
+<div class="container cc">
+<ul class="nav nav-tabs" id="tabs" style="margin-left: 15px" >
+  <li id="allli" class="active"><a id="all" data-toggle="tab" onclick="func(this,<%= @tag.id %>)">All</a></li>
+  <li id="popularli" class=""><a id="popular" data-toggle="tab" onclick="func(this,<%= @tag.id %>)">Popular</a></li>
+  <li id="topli" class=""><a id="top" data-toggle="tab" onclick="func(this,<%= @tag.id %>)">Top</a></li>
+</ul>
+
+<script>
+chck();
+</script>
+<div align = "center">
+    <div class="inline">
+      <% if flash[:notice] %>
+        <p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
+        <% end %>
+    </div>
+</div>
+<!-- 
+  <a href="?filter=top">Top</a>
+  <a href="?filter=popular">Popular</a>
+ -->
+  <div align="center">
 <h3> Gift Request for <%= @tag.name %> </h3>
 
-<% @tag_gift_request.each do |gift_request| %>
+    <br>
+   <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  @tag_gift_request.count %></strong></p><br>
+    <br>
+  </div>
 
-	<p><%= link_to gift_request.title, gift_request %> </p>
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="all" align="center">
+       <!-- <br> -->
 
-<% end %>
+  <div class="container-fluid">
+    <table class="table" align="center" style="background-color:#ffffff; width:90%;">
+	<% @tag_gift_request.each do |gift_request| %>
+     <tr>
+      <td >
+        <div class="row" align="center" style="padding-top:10px;">
+
+          <div class="inline col-xs-12 col-md-8"  data-id=title<%= gift_request.id %> align="left" style="padding-left:40px;">
+
+            <%= button_to [gift_request.title], gift_request, :class => "btn ", :style => "", :method => :get %>
+
+            <div class="scroll" style="height: 50px; padding-top:5px;">
+                <strong>Description:</strong>&nbsp;<%= gift_request.description[0..150] %> 
+                  <% if gift_request.description.size > 150 %> ... <% end %>
+            </div>
+
+          </div>
+  
+          <div class="col-xs-4 col-md-4" style="padding-right:40px;">
+            
+            <div style="" align="right">
+            <% @flag = false %>
+            <% @gf = GiftRequest.find(gift_request.id) %>
+            <% @gf.comments.each do |comment| %>
+              <% if comment.final_answer == true %>
+                <% @flag = true %>
+              <% end %>
+            <% end %>
+            <% if @flag == true %>
+              <h4 class="inline" >
+                <span class="label label-success" style="">ANSWERED
+                </span>
+              </h4>          
+            <% end %>
+            &nbsp;
+            <% if current_user.id == gift_request.user.id %>
+              <h5 class="inline"><%= link_to '', edit_gift_request_path(gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline", :method => :get  %>
+              </h5>
+              <h5 class="inline"> <%= link_to '', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger glyphicon glyphicon-trash inline" %> 
+              </h5> 
+            <% end %>
+            </div>
+            <br>
+            <div class="inline">
+              <div align="">
+                <strong>Created By:&nbsp;</strong>
+                <a href="/users/<%= gift_request.user.id %>">
+                    <%= gift_request.username %>
+                </a>
+                <br>
+                 <strong>Rank:&nbsp;</strong>
+                  <%= gift_request.user.rank %>  
+                  <%= gift_request.user.points %>
+                <br>
+                <br>
+                <% if gift_request.comments.last %>
+                  <strong> Last Answer By: &nbsp;</strong><%= gift_request.comments.last.username %>
+                <% end %>
+            </div>
+          </div>
+
+          </div>
+        
+          <div class="row" align="center" style="padding-left:40px;">
+              <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-5px;"> 
+                 <% if gift_request.tags %>
+                  <% gift_request.tags.each do |tags| %>
+                      <h4 class="inline">
+                        <a class="label label-info" href="/tags/<%= tags.id %> "><%= tags.name %></a>
+                      </h4>
+                    <% end %>
+                  <% end %>
+              </div>
+          </div>
+          <br>
+          <div align="left">
+            <div align="center">
+              <span> Asked on: <%= gift_request.created_at.strftime("%b %d, %Y %H:%M") %>
+              </span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+              Comments:&nbsp;<strong><%= gift_request.comments.count %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+              Views:&nbsp;<strong><%= gift_request.views %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+              Likes:&nbsp;<strong><%= gift_request.like_count %></strong> 
+            </div>
+          </div>
+        </div>
+        <div align="center">
+        <hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
+        <div>
+        </td>
+
+      </tr>
+
+      <% end %>
+    </table>
+  </div>
+</div>
 
 
-<%= link_to 'Back', tags_path %>
+</div>
+
+</div> <!-- end of main cc div -->  
+<br>
+<br>
+<br>
+<br>
