@@ -89,6 +89,37 @@ $( document ).ready(function() {
 //     //                     'width': width});
 // });
 
+  // function shareGiftRequest(e) {
+  //   uri = window.location.href;
+  //   encoded_uri = encodeURI(uri);
+  //   image = "https://dl.dropboxusercontent.com/u/70856403/gift.png";
+  //   image_uri = encodeURI(image);
+  //   FB.api(
+  //     'me/easy-gift:post',
+  //     'post',
+  //     {
+  //       gift_request: "683672445040420"
+  //     },
+  //     function(facebook_response) {
+  //        if (!facebook_response) {
+  //          alert('Error occurred.');
+  //        } else if (facebook_response.error) {
+  //            // alert('Facebook share error: ' + facebook_response.error.message);
+  //           if(facebook_response.error.code == 2500) {
+  //             $('#notice').html("Please connect to facebook first");
+  //             $('#facebook_login_button').removeAttr('style');
+  //             // popupCenter($('#facebook_login_url').data("url"), 600, 400, "authPopup");
+  //             // shareGiftRequest();
+  //           }
+  //           else {
+  //             alert('Facebook share error: ' + facebook_response.error.message);
+  //           }
+  //        } else {
+  //        }
+  //     }
+  //   );
+  // }
+
   function shareGiftRequest(e) {
     uri = window.location.href;
     encoded_uri = encodeURI(uri);
@@ -109,7 +140,11 @@ $( document ).ready(function() {
            } else if (facebook_response.error) {
                // alert('Facebook share error: ' + facebook_response.error.message);
               if(facebook_response.error.code == 2500) {
-                $('#notice').html("Please connect to facebook first");
+                $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+                                                      '<div class="inline">' +                      
+                                                        '<p id="flash_alert">Please connect to facebook first</p>' +
+                                                      '</div>' +
+                                                    '</div>');
                 $('#facebook_login_button').removeAttr('style');
                 // popupCenter($('#facebook_login_url').data("url"), 600, 400, "authPopup");
                 // shareGiftRequest();
