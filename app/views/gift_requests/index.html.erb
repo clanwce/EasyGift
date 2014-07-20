@@ -49,14 +49,33 @@ node.setAttribute("class", "active padd");
 function chck()
 {
    var sPageURL = window.location.search.substring(1);
-   if(sPageURL=="")
+    if(sPageURL=="page=2")
     {
       document.getElementById("allli").className = "active";
       document.getElementById("popularli").className = "";
-      document.getElementById("topli").className = "";
+      document.getElementById("topli").className = "";      
     }
-   else
+   else if(sPageURL.indexOf("filter")>-1)
    {
+    if(sPageURL.indexOf("&") > -1)
+    {
+      var ss = sPageURL.split("&");
+      var s = ss[0].split("=");
+      if(s[1]=="popular")
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "active";
+      document.getElementById("topli").className = "";
+      }
+      else
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "active";
+      }
+    }
+    else
+    {
       var s = sPageURL.split("=");
       if(s[1]=="popular")
       {
@@ -70,6 +89,13 @@ function chck()
       document.getElementById("popularli").className = "";
       document.getElementById("topli").className = "active";
       }
+    }
+   }
+   else
+   {
+      document.getElementById("allli").className = "active";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "";
    }
     
 }
