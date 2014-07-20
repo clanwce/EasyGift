@@ -1,6 +1,7 @@
 EasyGift::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
+  # match '/users/sign_in' => 'home#index'
   root :to => 'home#profile'
   match 'testpage' => 'home#test'
   match 'landing' => 'home#index'
@@ -12,7 +13,7 @@ EasyGift::Application.routes.draw do
   match '/user_notifications/create' => 'user_notifications#create'
 
 
-  devise_for :users, :controllers => { :registrations => 'registrations' }
+  devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'user_sessions' }
 
   # resources :authentications
   match 'users' => 'users#index'
@@ -22,7 +23,7 @@ EasyGift::Application.routes.draw do
   match 'users/update_password' => 'users#update_password'
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
   post 'comments' => 'comments#create'
-  match 'userhome' => 'home#userhome'
+  match 'feed' => 'home#feed'
   match 'gift_requests/searchresult' => 'gift_requests#gift_request_search', :via => [:post]
   match 'tags/tag_search' => 'tags#tag_search', :via => [:post]
   match 'comments/:id/:status' => 'comments#likes'

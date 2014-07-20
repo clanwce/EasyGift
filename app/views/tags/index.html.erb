@@ -113,7 +113,7 @@ Type to find tags:
                 <div class="excerpt">
                   <h4 class="inline">
                   <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
-                  <%= tag.gift_request_count %> 
+                  <%= tag.gift_requests.count %> 
                <br><br>
                   Last used <%= time_ago_in_words(tag.updated_at) %> ago
                 </div>
@@ -177,7 +177,7 @@ Type to find tags:
                 <td class="tag-cell">
                 <div class="excerpt">
                   <h4 class="inline">
-                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4>
+                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
                   <%= tag.gift_request_count %> 
                <br><br>
                   New Request <%= time_ago_in_words(tag.updated_at) %> ago
