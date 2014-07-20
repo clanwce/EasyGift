@@ -22,7 +22,7 @@ EasyGift::Application.routes.draw do
   match 'users/update_password' => 'users#update_password'
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
   post 'comments' => 'comments#create'
-  match 'userhome' => 'home#userhome'
+  match 'feed' => 'home#feed'
   match 'gift_requests/searchresult' => 'gift_requests#gift_request_search', :via => [:post]
   match 'tags/tag_search' => 'tags#tag_search', :via => [:post]
   match 'comments/:id/:status' => 'comments#likes'
