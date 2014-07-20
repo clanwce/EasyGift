@@ -17,7 +17,7 @@ class AuthenticationsController < ApplicationController
       end
     elsif authentication && current_user == authentication.user
       flash[:notice] = "Already connected"
-      if referrer == ENV['HOMEPAGE_SIGN_IN']
+      if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
         redirect_to '/gift_requests'
       else
         render 'callback', :layout => false
@@ -25,14 +25,14 @@ class AuthenticationsController < ApplicationController
     elsif !authentication && current_user #third-party authentication is not found and user is logged in, so create & connect a new authentication to their account
       current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
       flash[:notice] = "Third-party authentication connected."
-      if referrer == ENV['HOMEPAGE_SIGN_IN']
+      if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
         redirect_to '/gift_requests'
       else
         render 'callback', :layout => false
       end
     elsif authentication && current_user && authentication.user != current_user #third-party authentication found & user is logged in & user is incorrect user
       flash[:notice] = "Facebook account already connected to another account"
-      if referrer == ENV['HOMEPAGE_SIGN_IN']
+      if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
         redirect_to '/gift_requests'
       else
         render 'callback', :layout => false
@@ -42,7 +42,7 @@ class AuthenticationsController < ApplicationController
       user.apply_omniauth(omniauth)
       if user.save
         flash[:notice] = "Signed in successfully."
-        if referrer == ENV['HOMEPAGE_SIGN_IN']
+        if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
           sign_in_and_redirect(:user, user)
         else
           sign_in user
