@@ -101,6 +101,7 @@ class GiftRequestsController < ApplicationController
 
   def gift_request_search
     @gift_requests = GiftRequest.search params[:keyword]
+    @keyword = params[:keyword]
     #redirect_to "/gift_requests/gift_request_search"
   end
 
