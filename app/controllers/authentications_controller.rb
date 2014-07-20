@@ -21,7 +21,7 @@ class AuthenticationsController < ApplicationController
         flash[:notice] = "Already connected"
         redirect_to '/gift_requests'
       else
-        flash[:notice] = "Facebook connected."
+        flash[:notice] = "Already connected"
         render 'callback', :layout => false
       end
     elsif !authentication && current_user #third-party authentication is not found and user is logged in, so create & connect a new authentication to their account
