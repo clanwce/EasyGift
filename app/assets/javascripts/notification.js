@@ -52,6 +52,7 @@ $( document ).ready(function() {
 	$('.new_notification').on("click", function(e) {
 		e.preventDefault();
 		var li_element = $(this);
+		var redirect_url = $(this).children()[0].href;
 		data = {};
 		data["id"] = $(this).data("id");
 		$.ajax({
@@ -70,6 +71,7 @@ $( document ).ready(function() {
 				else {
 					$('#navigation_count').html("");
 				}
+				window.location.replace(redirect_url);
 		    },
 			error: function(response) {
 		    	alert(response.responseText);
