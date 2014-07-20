@@ -9,7 +9,7 @@ class HomeController < ApplicationController
 
 	end
 
-	def userhome
+	def feed
 
 	end
 
