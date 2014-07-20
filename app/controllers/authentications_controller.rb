@@ -27,7 +27,7 @@ class AuthenticationsController < ApplicationController
     elsif !authentication && current_user #third-party authentication is not found and user is logged in, so create & connect a new authentication to their account
       current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
       if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
-        flash[:notice] = "Third-party authentication connected."
+        flash[:notice] = "Facebook connected."
         redirect_to '/gift_requests'
       else
         flash[:notice] = "Facebook connected."
@@ -38,7 +38,7 @@ class AuthenticationsController < ApplicationController
         flash[:notice] = "Facebook account already connected to another account"
         redirect_to '/gift_requests'
       else
-        flash[:notice] = "Facebook connected."
+        flash[:notice] = "Facebook account already connected to another account"
         render 'callback', :layout => false
       end      
     else #third-party authentication not found and user is not logged in, so create the new user and connect the third-party authentication to their account
