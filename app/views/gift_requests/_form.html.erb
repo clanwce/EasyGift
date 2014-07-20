@@ -17,7 +17,11 @@ $(document).ready(function(){
 	$('#new_gift_request_description').val("");
 });
 
+
 </script>
+<style type="text/css">textarea {
+    resize: none;
+}</style>
 
  <form id="new_gift_request_form" class="form-horizontal" role="form" action="/gift_requests" method="post">
   <input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
@@ -26,7 +30,7 @@ $(document).ready(function(){
 	<div class="form-group">
 	    <label for="new_gift_request_title" class="col-sm-4 control-label">Title:</label>
 	    <div class="col-sm-4">
-	      <input type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
+	      <input  maxlength="100" type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
 	    </div>
 	  </div>
 
