@@ -54,9 +54,21 @@ node.setAttribute("class", "active padd");
       <table class="table">
         <tr>
             <% i = 0 %>
-
+          
            <% @users = current_user.followed_users %>
-
+                    <% if current_user.followed_users.empty? %>
+                    <br>
+                    <div align="center">
+                      <br>
+                      <br>
+                      <br>
+                      <p style="margin-left:50px"> To see followers here, find & follow users who you like.</p>
+                      <br>
+                      <br>
+                      <br>
+                  </div>
+                    <% end %> 
+                      
             <% @users.each do |user| %>
               <% if i == 4 %>
               <% i = 0 %>
@@ -65,7 +77,8 @@ node.setAttribute("class", "active padd");
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                    <div class="userimage">
+
+                      <div class="userimage">
                       <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
                       </div>
                       <b><%= link_to user.username, user %>
@@ -93,6 +106,18 @@ node.setAttribute("class", "active padd");
             <% i = 0 %>
 
            <% @users = current_user.followers %>
+                   <% if current_user.followers.empty? %>
+                    <br>
+                    <div align="center">
+                      <br>
+                      <br>
+                      <br>
+                      <p style="margin-left:50px"> To see people here, make people follow you.</p>
+                      <br>
+                      <br>
+                      <br>
+                    </div>
+                    <% end %> 
 
             <% @users.each do |user| %>
               <% if i == 4 %>
@@ -102,6 +127,7 @@ node.setAttribute("class", "active padd");
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
+               
                     <div class="userimage">
                       <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
                       </div>

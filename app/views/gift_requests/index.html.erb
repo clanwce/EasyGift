@@ -49,14 +49,33 @@ node.setAttribute("class", "active padd");
 function chck()
 {
    var sPageURL = window.location.search.substring(1);
-   if(sPageURL=="")
+    if(sPageURL=="page=2")
     {
       document.getElementById("allli").className = "active";
       document.getElementById("popularli").className = "";
-      document.getElementById("topli").className = "";
+      document.getElementById("topli").className = "";      
     }
-   else
+   else if(sPageURL.indexOf("filter")>-1)
    {
+    if(sPageURL.indexOf("&") > -1)
+    {
+      var ss = sPageURL.split("&");
+      var s = ss[0].split("=");
+      if(s[1]=="popular")
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "active";
+      document.getElementById("topli").className = "";
+      }
+      else
+      {
+      document.getElementById("allli").className = "";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "active";
+      }
+    }
+    else
+    {
       var s = sPageURL.split("=");
       if(s[1]=="popular")
       {
@@ -70,6 +89,13 @@ function chck()
       document.getElementById("popularli").className = "";
       document.getElementById("topli").className = "active";
       }
+    }
+   }
+   else
+   {
+      document.getElementById("allli").className = "active";
+      document.getElementById("popularli").className = "";
+      document.getElementById("topli").className = "";
    }
     
 }
@@ -119,7 +145,7 @@ chck();
 
             <%= button_to [gift_request.title], gift_request, :class => "btn ", :style => "", :method => :get %>
 
-            <div class="scroll" style="height: 50px; padding-top:5px;">
+            <div class="scroll" style="height: 50px;width: 710px; padding-top:5px;word-wrap:break-word;">
                 <strong>Description:</strong>&nbsp;<%= gift_request.description[0..150] %> 
                   <% if gift_request.description.size > 150 %> ... <% end %>
             </div>
@@ -171,12 +197,17 @@ chck();
 
           </div>
         
-          <div class="row" align="center" style="padding-left:40px;">
+          <div class="row" align="center" style="margin-left:30px;">
               <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-5px;"> 
                  <% if gift_request.tags %>
+                 <% counteri = 0 %>
                   <% gift_request.tags.each do |tags| %>
+                    <% if counteri ==4 %>
+                      <br><br>
+                    <% end %>
+                    <% counteri = counteri+1 %>
                       <h4 class="inline">
-                        <a class="label label-info" href="/tags/<%= tags.id %> "><%= tags.name %></a>
+                        <a class="label label-info" href="/tags/<%= tags.id %>"><%= tags.name %></a>
                       </h4>
                     <% end %>
                   <% end %>
@@ -195,7 +226,7 @@ chck();
         </div>
         <div align="center">
         <hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
-        <div>
+        </div>
         </td>
 
       </tr>
