@@ -40,18 +40,11 @@ node.setAttribute("class", "active padd");
 			<div class="container-fluid" style="padding-left:8%;">
 				<br>
 				<div align="left">
-					<p class="inline" id="gift_request_title" style="font-family:Times New Roman; font-size:24px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %></p>
+					<p class="inline" data-title='<%= @gift_request.title %>' id="gift_request_title" style="font-family:Times New Roman; font-size:24px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %></p>
 
 					<div class="inline" style="float:right; padding-right:6%;">
 					<%= link_to '', edit_gift_request_path(@gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline",  :method => :get%>
 					</div>
-
-		<div class="row"  style="padding-left:8%;">
-			<br>
-			<div class="col-md-8" >
-				<p id="gift_request_title" data-title='<%= @gift_request.title %>' <style="font-family:Times New Roman; font-size:20px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %> </p>
-			</div>
-					<br>
 
 					<div align="left">
 					<p style="font-family:Times New Roman; font-size:20px; padding-top:10px;"><Strong>By:&nbsp; </Strong><%= @gift_request.username %> </p>
