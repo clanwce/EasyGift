@@ -144,13 +144,21 @@ body{
       </ul>
         </div><!--/.nav-collapse -->
       
+    <div id="custom_notice_container">
       <% if flash[:notice] %>
           <div id="note" align = "center" style="">
             <div class="inline">
                 <p id="flash_alert"><%= flash[:notice] if flash[:notice] %></p>
             </div>
           </div>
+      <% elsif flash[:alert] %>
+           <div id="note" align = "center" style="">
+            <div class="inline">
+                <p id="flash_alert"><%= flash[:alert] if flash[:alert] %></p>
+            </div>
+          </div>      
       <% end %>
+    </div>
   
       </div>
     </div>

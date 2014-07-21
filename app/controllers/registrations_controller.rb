@@ -1,13 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
-  private
-  def build_resource(*args)
-    super
-    if session[:omniauth]
-      @user.apply_omniauth(session[:omniauth])
-      @user.valid?
-    end
+  protected
+
+  def after_sign_up_path_for(resource)
+  	flash[:notice] = "Please verify email and log back in"
+    '/landing'
   end
 
-  def edit_password
+  def after_inactive_sign_up_path_for(resource)
+  	flash[:notice] = "Please verify email and log back in"
+    '/landing'
   end
 end

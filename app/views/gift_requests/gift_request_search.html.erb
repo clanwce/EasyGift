@@ -1,12 +1,166 @@
+<style>
+.inline
+{
+  display:inline;
+}
+.scroll
+{
+  height:80px;
+  overflow:auto;
+  word-wrap:break-word;
+}
+.btn-danger{
+  color:#000;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
+
+</style>
+
+<% content_for :title, "Gift Requests Search" %>
+
+<%= render 'subnav' %>
+<script type="text/javascript">
+var node = document.getElementById("subnav").getElementsByTagName("li")[1];
+node.setAttribute("class", "active padd");
+</script>
+
+<div class="container cc">
+
+<div align = "center">
+    <div class="inline">
+      <% if flash[:notice] %>
+        <p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
+        <% end %>
+    </div>
+</div>
+
+  <div align="center">
+	<h3> Gift Search for: <%= @keyword %> </h3>
+
+  <br>
+  <% if @gift_requests.count == 0  %>
+   <p class="inline" style="font-style:italic;"><strong>No Gift Request Found</strong></p><br>
+ 	<% else %>
+   <p class="inline" style="font-style:italic;"><strong>Total Requests: <%=  @gift_requests.count %></strong></p><br>
+   <% end %>
+    <br>
+  </div>
+
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="all" align="center">
+       <!-- <br> -->
+
+  <div class="container-fluid">
+    <table class="table" align="center" style="background-color:#ffffff; width:90%;">
+     <% @gift_requests.each do |gift_request| %>
+     <tr>
+      <td >
+        <div class="row" align="center" style="padding-top:10px;">
+
+          <div class="inline col-xs-12 col-md-8"  data-id=title<%= gift_request.id %> align="left" style="padding-left:40px;">
+
+            <%= button_to [gift_request.title], gift_request, :class => "btn ", :style => "", :method => :get %>
+
+            <div class="scroll" style="height: 50px; padding-top:5px;">
+                <strong>Description:</strong>&nbsp;<%= gift_request.description[0..150] %> 
+                  <% if gift_request.description.size > 150 %> ... <% end %>
+            </div>
+
+          </div>
+  
+          <div class="col-xs-4 col-md-4" style="padding-right:40px;">
+            
+            <div style="" align="right">
+            <% @flag = false %>
+            <% @gf = GiftRequest.find(gift_request.id) %>
+            <% @gf.comments.each do |comment| %>
+              <% if comment.final_answer == true %>
+                <% @flag = true %>
+              <% end %>
+            <% end %>
+            <% if @flag == true %>
+              <h4 class="inline" >
+                <span class="label label-success" style="">ANSWERED
+                </span>
+              </h4>          
+            <% end %>
+            &nbsp;
+            <% if current_user.id == gift_request.user.id %>
+              <h5 class="inline"><%= link_to '', edit_gift_request_path(gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline", :method => :get  %>
+              </h5>
+              <h5 class="inline"> <%= link_to '', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger glyphicon glyphicon-trash inline" %> 
+              </h5> 
+            <% end %>
+            </div>
+            <br>
+            <div class="inline">
+              <div align="">
+                <strong>Created By:&nbsp;</strong>
+                <a href="/users/<%= gift_request.user.id %>">
+                    <%= gift_request.username %>
+                </a>
+                <br>
+                 <strong>Rank:&nbsp;</strong>
+                  <%= gift_request.user.rank %>  
+                  <%= gift_request.user.points %>
+                <br>
+                <br>
+                <% if gift_request.comments.last %>
+                  <strong> Last Answer By: &nbsp;</strong><%= gift_request.comments.last.username %>
+                <% end %>
+            </div>
+          </div>
+
+          </div>
+        
+          <div class="row" align="center" style="padding-left:40px;">
+              <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-5px;"> 
+                 <% if gift_request.tags %>
+                  <% gift_request.tags.each do |tags| %>
+                      <h4 class="inline">
+                        <a class="label label-info" href="/tags/<%= tags.id %> "><%= tags.name %></a>
+                      </h4>
+                    <% end %>
+                  <% end %>
+              </div>
+          </div>
+          <br>
+          <div align="left">
+            <div align="center">
+              <span> Asked on: <%= gift_request.created_at.strftime("%b %d, %Y %H:%M") %>
+              </span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+              Comments:&nbsp;<strong><%= gift_request.comments.count %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+              Views:&nbsp;<strong><%= gift_request.views %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+              Likes:&nbsp;<strong><%= gift_request.like_count %></strong> 
+            </div>
+          </div>
+        </div>
+        <div align="center">
+        <hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
+        </div>
+        </td>
+
+      </tr>
+
+      <% end %>
+    </table>
+  </div>
+</div>
+
+
+</div>
+
+</div> <!-- end of main cc div -->  
+<br>
+<br>
+<br>
+<br>
+
 <table>
 
-  <% @gift_requests.each do |gift_request| %>
-    <tr>
-
-      <%= link_to gift_request.title, {:controller => "gift_requests",:action => "show", :id => gift_request.id}, :class => "inline btn btn-link",:style => "display:inline" ,:method => :get %>
-
-      <td><%= link_to 'Show', gift_request %></td>
-    </tr>
-  <% end %>
-
-</table>

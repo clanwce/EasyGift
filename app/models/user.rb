@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username
 
 
+  validates :username, length: { maximum: 20 }
+
   validates :rank, inclusion: { in: %w(Stone Bronze Silver Gold Platnium Diamond Master),
     message: "can only be either Stone Bronze Silver Gold Platnium Diamond Master" }
 

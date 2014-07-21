@@ -38,7 +38,9 @@ EasyGift::Application.configure do
   ENV['FACEBOOK_KEY'] = '563804037067616'
   ENV['FACEBOOK_SECRET'] = '88b4d03810c510ced21861f2026fc68e'
   ENV['FACEBOOK_LOGIN_URL'] = "http://localhost:3000/auth/facebook"
-  ENV['HOMEPAGE_SIGN_IN'] = "http://localhost:3000/"
+  ENV['HOMEPAGE_SIGN_IN'] = "http://localhost:3000/landing"
+  ENV['HOMEPAGE_SIGN_IN2'] = "http://localhost:3000/"
+  ENV['HOMEPAGE_SIGN_IN3'] = "http://localhost:3000/users/sign_in"
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 

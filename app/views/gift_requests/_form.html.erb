@@ -17,16 +17,20 @@ $(document).ready(function(){
 	$('#new_gift_request_description').val("");
 });
 
+
 </script>
+<style type="text/css">textarea {
+    resize: none;
+}</style>
 
  <form id="new_gift_request_form" class="form-horizontal" role="form" action="/gift_requests" method="post">
   <input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    <input type="hidden" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
+    <input type="hidden" maxlength="50" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
 	
 	<div class="form-group">
 	    <label for="new_gift_request_title" class="col-sm-4 control-label">Title:</label>
 	    <div class="col-sm-4">
-	      <input type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
+	      <input  maxlength="100" type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
 	    </div>
 	  </div>
 
@@ -51,7 +55,7 @@ $(document).ready(function(){
 	    <div class="col-sm-3">
 	    <div style="margin:0;padding:0;display:inline">
 	    </div>
-        <input data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag" placeholder="Tags"/>
+        <input maxlength="20"  data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag" placeholder="Tags"/>
         
     </div>
     
