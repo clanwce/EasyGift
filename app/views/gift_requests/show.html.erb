@@ -1,8 +1,8 @@
 <style type="text/css">
 .scroll
 {
-	width: 400px;
-	height: 50px;
+	width: 650px;
+	height: 90px;
 	overflow:auto;
 	word-wrap:break-word;
 }
@@ -26,58 +26,48 @@ node.setAttribute("class", "active padd");
 </script>
 
 <div style="width: 1000px; margin: 0 auto;">
-	<div class="container">
-
-		<div>
+	<div  align="center">
 			<div class="inline">
 				<a style='display:none' id="facebook_login_button" href=<%= ENV['FACEBOOK_LOGIN_URL'] %> class="popup" data-height="400" data-width="600"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
 			</div>
+			<br>
+			<br>
 		</div>
-
-
+	<div class="container">
 
 		<div class="row" style="background-color:white; width:88%;"> 
 
-			<div class="row"  style="padding-left:8%;">
+			<div class="container-fluid" style="padding-left:8%;">
 				<br>
-				<div class="col-md-8" >
-					<p id="gift_request_title" style="font-family:Times New Roman; font-size:20px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %> </p>
-				</div>
+				<div align="left">
+					<p class="inline" id="gift_request_title" style="font-family:Times New Roman; font-size:24px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %></p>
 
-				<div class="col-md-4">
-					<p style="font-family:Times New Roman; font-size:20px"><Strong>Posted By:&nbsp; </Strong><%= @gift_request.username %> </p>
+					<div class="inline" style="float:right; padding-right:6%;">
+					<%= link_to '', edit_gift_request_path(@gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline",  :method => :get%>
+					</div>
+
+					<br>
+
+					<div align="left">
+					<p style="font-family:Times New Roman; font-size:20px; padding-top:10px;"><Strong>By:&nbsp; </Strong><%= @gift_request.username %> </p>
+					</div>
 				</div>
+				
 			</div>
+
+			
 
 			<div class="row"  style="padding-left:8%;">
 				<div class="col-md-8" data-id=title>
+					<div style="">
 					<p class="scroll" style="font-family:Times New Roman; font-size:18px"><strong> Description: </strong><%= @gift_request.description %> </p>
+					</div>
 				</div>
-				<div class="col-md-4">
-					<p style="font-family:Times New Roman; font-size:18px"> <Strong>Views:&nbsp; </Strong><%= @gift_request.views %> </p>
-				</div>
-			</div>
-
-			<div class="row"  style="padding-left:8%;">
-
-				<div class="col-md-8" >
-					<p class="inline" style="font-family:Times New Roman; font-size:18px"><Strong>Tags:&nbsp;</Strong>
-						<% if @gift_request_tags %>
-						<% @gift_request_tags.each do |tag| %>
-						<h4 class="inline"><%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "label label-info",:method => :get %></h4>
-						<% end %>
-						<% end %>
-					</p>
-				</div>
-				<div class="col-md-4">
-					<p style="font-family:Times New Roman; font-size:18px"><%= link_to 'Edit Gift Request', edit_gift_request_path(@gift_request), :class => "btn-link",:style => "color:blue" %></p>
-				</div>
-			</div>		
-			<br>
-
-			<div class="row" align="center">
-				<div class="inline ">
-					<div class="inline btn-link">
+				<div class="col-md-4" align="right" style="padding-right:8%;">
+					<a  id="facebook_share" href="#"> <%= image_tag "share.png", :style => "width: ;height:38px;" %></a>
+					<br>
+					<br>
+					<div class="inline" style="padding-right:8%;">
 						<form action="/likes/create" method="post" class="inline">
 							<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 							<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
@@ -96,23 +86,41 @@ node.setAttribute("class", "active padd");
 							<button type="submit" class="btn btn-class"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
 						</form>
 
-						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+					</div>
+					
+				</div>
+			</div>
 
-						<% if @gift_request.like_count > 0 %>	
-						<button type="submit" class="btn btn-success " data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> Liked</button>
-						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+			<div class="container-fluid" style="padding-left:8%;">
+
+				<div class="inline" align="left">
+					<p class="inline" style="font-family:Times New Roman; font-size:18px"><Strong>Tags:&nbsp;</Strong>
+						<% if @gift_request_tags %>
+						<% @gift_request_tags.each do |tag| %>
+						<h4 class="inline"><%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "label label-info",:method => :get %></h4>
 						<% end %>
+						<% end %>
+					</p>
+				</div>
+			</div>
 
+			<br>
+
+			<div class="row" align="center">
+				<div class="inline ">
+					<p class="inline" style="font-family:Times New Roman; font-size:18px"> <Strong>Views:&nbsp; </Strong><%= @gift_request.views %> </p>
+					
+				
+
+					<% if @gift_request.like_count > 0 %>	
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+						<button type="submit" class="btn btn-success " data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> Liked</button>
+						<% end %>
 
 						<% if @gift_request.dislike_count > 0 %>
-						<button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#dislikemodal" > <%= @gift_request.dislike_count %> Disliked</button>
 						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+						<button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#dislikemodal" > <%= @gift_request.dislike_count %> Disliked</button>
 						<% end %>
-
-						<a id="facebook_share" href="#"> <%= image_tag "share.png", :style => "width: ;height:38px; padding-top:1px;" %>
-						</a>
-
-					</div>
 				</div>
 
 			</div>

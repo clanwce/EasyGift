@@ -145,7 +145,7 @@ chck();
 
             <%= button_to [gift_request.title], gift_request, :class => "btn ", :style => "", :method => :get %>
 
-            <div class="scroll" style="height: 50px;width: 720px; padding-top:5px;word-wrap:break-word;">
+            <div class="scroll" style="height: 50px;width: 710px; padding-top:5px;word-wrap:break-word;">
                 <strong>Description:</strong>&nbsp;<%= gift_request.description[0..150] %> 
                   <% if gift_request.description.size > 150 %> ... <% end %>
             </div>
