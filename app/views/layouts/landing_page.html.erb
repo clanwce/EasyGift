@@ -97,6 +97,23 @@
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-custom navbar-inverse navbar-fixed-top" role="navigation">
+
+      <div id="custom_notice_container">
+      <% if flash[:notice] %>
+          <div id="note" align ="center">
+            <div class="inline">
+                <p id="flash_alert"><%= flash[:notice] if flash[:notice] %></p>
+            </div>
+          </div>
+      <% elsif flash[:alert] %>
+           <div id="note" align ="center">
+            <div class="inline">
+                <p style="font-size:12px; line-height:5px;" id="flash_alert">
+                  <%= flash[:alert] if flash[:alert] %></p>
+              </div>
+          </div>      
+      <% end %>
+    </div>
       
       <div class="container">
 
@@ -366,21 +383,6 @@
       </div>
     </div>
   </div>
-
-    <div id="custom_notice_container">
-      <% if flash[:notice] %>
-          <div id="note" align = "center" style="">
-            <div class="inline">
-                <p id="flash_alert"><%= flash[:notice] if flash[:notice] %></p>
-            </div>
-          </div>
-      <% elsif flash[:alert] %>
-           <div id="note" align = "center" style="">
-            <div class="inline">
-                <p id="flash_alert"><%= flash[:alert] if flash[:alert] %></p>
-            </div>
-          </div>      
-      <% end %>
 
     <!-- Core JavaScript Files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
