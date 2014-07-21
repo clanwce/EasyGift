@@ -1,428 +1,468 @@
 <style type="text/css">
 .scroll
 {
-width: 400px;
-height: 50px;
-overflow:auto;
-word-wrap:break-word;
+	width: 400px;
+	height: 50px;
+	overflow:auto;
+	word-wrap:break-word;
 }
 
 .fAnswer{
 	background-color:#8EFAB2;
 	padding-right: 0.5%;
-	padding-left: 0.3%; 
-	padding-bottom: 0.3%; 
-	border: 1px groove #8EFAB2;
+	padding-bottom:1.0%;
 }
 
 .btn-class
 {
-background-color:#EEEEEE;
+	background-color:#EEEEEE;
 }
 </style>
 
 <%= render 'subnav' %>
-	<script type="text/javascript">
-	var node = document.getElementById("subnav").getElementsByTagName("li")[1];
-	node.setAttribute("class", "active padd");
-	</script>
+<script type="text/javascript">
+var node = document.getElementById("subnav").getElementsByTagName("li")[1];
+node.setAttribute("class", "active padd");
+</script>
 
 <div style="width: 1000px; margin: 0 auto;">
-<div class="container">
+	<div class="container">
 
-	<div>
-		<div class="inline">
-			<a style='display:none' id="facebook_login_button" href=<%= ENV['FACEBOOK_LOGIN_URL'] %> class="popup" data-height="400" data-width="600"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
-		</div>
-	</div>
-
-
-
-	<div class="row" style="background-color:white; width:88%;border-radius: 25px;"> 
-
-		<div class="row"  style="padding-left:8%;">
-			<br>
-			<div class="col-md-8" >
-				<p id="gift_request_title" style="font-family:Times New Roman; font-size:20px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %> </p>
-			</div>
-
-			<div class="col-md-4">
-				<p style="font-family:Times New Roman; font-size:20px"><Strong>Posted By:&nbsp; </Strong><%= @gift_request.username %> </p>
+		<div>
+			<div class="inline">
+				<a style='display:none' id="facebook_login_button" href=<%= ENV['FACEBOOK_LOGIN_URL'] %> class="popup" data-height="400" data-width="600"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
 			</div>
 		</div>
 
-		<div class="row"  style="padding-left:8%;">
-			<div class="col-md-8" data-id=title>
-				<p class="scroll" style="font-family:Times New Roman; font-size:18px"><strong> Description: </strong><%= @gift_request.description %> </p>
-			</div>
-			<div class="col-md-4">
-				<p style="font-family:Times New Roman; font-size:18px"> <Strong>Views:&nbsp; </Strong><%= @gift_request.views %> </p>
-			</div>
-		</div>
-
-		<div class="row"  style="padding-left:8%;">
-
-			<div class="col-md-8" >
-				<p class="inline" style="font-family:Times New Roman; font-size:18px"><Strong>Tags:&nbsp;</Strong>
-					<% if @gift_request_tags %>
-					<% @gift_request_tags.each do |tag| %>
-					<h4 class="inline"><%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "label label-info",:method => :get %></h4>
-				<% end %>
-				<% end %>
-				</p>
-			</div>
-			<div class="col-md-4">
-				<p style="font-family:Times New Roman; font-size:18px"><%= link_to 'Edit Gift Request', edit_gift_request_path(@gift_request), :class => "btn-link",:style => "color:blue" %></p>
-			</div>
-		</div>		
-		<br>
-
-		<div class="row" align="center">
-			<div class="inline ">
-				<div class="inline btn-link">
-					<form action="/likes/create" method="post" class="inline">
-						<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-						<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
-						<input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
-						<input type="hidden" name="like[status]" value="like" />
-						<button type="submit" class="btn btn-class"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
-					</form>
-					
-					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-
-					<form action="/likes/create" method="post" class="inline">
-						<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-						<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
-						<input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
-						<input type="hidden" name="like[status]" value="dislike" />
-						<button type="submit" class="btn btn-class"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
-					</form>
-
-					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-
-					<% if @gift_request.like_count > 0 %>	
-					<button type="submit" class="btn btn-success " data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> Liked</button>
-						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					<% end %>
 
 
-					<% if @gift_request.dislike_count > 0 %>
-					<button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#dislikemodal" > <%= @gift_request.dislike_count %> Disliked</button>
-						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					<% end %>
+		<div class="row" style="background-color:white; width:88%;"> 
 
-					<a id="facebook_share" href="#"> <%= image_tag "share.png", :style => "width: ;height:38px; padding-top:1px;" %>
-					</a>
-		
+			<div class="row"  style="padding-left:8%;">
+				<br>
+				<div class="col-md-8" >
+					<p id="gift_request_title" style="font-family:Times New Roman; font-size:20px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %> </p>
+				</div>
+
+				<div class="col-md-4">
+					<p style="font-family:Times New Roman; font-size:20px"><Strong>Posted By:&nbsp; </Strong><%= @gift_request.username %> </p>
 				</div>
 			</div>
 
-		</div>
-		<br>
-	</div>
-	
-</div>  
-
-
- <div class="commentscontainer inline" style="background-color:white">
-<h4> <b>Comments </b> </h4>
-<!-- Nav tabs -->
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#date" data-toggle="tab">Date</a></li>
-  <li><a href="#popular" data-toggle="tab">Popular</a></li>
- </ul>
-
-
-<div class="tab-content" style="background-color:white">
-
-  <div class="tab-pane fade in active" id="date">
-			
-
-		<% if @gift_request_comments %> 
-		<% @gift_request_comments.each do |comment| %>
-		
-			<% if comment.final_answer %>
-		
-		<div id="fans" class="fAnswer">
-			<% else %>
-			<div>
-				<% end %>
-		<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b>
-			<div class="inline" style="float:right">
-			<% if comment.final_answer %>
-				<b> FINAL ANSWER </b>
-			<% end %>
+			<div class="row"  style="padding-left:8%;">
+				<div class="col-md-8" data-id=title>
+					<p class="scroll" style="font-family:Times New Roman; font-size:18px"><strong> Description: </strong><%= @gift_request.description %> </p>
+				</div>
+				<div class="col-md-4">
+					<p style="font-family:Times New Roman; font-size:18px"> <Strong>Views:&nbsp; </Strong><%= @gift_request.views %> </p>
+				</div>
 			</div>
-		<br>
 
-		<p class="scroll" style="width:80;height:auto"%><%= comment.description %></p>	
-			
-			
-<div align="right">
-		<b>
-			<a href="/users/<%= comment.user_id %>"> <%= comment.username %></a><br>Rank: <%= comment.user.rank %> Points: <%= comment.user.points %> 
-		</b> 
-</div>
+			<div class="row"  style="padding-left:8%;">
 
-	<form action="/likes/create" method="post" class="inline">
-		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
-	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
-	    <input type="hidden" name="like[status]" value="like" />
-	    <button type="submit" class="btn btn-class inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
-	</form>
-	<form action="/likes/create" method="post"  class="inline">
-		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
-	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
-	    <input type="hidden" name="like[status]" value="dislike" />
-	    <button type="submit" class="btn btn-class inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
-	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
-	</form>
+				<div class="col-md-8" >
+					<p class="inline" style="font-family:Times New Roman; font-size:18px"><Strong>Tags:&nbsp;</Strong>
+						<% if @gift_request_tags %>
+						<% @gift_request_tags.each do |tag| %>
+						<h4 class="inline"><%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "label label-info",:method => :get %></h4>
+						<% end %>
+						<% end %>
+					</p>
+				</div>
+				<div class="col-md-4">
+					<p style="font-family:Times New Roman; font-size:18px"><%= link_to 'Edit Gift Request', edit_gift_request_path(@gift_request), :class => "btn-link",:style => "color:blue" %></p>
+				</div>
+			</div>		
+			<br>
 
-	<% if current_user.username == @gift_request.username %>
-	<div class="finalans inline">
-	<form action="/comments/final" method="post" class="inline">
-			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
-		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
-		</form>
-	</div>
-	<% end %>
+			<div class="row" align="center">
+				<div class="inline ">
+					<div class="inline btn-link">
+						<form action="/likes/create" method="post" class="inline">
+							<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+							<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+							<input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
+							<input type="hidden" name="like[status]" value="like" />
+							<button type="submit" class="btn btn-class"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
+						</form>
 
-		<% if comment.like_count > 0 %>	
-		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
-		<% end %>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
 
-		<% if comment.dislike_count > 0 %>	
-		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> Disliked</button>
-		<% end %>
+						<form action="/likes/create" method="post" class="inline">
+							<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+							<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+							<input type="hidden" name="like[gift_request_id]" value="<%= @gift_request.id %>" />
+							<input type="hidden" name="like[status]" value="dislike" />
+							<button type="submit" class="btn btn-class"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
+						</form>
+
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+
+						<% if @gift_request.like_count > 0 %>	
+						<button type="submit" class="btn btn-success " data-toggle="modal" data-target="#likemodal" > <%= @gift_request.like_count %> Liked</button>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+						<% end %>
+
+
+						<% if @gift_request.dislike_count > 0 %>
+						<button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#dislikemodal" > <%= @gift_request.dislike_count %> Disliked</button>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+						<% end %>
+
+						<a id="facebook_share" href="#"> <%= image_tag "share.png", :style => "width: ;height:38px; padding-top:1px;" %>
+						</a>
+
+					</div>
+				</div>
+
+			</div>
+			<br>
 		</div>
- <hr style="background-color: #C0C0C0;height: 1px;"> 
+
+	</div>  
 
 
-	<% end %>
-<% end %>
+	<div class="commentscontainer inline" style="background-color:white">
+		<br>
+		<h4 align="center"> <b>Comments </b> </h4>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#date" data-toggle="tab">Date</a></li>
+			<li><a href="#popular" data-toggle="tab">Popular</a></li>
+		</ul>
 
-  </div>
 
-  <div class="tab-pane fade" id="popular">
+		<div class="tab-content" style="background-color:white">
 
-		 <% gift_request_cc = @gift_request_comments.sort_by(&:like_count) %>
-		 <% @gift_request_comments = gift_request_cc.reverse %>
-		
-		 <% if @gift_request_comments %> 
-			<% @gift_request_comments.each do |comment| %>
+			<div class="tab-pane fade in active" id="date"  style="padding:20px;">
 
-			<% if comment.final_answer %>
-		
 
-		<div class="fAnswer">
-			<% else %>
-			<div>
-				<% end %>
+				<% if @gift_request_comments %> 
+				<% @gift_request_comments.each do |comment| %>
 
-		<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b><br>
-			<p class="scroll" style="width:80%;height:auto"><%= comment.description %>
-			</p>	
-			<% if comment.final_answer %>
-				<b><div> FINAL ANSWER </b>
-			<% end %>
+				<% if comment.final_answer %>
+				<div id="fans" class="fAnswer" >
+
+					<% else %>
+					<div>
+						<% end %>
+						
+						<div class="container-fluid">
+							<div class="inline" align="left">
+								<br>
+								<a href="/users/<%= comment.user_id %>"><b><%= comment.username %></b></a>&nbsp;&nbsp;&nbsp;[Rank:&nbsp;<%= comment.user.rank %>&nbsp;&nbsp;&middot;&nbsp;&nbsp; Points:&nbsp;<%= comment.user.points %>] 
+							</div>
+							<div class="inline" style="float:right">
+								<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b>
+							</div>
+						
+						
+						<div id="description">
+							<br>
+						<p class="scroll" style="width:80;height:auto"%><%= comment.description %></p>	
+						</div>
+						<br>
+						<div class="inline" style="float:right">
+							<% if comment.final_answer %>
+							<b> FINAL ANSWER </b>
+							<% end %>
+						</div>	
+						</div>
+
+						<br>				
+						<div align="center">
+							
+						<form action="/likes/create" method="post" class="inline">
+							<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+							<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+							<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
+							<input type="hidden" name="like[status]" value="like" />
+							<button type="submit" class="btn btn-class inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+						</form>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+						<form action="/likes/create" method="post"  class="inline">
+							<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+							<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+							<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
+							<input type="hidden" name="like[status]" value="dislike" />
+							<button type="submit" class="btn btn-class inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+							<!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
+						</form>
+
+						<% if current_user.username == @gift_request.username %>
+						<div class="finalans inline">
+							&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+							<form action="/comments/final" method="post" class="inline">
+								<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+								<input type="hidden" name="comment_id" value="<%= comment.id %>" />
+								<button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+							</form>
+						</div>
+						<% end %>
+
+						<% if comment.like_count > 0 %>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;	
+						<button type="submit" class="btn btn-success btn-md" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
+						<% end %>
+
+						<% if comment.dislike_count > 0 %>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;	
+						<button type="submit" class="btn btn-danger btn-md"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> Disliked</button>
+						<% end %>
+					</div>
+				</div>
+
+					<div align="center">
+      				  <hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
+      			  </div>
+					<% end %>
+					<% end %>
+
+				</div>
+
+
+				<!-- Popular tag code -->
+				<div class="tab-pane fade" id="popular" style="padding:20px;">
+
+					<% gift_request_cc = @gift_request_comments.sort_by(&:like_count) %>
+					<% @gift_request_comments = gift_request_cc.reverse %>
+
+					<% if @gift_request_comments %> 
+					<% @gift_request_comments.each do |comment| %>
+
+					<% if comment.final_answer %>
+
+
+					<div class="fAnswer">
+						<% else %>
+						<div>
+							<% end %>
+								<br>
+							<div class="container-fluid">
+							<div class="inline" align="left">
+							
+								<a href="/users/<%= comment.user_id %>"><b><%= comment.username %></b></a>&nbsp;&nbsp;&nbsp;[Rank:&nbsp;<%= comment.user.rank %>&nbsp;&nbsp;&middot;&nbsp;&nbsp; Points:&nbsp;<%= comment.user.points %>] 
+							</div>
+							<div class="inline" style="float:right">
+								<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b>
+							</div>
+						
+						
+						<div id="description">
+							<br>
+						<p class="scroll" style="width:80;height:auto"%><%= comment.description %></p>	
+						</div>
+						<br>
+						<div class="inline" style="float:right">
+							<% if comment.final_answer %>
+							<b> FINAL ANSWER </b>
+							<% end %>
+						</div>	
+						</div>
+
+
+						<div align="center">
+							
+						<form action="/likes/create" method="post" class="inline">
+							<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+							<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+							<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
+							<input type="hidden" name="like[status]" value="like" />
+							<button type="submit" class="btn btn-class inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+						</form>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+						<form action="/likes/create" method="post"  class="inline">
+							<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+							<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+							<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
+							<input type="hidden" name="like[status]" value="dislike" />
+							<button type="submit" class="btn btn-class inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+							<!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
+						</form>
+
+						<% if current_user.username == @gift_request.username %>
+						<div class="finalans inline">
+							&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+							<form action="/comments/final" method="post" class="inline">
+								<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+								<input type="hidden" name="comment_id" value="<%= comment.id %>" />
+								<button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+							</form>
+						</div>
+						<% end %>
+
+						<% if comment.like_count > 0 %>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;	
+						<button type="submit" class="btn btn-success btn-md" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
+						<% end %>
+
+						<% if comment.dislike_count > 0 %>
+						&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;	
+						<button type="submit" class="btn btn-danger btn-md"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> Disliked</button>
+						<% end %>
+					</div>
+				</div>
+
+					<div align="center">
+      				  <hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
+      			  	</div>
+      			  	<br>
+						<% end %>
+						<% end %>
+
+					</div>
+
+					<div align="center">
+					<form action="/comments" method="post">
+					<label>Make a Comment</label><br>  
+					<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+					<input type="hidden" name="comment[user_id]" value="<%= current_user.id %>" >
+					<input type="hidden" name="comment[gift_request_id]" value="<%= @gift_request.id %>">
+					<textarea name="comment[description]" id="newcomment" rows="4" cols="140" style="max-width:80%;">
+					</textarea>
+					<br>
+					<br>
+					<input class="btn btn-default" type="submit" value="Submit">
+					</form>
+					<br>
+				</div>
+
+				</div>
 				
-		<!-- </p> -->
-
-	<div align="right"><b><a href="/users/<%= comment.user_id %>"> <%= comment.username %></a><br>Rank: <%= comment.user.rank %> Points: <%= comment.user.points %> </b> </div>
-
-	<form action="/likes/create" method="post" class="inline">
-		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
-	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
-	    <input type="hidden" name="like[status]" value="like" />
-	    <button type="submit" class="btn btn-class inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
-	</form>
-	<form action="/likes/create" method="post"  class="inline">
-		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-	    <input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
-	    <input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
-	    <input type="hidden" name="like[status]" value="dislike" />
-	    <button type="submit" class="btn btn-class inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
-	    <!-- <button type="submit" class="btn btn-danger btn-xs">Dislike</button> -->
-	</form>
-
-	<% if current_user.username == @gift_request.username %>
-	<div class="finalans inline">
-	<form action="/comments/final" method="post" class="inline">
-			<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-		    <input type="hidden" name="comment_id" value="<%= comment.id %>" />
-		   <button type="submit" class="btn btn-class inline"><%= image_tag 'check.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
-		</form>
-	</div>
-	<% end %> 
-
-		<% if comment.like_count > 0 %>	
-		<button type="submit" class="btn btn-success btn-xs" id="<%= comment.id %>" onclick="onclickbttn(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
-		<% end %>
-
-		<% if comment.dislike_count > 0 %>	
-		 <button type="submit" class="btn btn-danger btn-xs"  id="<%= comment.id %>" onclick="onclickbttn(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> Disliked</button>
-		<% end %>
-
 			</div>
-
- <hr style="background-color: #C0C0C0;height: 1px;"> 
-
-	<% end %>
-<% end %>
-
-  </div>
-
- </div>
-
-	
-<br>
-
- <form action="/comments" method="post">
-    <label>Make a Comment:</label><br>  
-    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    <input type="hidden" name="comment[user_id]" value="<%= current_user.id %>" >
-    <input type="hidden" name="comment[gift_request_id]" value="<%= @gift_request.id %>">
-    <textarea name="comment[description]" id="newcomment" rows="4" cols="50">
-    </textarea>
+		</div>
 		<br>
-    <input type="submit" value="Submit">
- </form>
+		<br>
+		<br>
 
-</div>
-</div>
-
-<script>
-$(document).ready(function(){
-    var foundin = document.getElementById("fans");
-    if(foundin)
-    {
-		var ele= document.getElementsByClassName("finalans");
-	    for(var i=0;i<ele.length;i++)
-	    {
-	      ele[i].innerHTML="";
-	    }
-    }
-});
-</script>
+		<script>
+		$(document).ready(function(){
+			var foundin = document.getElementById("fans");
+			if(foundin)
+			{
+				var ele= document.getElementsByClassName("finalans");
+				for(var i=0;i<ele.length;i++)
+				{
+					ele[i].innerHTML="";
+				}
+			}
+		});
+		</script>
 
 
 
 
-<!-- Modals go in the end -->
-<!-- Comment Like Modal -->
-<div class="modal fade" id="commentlikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">People who liked this </h4>
-			</div>
-			<div class="modal-body" style="overflow:auto" id="likecommentbody">
-				<table class="table" id="liketable">
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Comment Dis-Like Modal -->
-<div class="modal fade" id="commentdislikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">People who disliked this </h4>
-			</div>
-			<div class="modal-body">
-				<table class="table" id="disliketable">
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<!-- Modals go in the end -->
+		<!-- Comment Like Modal -->
+		<div class="modal fade" id="commentlikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">People who liked this </h4>
+					</div>
+					<div class="modal-body" style="overflow:auto" id="likecommentbody">
+						<table class="table" id="liketable">
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
-<!-- Like Modal -->
-<div class="modal fade" id="likemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">People who liked this </h4>
-			</div>
-			<div class="modal-body" style="overflow:auto" >
-				<table class="table ">
-					<% if @gift_request_likes %>
-					<% @gift_request_likes.each do |like| %>
-					<% if like.status=="like" %>
-					<tr >
-						<td>
-							<div class="inline">
-								<div style="background-color:#008080;width:45%">
-									<%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
-
-									<%= button_to [like.username], {:controller => "users",:action => "show", :id => like.user_id}, :class => "inline btn", :method => :get %>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<% end %>
-
-					<% end %>
-					<% end %>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<!-- Comment Dis-Like Modal -->
+		<div class="modal fade" id="commentdislikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">People who disliked this </h4>
+					</div>
+					<div class="modal-body">
+						<table class="table" id="disliketable">
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
-<!--Dis-Like Modal -->
-<div class="modal fade" id="dislikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">People who disliked this </h4>
-			</div>
-			<div class="modal-body" style="overflow:auto" >
-				<table class="table ">
+		<!-- Like Modal -->
+		<div class="modal fade" id="likemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">People who liked this </h4>
+					</div>
+					<div class="modal-body" style="overflow:auto" >
+						<table class="table ">
+							<% if @gift_request_likes %>
+							<% @gift_request_likes.each do |like| %>
+							<% if like.status=="like" %>
+							<tr >
+								<td>
+									<div class="inline">
+										<div style="background-color:#008080;width:45%">
+											<%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
 
-					<% if @gift_request_likes %>
-					<% @gift_request_likes.each do |like| %>
-					<% if like.status=="dislike" %>
+											<%= button_to [like.username], {:controller => "users",:action => "show", :id => like.user_id}, :class => "inline btn", :method => :get %>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<% end %>
 
-					<tr >
-						<td>
-							<div class="inline">
-								<div style="background-color:#008080;width:45%">
-									<%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
-
-									<%= button_to [like.username], {:controller => "users",:action => "show", :id => like.user_id}, :class => "inline btn ", :method => :get %>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<% end %>
-
-					<% end %>
-					<% end %>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<% end %>
+							<% end %>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
+
+		<!--Dis-Like Modal -->
+		<div class="modal fade" id="dislikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">People who disliked this </h4>
+					</div>
+					<div class="modal-body" style="overflow:auto" >
+						<table class="table ">
+
+							<% if @gift_request_likes %>
+							<% @gift_request_likes.each do |like| %>
+							<% if like.status=="dislike" %>
+
+							<tr >
+								<td>
+									<div class="inline">
+										<div style="background-color:#008080;width:45%">
+											<%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
+
+											<%= button_to [like.username], {:controller => "users",:action => "show", :id => like.user_id}, :class => "inline btn ", :method => :get %>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<% end %>
+
+							<% end %>
+							<% end %>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
