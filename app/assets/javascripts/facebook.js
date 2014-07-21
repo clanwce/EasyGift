@@ -131,8 +131,9 @@ $( document ).ready(function() {
       {
         object: {"app_id":563804037067616,
         "url": encoded_uri,
-        "title":$('#gift_request_title').html(),
-        "image": image_uri}
+        "title":$('#gift_request_title').data('title'),
+        "image": image_uri,
+        "fb:explicitly_shared": true}
       },
       function(facebook_response) {
            if (!facebook_response) {
