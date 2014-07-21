@@ -58,7 +58,15 @@ node.setAttribute("class", "active padd");
            <% @users = current_user.followed_users %>
                     <% if current_user.followed_users.empty? %>
                     <br>
-                    <p style="margin-left:50px"> To see followers, follow other users.</p>
+                    <div align="center">
+                      <br>
+                      <br>
+                      <br>
+                      <p style="margin-left:50px"> To see followers here, find & follow users who you like.</p>
+                      <br>
+                      <br>
+                      <br>
+                  </div>
                     <% end %> 
                       
             <% @users.each do |user| %>
@@ -100,7 +108,15 @@ node.setAttribute("class", "active padd");
            <% @users = current_user.followers %>
                    <% if current_user.followers.empty? %>
                     <br>
-                    <p style="margin-left:50px"> To see people following, make people follow you.</p>
+                    <div align="center">
+                      <br>
+                      <br>
+                      <br>
+                      <p style="margin-left:50px"> To see people here, make people follow you.</p>
+                      <br>
+                      <br>
+                      <br>
+                    </div>
                     <% end %> 
 
             <% @users.each do |user| %>
