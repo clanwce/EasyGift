@@ -98,8 +98,8 @@ $( document ).ready(function() {
       'me/easy-gift:post',
       'post',
       {
-        gift_request: "683672445040420",
-        fb:explicitly_shared: true
+        "gift_request": "256830404514718",
+        "fb:explicitly_shared": true
       },
       function(facebook_response) {
          if (!facebook_response) {
