@@ -1,23 +1,51 @@
 <style>
 .inline
 {
-  display:inline;
+	display:inline;
 }
 .scroll
 {
-  height:80px;
-  overflow:auto;
-  word-wrap:break-word;
+	height:80px;
+	overflow:auto;
+	word-wrap:break-word;
 }
 .btn-danger{
-  color:#000;
+	color:#000;
 }
 
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-   font-style: italic;
-   font-weight: bold;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.usercontent
+{	
+	border: 1px solid #e9e9e9;
+}	
+
+.usercontent .createdby
+{
+	float: right;
+	top:0;
+	right: 0;
+}
+
+.usercontent .commentarea
+{
+	border:1px solid #e9e9e9;
+	background-color:#f6f7f8;
+	
+}
+
+.commentarea .comment
+{
+	margin-bottom:10px;
+}
+.comments .timestamp
+{
+	color:#9197a3;
 }
 
 </style>
@@ -33,134 +61,190 @@ node.setAttribute("class", "active padd");
 
 
 <div class="container cc">
-<ul class="nav nav-tabs" id="tabs" style="margin-left: 15px" >
-  <li id="allli" class="active"><a id="all" data-toggle="tab" onclick="func(this)">All</a></li>
-  <li id="popularli" class=""><a id="popular" data-toggle="tab" onclick="func(this)">Popular</a></li>
-  <li id="topli" class=""><a id="top" data-toggle="tab" onclick="func(this)">Top</a></li>
-</ul>
 
-<div align = "center">
-    <div class="inline">
-      <% if flash[:notice] %>
-        <p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
-        <% end %>
-    </div>
-</div>
+
+	<div align = "center">
+		<div class="inline">
+			<% if flash[:notice] %>
+			<p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
+			<% end %>
+		</div>
+	</div>
 <!-- 
   <a href="?filter=top">Top</a>
   <a href="?filter=popular">Popular</a>
- -->
-  <div align="center">
+-->
+<div align="center">
 
-    <br>
-   <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  GiftRequest.count %></strong></p><br>
-    <%= paginate @gift_requests %>
-    <br>
-  </div>
+	<br>
+	
+
+	<br>
+</div>
 
 <div class="tab-content">
-  <div class="tab-pane fade in active" id="all" align="center">
-       <!-- <br> -->
+	<div class="tab-pane fade in active" id="all" align="center">
+		<!-- <br> -->
 
-  <div class="container-fluid">
-    <table class="table" align="center" style="background-color:#ffffff; width:90%;">
-     <% @gift_requests.each do |gift_request| %>
-     <tr>
-      <td >
-        <div class="row" align="center" style="padding-top:10px;">
+		<div class="container-fluid">
+			<table class="table" align="center" style="background-color:#ffffff; width:90%;">
+				<!-- xxxxxxxxxxxxxxxxxxx  -->
 
-          <div class="inline col-xs-12 col-md-8"  data-id=title<%= gift_request.id %> align="left" style="padding-left:40px;">
+				<!-- start loop -->
+				<tr>
+					<td >
+						<!-- xxxxxxxxxxxxxxxxxxx  -->
 
-            <%= button_to [gift_request.title], gift_request, :class => "btn ", :style => "", :method => :get %>
+						<div class="row" align="center" style="padding-top:10px;">
+							<div class="inline col-xs-12 col-md-8" align="left" style="padding-left:40px;"><p><font color="purple"><b>Norman</b></font> liked <font color="purple">Sidney</font>'s comment.</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="inline col-xs-12 col-md-12" style="padding-left:40px;">
+								<div class="usercontent">
+									<font color="purple" size="3px"> [Gift request Title]</font>
+									<div class="createdby">
+										<strong>Created By:&nbsp;</strong>
+										<a href="/users/2">
+											Norman
+										</a>
+										<br>
+										<strong>Rank:&nbsp;</strong>
+										Bronze  
+										1550
+										<br>
+										<br>
+										<strong> Last Answer By: &nbsp;</strong>Sidney
+									</div>
+									<br>
+									<p><b>Description: </b>I am in need of a lot of items please help.</p>
+									<br>
+									<a class="label label-info" href="/tags/21 ">asse</a>
+									<div align="left">
+										<div align="center">
+											<span> Asked on: Jul 19, 2014 23:09
+											</span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Comments:&nbsp;<strong>1&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Views:&nbsp;<strong>2&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Likes:&nbsp;<strong>0</strong> 
+										</div>
+									</div>
 
-            <div class="scroll" style="height: 50px; padding-top:5px;">
-                <strong>Description:</strong>&nbsp;<%= gift_request.description[0..150] %> 
-                  <% if gift_request.description.size > 150 %> ... <% end %>
-            </div>
+									<!-- Loop this area for comments -->
+									<div class="commentarea">
+										<div class="comments">
+											<font color="purple"><b>Sidney</b>:</font> Maybe you should purchase a bike.
 
-          </div>
-  
-          <div class="col-xs-4 col-md-4" style="padding-right:40px;">
-            
-            <div style="" align="right">
-            <% @flag = false %>
-            <% @gf = GiftRequest.find(gift_request.id) %>
-            <% @gf.comments.each do |comment| %>
-              <% if comment.final_answer == true %>
-                <% @flag = true %>
-              <% end %>
-            <% end %>
-            <% if @flag == true %>
-              <h4 class="inline" >
-                <span class="label label-success" style="">ANSWERED
-                </span>
-              </h4>          
-            <% end %>
-            &nbsp;
-            <% if current_user.id == gift_request.user.id %>
-              <h5 class="inline"><%= link_to '', edit_gift_request_path(gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline", :method => :get  %>
-              </h5>
-              <h5 class="inline"> <%= link_to '', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger glyphicon glyphicon-trash inline" %> 
-              </h5> 
-            <% end %>
-            </div>
-            <br>
-            <div class="inline">
-              <div align="">
-                <strong>Created By:&nbsp;</strong>
-                <a href="/users/<%= gift_request.user.id %>">
-                    <%= gift_request.username %>
-                </a>
-                <br>
-                 <strong>Rank:&nbsp;</strong>
-                  <%= gift_request.user.rank %>  
-                  <%= gift_request.user.points %>
-                <br>
-                <br>
-                <% if gift_request.comments.last %>
-                  <strong> Last Answer By: &nbsp;</strong><%= gift_request.comments.last.username %>
-                <% end %>
-            </div>
-          </div>
+											<div class="timestamp">
+												Jul 21, 2014 02:48 
+												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
+												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
+											</div>
+										</div>
+									</div>
+									<!-- End of loop -->
 
-          </div>
-        
-          <div class="row" align="center" style="padding-left:40px;">
-              <div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-5px;"> 
-                 <% if gift_request.tags %>
-                  <% gift_request.tags.each do |tags| %>
-                      <h4 class="inline">
-                        <a class="label label-info" href="/tags/<%= tags.id %> "><%= tags.name %></a>
-                      </h4>
-                    <% end %>
-                  <% end %>
-              </div>
-          </div>
-          <br>
-          <div align="left">
-            <div align="center">
-              <span> Asked on: <%= gift_request.created_at.strftime("%b %d, %Y %H:%M") %>
-              </span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-              Comments:&nbsp;<strong><%= gift_request.comments.count %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-              Views:&nbsp;<strong><%= gift_request.views %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-              Likes:&nbsp;<strong><%= gift_request.like_count %></strong> 
-            </div>
-          </div>
-        </div>
-        <div align="center">
-        <hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
-        <div>
-        </td>
+									<div class="commentarea">
+										<div class="comments">
+											<font color="purple"><b>Tian</b>:</font> Maybe you should purchase a bike.
 
-      </tr>
+											<div class="timestamp">
+												Jul 21, 2014 02:48 
+												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
+												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-      <% end %>
-    </table>
-  </div>
-</div>
+						</div>
+						<div align="center">
+							<hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
+						</div>
 
 
-</div>
+
+
+						<!-- xxxxxxxxxxxxxxxxxxx  -->
+						<div class="row" align="center" style="padding-top:10px;">
+							<div class="inline col-xs-12 col-md-8" align="left" style="padding-left:40px;"><p><font color="purple"><b>Norman</b></font> created a gift request post called <font color="purple">blahblah</font>.
+							</div>
+						</div>
+						<div class="row">
+							<div class="inline col-xs-12 col-md-12" style="padding-left:40px;">
+								<div class="usercontent">
+									<font color="purple" size="3px"> Blahblah</font>
+									<div class="createdby">
+										<strong>Created By:&nbsp;</strong>
+										<a href="/users/2">
+											Norman
+										</a>
+										<br>
+										<strong>Rank:&nbsp;</strong>
+										Bronze  
+										1550
+										<br>
+										<br>
+										<strong> Last Answer By: &nbsp;</strong>Sidney
+									</div>
+									<br>
+									<p><b>Description: </b>I am in need of a lot of items please help.</p>
+									<br>
+									<a class="label label-info" href="/tags/21 ">asse</a>
+									<div align="left">
+										<div align="center">
+											<span> Asked on: Jul 19, 2014 23:09
+											</span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Comments:&nbsp;<strong>1&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Views:&nbsp;<strong>2&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Likes:&nbsp;<strong>0</strong> 
+										</div>
+									</div>
+
+									<!-- Loop this area for comments -->
+									<div class="commentarea">
+										<div class="comments">
+											<font color="purple"><b>Sidney</b>:</font> Maybe you should purchase a bike.
+
+											<div class="timestamp">
+												Jul 21, 2014 02:48 
+												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
+												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
+											</div>
+										</div>
+									</div>
+									<!-- End of loop -->
+
+									<div class="commentarea">
+										<div class="comments">
+											<font color="purple"><b>Tian</b>:</font> Maybe you should purchase a bike.
+
+											<div class="timestamp">
+												Jul 21, 2014 02:48 
+												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
+												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</td>
+
+					</tr>
+
+
+					<!-- end loop -->
+				</table>
+
+
+				<!-- xxxxxxxxxxxxxxxxxxx  -->
+			</div>
+		</div>
+
+
+	</div>
 
 </div> <!-- end of main cc div -->  
 <br>
