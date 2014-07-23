@@ -7,11 +7,8 @@
     var node = document.getElementById("subnav").getElementsByTagName("li")[4];
 	node.setAttribute("class", "active padd");
     </script>
- <div style="margin-left: 10%">
-<%= link_to 'Back', gift_requests_path, :class => "btn inline btn-default"  %>
-<%= link_to "Show Request", @gift_request, :class => "btn inline btn-default", :method => :get %>
-<br><br>
-<h3 class="inline" style="margin-left: 2%"> Edit Gift Request</h3>
+ <div align="center">
+<h3 class="inline" align="center" style="margin-left: 2%"> Edit Gift Request</h3>
  <input id="id_token" type="hidden" value="<%= @gift_request.id %>" />
 
 </div>
