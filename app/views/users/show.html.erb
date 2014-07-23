@@ -54,7 +54,26 @@
   }
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #000000;
+  background-color: #5bc0de;
+}
+
+.nav-pills > li > a {
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+table {
+        border-collapse: separate;
+        border-spacing: 10px 5px;
+      }
+
 </style>
+
 
 <!-- <div class="container">
   <div class="profile">
@@ -172,15 +191,15 @@
        <div class="list group">
         <li class="list-group-item">
           <span class="glyphicon glyphicon-gift"></span>
-          <span class="badge">10</span>
+          <span class="badge"><%= @user.gift_request.count %></span>
           Gift Requests
         </li>
         <li class="list-group-item">
           <span class="glyphicon glyphicon-comment"></span>
-          <span class="badge">10</span>
+          <span class="badge"><%= @user.comments.count %></span>
           Comments
         </li>
-        <li class="list-group-item">
+<!--         <li class="list-group-item">
           <span class="glyphicon glyphicon-heart"></span>
           <span class="badge">10</span>
           Followers
@@ -190,9 +209,11 @@
           <span class="badge">10</span>
           Following
         </li>
-      </div>
+ -->      
+        </div>
     </div>
   </div>
+  <br>
   <div class="col-md-8 left-block">
     <div class="info-block">
       <div class="info-text">
@@ -210,11 +231,11 @@
               <h4>Summary</h4>
             </li>
             <li class="list-group-item">
-              <span class="badge"><%=current_user.points%></span>
+              <span class="badge"><%= @user.points%></span>
               Points:
             </li>
             <li class="list-group-item">
-              <span class="badge"><%=current_user.rank%></span>
+              <span class="badge"><%= @user.rank%></span>
               Rank:
             </li>
           </ul>
@@ -230,7 +251,7 @@
   </div>
 
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs" role="tablist" style="">
     <li class="active"><a href="#recentactivity" role="tab" data-toggle="tab">Recent Activity</a></li>
     <li><a href="#giftrequests" role="tab" data-toggle="tab">Gift Requests</a></li>
     <li><a href="#comments" role="tab" data-toggle="tab">Comments</a></li>
@@ -238,19 +259,95 @@
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content">
+  <div class="tab-content" style="background-color:white">
     <div class="tab-pane fade in active" id="recentactivity">
-      <h2>Recent Activity: </h2>
 
-      <% @activity.each do |activity| %>
+  <!--      <div style="float:right;margin-top:5px" class="inline">
+      <ul class="nav nav-pills btn-xs btn-default" style="">
+        <li class="active"><a href="#">Popular</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Newest</a></li>
+      </ul>
+    </div> -->
 
-      <p> <%= activity["message"] %> </p>
+    <br>
+   <h3 class="inline" style="margin-left: 20px;margin-top: 10px">Recent Activity: </h3>
 
+    
+    <div style="margin-top: 10px;margin-left: 20px">
+      <table class="table table-condensed">
+        <tbody>
+
+      <% @activitymsg = @user.activityMessages(current_user) %>
+      <% @activitymsg.each do |activity| %>
+        <tr style="padding-bottom:40px"><td>
+       <%= time_ago_in_words(activity["created_at"]) %>
+      </td><td>
+       <% case activity["type"] %>
+        <% when "gift_request" %>
+          <b> Gift Request </b>  
+        <% when "final_answer_selected" %>
+          <b style="color:green">Final Answer Selected </b>
+        <% else  %>
+          <b> <%= activity["type"] %> </b> 
+        <% end %> 
+
+      </td><td>
+
+       <%= link_to activity["message"], activity["url"], :style => "background:transparent;color:black;text-decoration: none" %>        </td>
+      </tr>
       <% end %>
+      </tbody>
+    </table>
     </div>
-    <div class="tab-pane fade" id="giftrequests">...</div>
+    <br>
+    </div>
+    <div class="tab-pane fade" id="giftrequests">
+
+  <!--      <div style="float:right;margin-top:5px" class="inline">
+      <ul class="nav nav-pills btn-xs btn-default" style="">
+        <li class="active"><a href="#">Popular</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Newest</a></li>
+      </ul>
+    </div> -->
+
+    <br>
+   <h3 class="inline" style="margin-left: 20px;margin-top: 10px">Gift Requests: </h3>
+
+    
+    <div style="margin-top: 10px;margin-left: 20px">
+      <table class="table table-condensed">
+        <tbody>
+
+      <% @activitymsg = @user.activityMessages(current_user) %>
+      <% @activitymsg.each do |activity| %>
+        <tr style="padding-bottom:40px"><td>
+       <%= time_ago_in_words(activity["created_at"]) %>
+      </td><td>
+       <% case activity["type"] %>
+        <% when "gift_request" %>
+          <b> Gift Request </b>  
+        <% when "final_answer_selected" %>
+          <b style="color:green">Final Answer Selected </b>
+        <% else  %>
+          <b> <%= activity["type"] %> </b> 
+        <% end %> 
+
+      </td><td>
+
+       <%= link_to activity["message"], activity["url"], :style => "background:transparent;color:black;text-decoration: none" %>        </td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
+    <br>
+
+    </div>
     <div class="tab-pane fade" id="comments">...</div>
     <div class="tab-pane fade" id="badges">...</div>
   </div>
 
 </div>
+<br><br><br><br>
