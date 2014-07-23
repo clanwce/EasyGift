@@ -32,4 +32,25 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       @activity = @user.activityMessages(current_user)
     end
+
+    def follow
+      id = params[:id]
+      otherid = params[:otherid]
+    thisuser = User.find(id)
+    otheruser = User.find(otherid)
+    followjson = thisuser.follow!(otheruser)
+    flash[:notice] = "Followed successfully."
+    render json: followjson
+    end
+
+    def unfollow
+      id = params[:id]
+      otherid = params[:otherid]
+    thisuser = User.find(id)
+    otheruser = User.find(otherid)
+    unfollowjson = thisuser.unfollow!(otheruser)
+    flash[:notice] = "Unfollowed successfully."
+    render json: unfollowjson
+    end
+
 end

@@ -35,7 +35,7 @@ function onclickbttn(obj,likestatus)
 		$.each(response, function(index,value) {
 		  $.each(value, function(k, v) {
 			newText='<tr class="child"><td><div class="inline"><div style="background-color:#008080;width:45%"><img src="/images/user.png" width="80" heigth="80" class="inline"><button onclick="location.href=\'/users/'+k+'\'" class="inline btn" id="'+k+'">'+v+'</button></td></tr>';
-	   		$('#disliketable tbody').append(newText);
+	   		$('#disliketable').append(newText);
 		  });
 		});
 	  })
@@ -99,4 +99,53 @@ function onclicktagsearch()
 		    }
 	    });	
 
+}
+
+
+function unfollow(userid, otherid)
+{
+		var link = "/unfollow/"+userid;
+		data = {};
+
+		data['id'] = userid;
+		data['otherid'] = otherid;
+		data['authenticity_token'] = $('#authenticity_token').val();
+		// alert(data['authenticity_token']);
+
+	    $.ajax({
+		    type: "POST",
+		    url: link,
+		    data: data,
+		    success: function(resp) {
+		    	location.reload();
+
+			},
+		    error: function(response) {
+		    	alert(response.responseText);
+		    }
+	    });	
+
+}
+
+function follow(userid, otherid)
+{
+	var link = "/follow";
+		data = {};
+
+		data['id'] = userid;
+		data['otherid'] = otherid;
+		data['authenticity_token'] = $('#authenticity_token').val();
+		// alert(data['authenticity_token']);
+
+	    $.ajax({
+		    type: "POST",
+		    url: link,
+		    data: data,
+		    success: function(resp) {
+		    	location.reload();
+			},
+		    error: function(response) {
+		    	alert(response.responseText);
+		    }
+	    });	
 }
