@@ -54,113 +54,27 @@
   }
 }
 
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #000000;
+  background-color: #5bc0de;
+}
+
+.nav-pills > li > a {
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+table {
+        border-collapse: separate;
+        border-spacing: 10px 5px;
+      }
+tr.border_bottom td {
+  border-bottom:1pt solid #D8D8D8;
+}
 </style>
-
-<!-- <div class="container">
-  <div class="profile">
-    <div class="row show-grid">
-      <div class="col-xs-3">
-        <img src="/assets/user.png" alt="Sample Image" height="180px" width="180px">
-      </div>
-
-      <div class="col-xs-5">
-        <div class="row">
-          <div class="col-xs-3">
-            <h2>Librari</h2>
-          </div>
-        </div>  
-        <div class="row">
-          <div class="col-xs-4">
-            <h4>Last activity: </h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-2">
-            <button type="button" class="btn btn-default">Friends</button>
-          </div>
-          <div class="col-xs-4">
-            <button type="button" class="btn btn-primary">Private Message</button>
-          </div>
-          <div class="col-xs-2">
-            <button type="button" class="btn btn-primary">
-              <span class="glyphicon glyphicon-cog"></span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-1">
-      <h4>Gender:</h4>
-    </div>
-    
-    <div class="col-xs-1 col-xs-offset-1">
-      <h4>Male</h4>
-    </div>
-
-    <div class="col-xs-2 col-xs-offset-3">
-      <h4>Achievements</h4>
-    </div>
-    <div class="col-xs-1">
-      <h4>Comments</h4>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-1">
-      <h4>Age:</h4>
-    </div>
-    <div class="col-xs-1 col-xs-offset-1">
-      <h4>21</h4>
-    </div>
-    <div class="col-xs-2 col-xs-offset-3">
-      <button type="button" class="btn btn-success">
-        <span class="glyphicon glyphicon-asterisk">
-        </span>
-        666
-      </button>
-    </div>
-    <div class="col-xs-1">
-      <button type="button" class="btn btn-primary">
-        <span class="glyphicon glyphicon-comment">
-        </span>
-        14
-      </button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-2">
-      <h4>Member Since:</h4>
-    </div>
-    <div class="col-xs-2">
-      <h4>April 14,2014</h4>
-    </div>
-    <div class="col-xs-2 col-xs-offset-2">
-      <h4>Followers</h4>
-    </div>
-    <div class="col-xs-1">
-      <h4>Requests</h4>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-2 col-xs-offset-6">
-      <button type="button" class="btn btn-danger">
-        <span class="glyphicon glyphicon-heart">
-        </span>
-        23
-      </button>
-    </div>
-    <div class="col-xs-1">
-      <button type="button" class="btn btn-warning">
-        <span class="glyphicon glyphicon-gift">
-        </span>
-        55
-      </button>
-    </div>
-  </div>
-</div>
-
-<br/><br/> -->
 
 
 
@@ -172,15 +86,15 @@
        <div class="list group">
         <li class="list-group-item">
           <span class="glyphicon glyphicon-gift"></span>
-          <span class="badge">10</span>
+          <span class="badge"><%= @user.gift_request.count %></span>
           Gift Requests
         </li>
         <li class="list-group-item">
           <span class="glyphicon glyphicon-comment"></span>
-          <span class="badge">10</span>
+          <span class="badge"><%= @user.comments.count %></span>
           Comments
         </li>
-        <li class="list-group-item">
+<!--         <li class="list-group-item">
           <span class="glyphicon glyphicon-heart"></span>
           <span class="badge">10</span>
           Followers
@@ -190,18 +104,18 @@
           <span class="badge">10</span>
           Following
         </li>
-      </div>
+ -->      
+        </div>
     </div>
   </div>
+  <br>
   <div class="col-md-8 left-block">
     <div class="info-block">
       <div class="info-text">
         <h3> <%= @user.username %></h3>
         
          
-         <p>Proin vitae volutpat tellus. Fusce erat libero, ultrices in egestas id, tincidunt quis ante. Nam volutpat purus sed justo hendrerit, ac pellentesque odio volutpat. Integer vitae purus tortor. Aenean ultricies porta rhoncus. Nullam eleifend, tortor quis porta consectetur, enim nunc rutrum erat, ut convallis augue libero ac orci.
 
-          Aenean ultricies porta rhoncus eleifend tortor quis.</p>
           
         </div>
         <div class="list">
@@ -210,11 +124,11 @@
               <h4>Summary</h4>
             </li>
             <li class="list-group-item">
-              <span class="badge"><%=current_user.points%></span>
+              <span class="badge"><%= @user.points%></span>
               Points:
             </li>
             <li class="list-group-item">
-              <span class="badge"><%=current_user.rank%></span>
+              <span class="badge"><%= @user.rank%></span>
               Rank:
             </li>
           </ul>
@@ -224,33 +138,553 @@
           <% end %>
         </div>
       </div>
-      <a href="#" class="btn btn-info btn-large"><span class="glyphicon glyphicon-plus"></span>
-      </i> Follow</a>
+      <div id="temp">
+      </div>
+       <input name="authenticity_token" id="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+       <% if current_user.id != @user.id %>
+        <% @flag = current_user.following?(@user)  %>
+        <% if @flag.nil? %>
+       
+      <button type="submit" class="btn btn-info btn-medium " onclick="follow(<%= current_user.id %>,<%= @user.id %>)"><span class="glyphicon glyphicon-plus">
+       Follow</span></button>
+        <% else %>
+      <button type="submit" class="btn btn-info btn-medium" onclick="unfollow(<%= current_user.id %>,<%= @user.id %>)"><span class="glyphicon glyphicon-minus">
+       UnFollow</span></button>
+        <% end %>
+      <% end %>
+      <div>
+        <br>
+        <button type="submit" class="btn btn-info btn-large " data-toggle="modal" data-target="#followedmodal">Following</button>
+
+        <button type="submit" class="btn btn-info btn-large " data-toggle="modal" data-target="#followermodal">Followers</button>
+
+      </div>
     </div>
   </div>
 
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs" role="tablist" style="">
     <li class="active"><a href="#recentactivity" role="tab" data-toggle="tab">Recent Activity</a></li>
     <li><a href="#giftrequests" role="tab" data-toggle="tab">Gift Requests</a></li>
     <li><a href="#comments" role="tab" data-toggle="tab">Comments</a></li>
-    <li><a href="#badges" role="tab" data-toggle="tab">Badges</a></li>
+    <li><a href="#tags" role="tab" data-toggle="tab">Tags</a></li>
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content">
+  <div class="tab-content" style="background-color:white">
     <div class="tab-pane fade in active" id="recentactivity">
-      <h2>Recent Activity: </h2>
 
-      <% @activity.each do |activity| %>
+  <!--      <div style="float:right;margin-top:5px" class="inline">
+      <ul class="nav nav-pills btn-xs btn-default" style="">
+        <li class="active"><a href="#">Popular</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Newest</a></li>
+      </ul>
+    </div> -->
 
-      <p> <%= activity["message"] %> </p>
+    <br>
+   <h3 class="inline" style="margin-left: 20px;margin-top: 10px">Recent Activity: </h3>
 
+    
+    <div style="margin-top: 10px;margin-left: 20px">
+      <table class="table table-condensed">
+        <tbody>
+
+      <% @activitymsg = @user.activityMessages(current_user) %>
+      <% @activitymsg.each do |activity| %>
+        <tr style="padding-bottom:40px"><td>
+       <%= time_ago_in_words(activity["created_at"]) %>
+      </td><td>
+       <% case activity["type"] %>
+        <% when "gift_request" %>
+          <b> Gift Request </b>  
+        <% when "final_answer_selected" %>
+          <b style="color:green">Final Answer Selected </b>
+        <% else  %>
+          <b> <%= activity["type"] %> </b> 
+        <% end %> 
+
+      </td><td>
+
+       <%= link_to activity["message"], activity["url"], :style => "background:transparent;color:black;text-decoration: none" %>
+     </td>
+      </tr>
       <% end %>
+      </tbody>
+    </table>
     </div>
-    <div class="tab-pane fade" id="giftrequests">...</div>
-    <div class="tab-pane fade" id="comments">...</div>
-    <div class="tab-pane fade" id="badges">...</div>
+    <br>
+    </div>
+
+    <div class="tab-pane fade" id="giftrequests">
+
+       <div style="float:right;margin-top:5px" class="inline">
+      <ul class="nav nav-pills btn-xs btn-default" style="">
+        <li class="active"><a href="#giftpopular" role="tab" data-toggle="tab">Popular</a></li>
+        <li><a href="#gifttop" role="tab" data-toggle="tab">Top Likes</a></li>
+        <li><a href="#giftnew" role="tab" data-toggle="tab">Newest</a></li>
+      </ul>
+      </div> 
+
+    <br>
+   <h3 class="inline" style="margin-left: 20px;margin-top: 10px"><%= @user.gift_request.count %> Gift Requests</h3>
+   <% @gifts = @user.gift_request %>
+    <div class="tab-content">
+    <div class="tab-pane fade in active" id="giftpopular">
+        <div style="margin-top: 10px;margin-left: 20px">
+          <table class="table table-condensed">
+            <tbody>
+            <% @populargifts = @gifts.sort_by(&:views).reverse %>
+
+            <% @populargifts.each do |gift| %>
+            <tr style="padding-bottom:40px"><td width="50px" align="center">
+                <div class="inline"><h4 class="inline">
+                <% @votes = (gift.like_count) - (gift.dislike_count) %>
+                <% if @votes >= 0 %>
+                +<%= @votes %>
+                <% else  %>
+                -<%= @votes %>
+                <% end %>
+                </h4><p style="font-size=10">Votes</p></div>
+            </td><td width="50px" align="center">
+              <div class="inline" style="height: 10px;width:10px"><h4 class="inline">
+                <%= gift.comments.count %></h4><p style="font-size=10">Comments</p>
+              </div>
+            </td><td width="50px" align="center">
+              <div class="inline"><h4 class="inline">
+                <%= gift.views %></h4><p style="font-size=10">Views</p>
+              </div>
+            </td><td width="70%" align="left">
+            <div class="inline">
+                <div>
+              <%= button_to [gift.title], gift, :class => "btn ", :style => "", :method => :get %>
+                </div> 
+                <div>
+                  <% gift.tags.each do |tag| %>
+                  <h5 class="inline"><%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "label label-info",:method => :get %></h5>
+                  
+                  <% end %>
+                </div>
+            </div>
+            </td><td style="position:relative;">
+             <div style="position:absolute; bottom: 0;">
+                <% if gift.comments.empty? %>
+                <%= time_ago_in_words(gift["updated_at"]) %> ago <br>
+                <% else %>
+                <%= time_ago_in_words(gift["updated_at"]) %> ago <br>answered by: <a style="background:transparent;color:black;text-decoration:none" href="/users/<%= gift.comments.last.user_id %>"><b><%= gift.comments.last.username %></b></a>
+
+                <% end %>
+             </div>
+
+          </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <br>
+    </div>
+
+    <div class="tab-pane fade in" id="gifttop">
+        <div style="margin-top: 10px;margin-left: 20px">
+          <table class="table table-condensed">
+            <tbody>
+
+            <% @likegifts = @gifts.sort_by(&:like_count).reverse %>
+
+            <% @likegifts.each do |gift| %>
+            <tr style="padding-bottom:40px;"><td width="50px" align="center">
+                <div class="inline"><h4 class="inline">
+                <% @votes = (gift.like_count) - (gift.dislike_count) %>
+                <% if @votes >= 0 %>
+                +<%= @votes %>
+                <% else  %>
+                -<%= @votes %>
+                <% end %>
+                </h4><p style="font-size=10">Votes</p></div>
+            </td><td width="50px" align="center">
+              <div class="inline" style="height: 10px;width:10px"><h4 class="inline">
+                <%= gift.comments.count %></h4><p style="font-size=10">Comments</p>
+              </div>
+            </td><td width="50px" align="center">
+              <div class="inline"><h4 class="inline">
+                <%= gift.views %></h4><p style="font-size=10">Views</p>
+              </div>
+            </td><td width="70%" align="left">
+            <div class="inline">
+                <div>
+              <%= button_to [gift.title], gift, :class => "btn ", :style => "", :method => :get %>
+                </div> 
+                <div>
+                  <% gift.tags.each do |tag| %>
+                  <h5 class="inline"><%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "label label-info",:method => :get %></h5>
+                  
+                  <% end %>
+                </div>
+            </div>
+            </td><td style="position:relative;">
+             <div style="position:absolute; bottom: 0;">
+                <% if gift.comments.empty? %>
+                <%= time_ago_in_words(gift["updated_at"]) %> ago <br>
+                <% else %>
+                <%= time_ago_in_words(gift["updated_at"]) %> ago <br>answered by: <a style="background:transparent;color:black;text-decoration:none" href="/users/<%= gift.comments.last.user_id %>"><b><%= gift.comments.last.username %></b></a>
+
+                <% end %>
+             </div>
+
+          </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <br>
+    </div>
+
+    <div class="tab-pane fade in " id="giftnew">
+        <div style="margin-top: 10px;margin-left: 20px">
+          <table class="table table-condensed">
+            <tbody>
+
+            <% @newgifts = @gifts.sort_by(&:created_at) %>
+
+            <% @newgifts.each do |gift| %>
+            <tr style="padding-bottom:40px"><td width="50px" align="center">
+                <div class="inline"><h4 class="inline">
+                <% @votes = (gift.like_count) - (gift.dislike_count) %>
+                <% if @votes >= 0 %>
+                +<%= @votes %>
+                <% else  %>
+                -<%= @votes %>
+                <% end %>
+                </h4><p style="font-size=10">Votes</p></div>
+            </td><td width="50px" align="center">
+              <div class="inline" style="height: 10px;width:10px"><h4 class="inline">
+                <%= gift.comments.count %></h4><p style="font-size=10">Comments</p>
+              </div>
+            </td><td width="50px" align="center">
+              <div class="inline"><h4 class="inline">
+                <%= gift.views %></h4><p style="font-size=10">Views</p>
+              </div>
+            </td><td width="70%" align="left">
+            <div class="inline">
+                <div>
+              <%= button_to [gift.title], gift, :class => "btn ", :style => "", :method => :get %>
+                </div> 
+                <div>
+                  <% gift.tags.each do |tag| %>
+                  <h5 class="inline"><%= link_to tag.name, {:controller => "tags",:action => "show", :id => tag.id}, :class => "label label-info",:method => :get %></h5>
+                  
+                  <% end %>
+                </div>
+            </div>
+            </td><td style="position:relative;">
+             <div style="position:absolute; bottom: 0;">
+                <% if gift.comments.empty? %>
+                <%= time_ago_in_words(gift["updated_at"]) %> ago <br>
+                <% else %>
+                <%= time_ago_in_words(gift["updated_at"]) %> ago <br>answered by: <a style="background:transparent;color:black;text-decoration:none" href="/users/<%= gift.comments.last.user_id %>"><b><%= gift.comments.last.username %></b></a>
+
+                <% end %>
+             </div>
+
+          </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <br>
+    </div>
+    </div>
+
+    </div>
+    <div class="tab-pane fade" id="comments">
+
+       <div style="float:right;margin-top:5px" class="inline">
+      <ul class="nav nav-pills btn-xs btn-default" style="">
+        <li class="active"><a href="#commenttop" role="tab" data-toggle="tab">Top Likes</a></li>
+        <li><a href="#commentnew" role="tab" data-toggle="tab">Newest</a></li>
+      </ul>
+      </div> 
+
+    <br>
+   <h3 class="inline" style="margin-left: 20px;margin-top: 10px">
+    <% if @user.comments.count <= 1 %>
+    <%= @user.comments.count %> Comment
+    <% else %>
+    <%= @user.comments.count %> Comments
+    <% end %>
+    </h3>
+   <% @comments = @user.comments %>
+    <div class="tab-content">
+    <div class="tab-pane fade in active" id="commenttop">
+        <div style="margin-top: 10px;margin-left: 20px">
+          <table class="table table-condensed">
+            <tbody>
+
+            <% @likecomments = @comments.sort_by(&:like_count).reverse %>
+
+            <% @likecomments.each do |comment| %>
+            <tr style="padding-bottom:40px;"><td width="50px" align="center">
+                <div class="inline"><h4 class="inline">
+                <% @votes = (comment.like_count) - (comment.dislike_count) %>
+                <% if @votes >= 0 %>
+                +<%= @votes %>
+                <% else  %>
+                -<%= @votes %>
+                <% end %>
+                </h4><p style="font-size=10">Likes</p></div>
+            </td><td width="80%" align="left">
+            <div class="inline" > 
+                <h5 class="inline" ><a style="background:transparent;color:black;font-family:Georgia" href="/gift_requests/<%= comment.gift_request_id %>"><font size="4"> <%= comment.description[0..70] %> 
+                  <% if comment.description.size > 70 %> ... <% end %></font></a></h5>
+            </div>
+            </td><td align="center">
+             <div>
+              <%= time_ago_in_words(comment["created_at"]) %> ago
+             </div>
+
+          </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <br>
+    </div>
+    <div class="tab-pane fade in " id="commentnew">
+
+        <div style="margin-top: 10px;margin-left: 20px">
+          <table class="table table-condensed">
+            <tbody>
+
+            <% @newcomments = @comments.sort_by(&:created_at) %>
+
+            <% @newcomments.each do |comment| %>
+            <tr style="padding-bottom:40px;"><td width="50px" align="center">
+                <div class="inline"><h4 class="inline">
+                <% @votes = (comment.like_count) - (comment.dislike_count) %>
+                <% if @votes >= 0 %>
+                +<%= @votes %>
+                <% else  %>
+                -<%= @votes %>
+                <% end %>
+                </h4><p style="font-size=10">Likes</p></div>
+            </td><td width="80%" align="left">
+            <div class="inline" > 
+                <h5 class="inline" ><a style="background:transparent;color:black;font-family:Georgia" href="/gift_requests/<%= comment.gift_request_id %>"><font size="4"> <%= comment.description[0..70] %> 
+                  <% if comment.description.size > 70 %> ... <% end %></font></a></h5>
+            </div>
+            </td><td align="center">
+             <div>
+              <%= time_ago_in_words(comment["created_at"]) %> ago
+             </div>
+
+          </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <br>
+      </div>
+  </div>
+  </div>
+
+  <div class="tab-pane fade" id="tags">
+    <% alltags=Array.new %>
+    <% @user.gift_request.each do |gift| %>
+    <% if gift.tags.empty? %>
+    <%  %>
+    <% else %>
+      <% gift.tags.each do |tag| %>
+      <% alltags.push(tag) %>
+      <% end %>
+    <% end %>
+    <% end  %>
+
+    <div style="float:right;margin-top:5px" class="inline">
+      <ul class="nav nav-pills btn-xs btn-default " >
+        <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
+        <li><a href="#name" data-toggle="tab">Name</a></li>
+      </ul>
+    </div>
+      <!-- Tab panes -->
+      <div class="tab-content" style="background-color:white;">
+        <div class="tab-pane fade in active" id="popular">
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <br>
+                  <% i = 0 %>
+                 <% tt = alltags.sort_by(&:gift_request_count).reverse %>
+
+                  <% tt.each do |tag| %>
+                    <% if i == 4 %>
+                    <% i = 0 %>
+                    </tr>
+                    <tr> 
+                    <% end %> 
+                      <td class="tag-cell">
+                      <div class="excerpt">
+                        <h4 class="inline">
+                        <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+                        <%= tag.gift_requests.count %> 
+                     <br><br>
+                        Last used <%= time_ago_in_words(tag.updated_at) %> ago
+                      </div>
+                    </td>
+                    <% i = i+1 %>
+                  <% end %>
+              </tr>
+            </table>
+          </div>
+        
+        </div>
+
+        <div class="tab-pane fade in" id="name">
+
+        <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <br>
+                  <% i = 0 %>
+                 <% nametags = alltags.sort_by(&:name) %>
+                  <% nametags.each do |tag| %>
+                    <% if i == 4 %>
+                    <% i = 0 %>
+                    </tr>
+                    <tr> 
+                    <% end %> 
+                      <td class="tag-cell">
+                      <div class="excerpt">
+                        <h4 class="inline">
+                        <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+                        <%= tag.gift_request_count %> 
+                     <br><br>
+                        New Request <%= time_ago_in_words(tag.updated_at) %> ago
+                      </div>
+                    </td>
+                    <% i = i+1 %>
+                  <% end %>
+              </tr>
+            </table>
+          </div>
+          
+        </div>
+
+      </div>
+
   </div>
 
 </div>
+<br><br><br><br>
+
+<!-- Modals -->
+<div class="modal fade" id="followedmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Followed: User <%= @user.username %> is following</h4>
+          </div>
+          <div class="modal-body" style="overflow:auto" id="likecommentbody">
+            <table class="table" id="liketable">
+              <% if @user.followed_users.nil? %>
+              <% %>
+              <% else %>
+              <% @user.followed_users.each do |followed| %>
+              <tr  class="border_bottom">
+                <td>
+                  <div class="inline">
+                    <div style="width:100%" >
+                  <a href="/users/<%= followed.id %>" class="inline" style="background:transparent;text-decoration:none">
+                  <div style="background-color:#008080;width:50%" align="center">
+                    
+                  <%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
+                  <%= button_to [followed.username], {:controller => "users",:action => "show", :id => followed.id}, :class => "btn inline ", :method => :get %>
+                
+                 </div>
+                 </a>
+                </div>
+                </div>
+              </td>
+              <td>
+                  <div class="inline">
+                  <button type="submit" class="btn btn-info btn-medium inline" onclick="unfollow(<%= current_user.id %>,<%= followed.id %>)"><span class="inline glyphicon glyphicon-minus">UnFollow</span></button>
+
+                    </div>
+                  
+                  
+                </td>
+              </tr>
+              <% end %>
+              <% end %>
+
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+<div class="modal fade" id="followermodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Followers: Users following <%= @user.username %>  </h4>
+          </div>
+          <div class="modal-body" style="overflow:auto" id="likecommentbody">
+            <table class="table" id="liketable">  
+              <% if @user.followers.nil? %>
+              <% %>
+              <% else %>
+              <% @user.followers.each do |follower| %>
+              <tr  class="border_bottom">
+                <td>
+                  <div class="inline">
+                    <div style="width:100%" >
+                  <a href="/users/<%= follower.id %>" class="inline" style="background:transparent;text-decoration:none">
+                  <div style="background-color:#008080;width:50%" align="center">
+                    
+                  <%= image_tag 'user.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %> 
+                  <%= button_to [follower.username], {:controller => "users",:action => "show", :id => follower.id}, :class => "btn inline ", :method => :get %>
+                  </div>
+                </a>
+                </div>
+                </div>
+              </td>
+              <td>
+                  <div class="inline">
+                     <% if current_user.id != follower.id %>
+                     <% followerflag = current_user.following?(follower)  %>
+                    <% if followerflag.nil? %>
+                   
+                  <button type="submit" class="btn btn-info btn-medium " onclick="follow(<%= current_user.id %>,<%= follower.id %>)"><span class="glyphicon glyphicon-plus">
+                   Follow</span></button>
+                    <% else %>
+                  <button type="submit" class="btn btn-info btn-medium" onclick="unfollow(<%= current_user.id %>,<%= follower.id %>)"><span class="glyphicon glyphicon-minus">
+                   UnFollow</span></button>
+                    <% end %>
+                    <% end %>
+                    </div>
+                  
+                  
+                </td>
+              </tr>
+              <% end %>
+              <% end %>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+

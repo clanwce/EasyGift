@@ -23,6 +23,12 @@
 <script type="text/javascript">
 var node = document.getElementById("subnav").getElementsByTagName("li")[1];
 node.setAttribute("class", "active padd");
+
+$(document).ready(function(){
+	$('#newcomment').val("");
+});
+
+
 </script>
 
 <div style="width: 1000px; margin: 0 auto;">
@@ -156,7 +162,7 @@ node.setAttribute("class", "active padd");
 						<div class="container-fluid">
 							<div class="inline" align="left">
 								<br>
-								<a href="/users/<%= comment.user_id %>"><b><%= comment.username %></b></a>&nbsp;&nbsp;&nbsp;[Rank:&nbsp;<%= comment.user.rank %>&nbsp;&nbsp;&middot;&nbsp;&nbsp; Points:&nbsp;<%= comment.user.points %>] 
+								<a style="background:transparent;color:black;text-decoration:none" href="/users/<%= comment.user_id %>"><b><%= comment.username %></b></a>&nbsp;&nbsp;&nbsp;[Rank:&nbsp;<%= comment.user.rank %>&nbsp;&nbsp;&middot;&nbsp;&nbsp; Points:&nbsp;<%= comment.user.points %>] 
 							</div>
 							<div class="inline" style="float:right">
 								<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b>
@@ -247,7 +253,7 @@ node.setAttribute("class", "active padd");
 							<div class="container-fluid">
 							<div class="inline" align="left">
 							
-								<a href="/users/<%= comment.user_id %>"><b><%= comment.username %></b></a>&nbsp;&nbsp;&nbsp;[Rank:&nbsp;<%= comment.user.rank %>&nbsp;&nbsp;&middot;&nbsp;&nbsp; Points:&nbsp;<%= comment.user.points %>] 
+								<a style="background:transparent;color:black;text-decoration:none" href="/users/<%= comment.user_id %>"><b><%= comment.username %></b></a>&nbsp;&nbsp;&nbsp;[Rank:&nbsp;<%= comment.user.rank %>&nbsp;&nbsp;&middot;&nbsp;&nbsp; Points:&nbsp;<%= comment.user.points %>] 
 							</div>
 							<div class="inline" style="float:right">
 								<b><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></b>
@@ -256,7 +262,7 @@ node.setAttribute("class", "active padd");
 						
 						<div id="description">
 							<br>
-						<p class="scroll" style="width:80;height:auto"%><%= comment.description %></p>	
+						<p class="scroll" style="width:80;height:auto" ><%= comment.description %></p>	
 						</div>
 						<br>
 						<div class="inline" style="float:right">

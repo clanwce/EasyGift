@@ -1,6 +1,6 @@
 class GiftRequest < ActiveRecord::Base
   attr_accessible :description, :dislike, :likes, :private_post, :user_id, :like_count, :dislike_count, :title, :views
-  has_many :comments, :dependent => :delete_all
+  has_many :comments, :dependent => :destroy
   belongs_to :user
   has_many :gift_requests_tags
   has_many :tags, :through => :gift_requests_tags
@@ -18,6 +18,7 @@ class GiftRequest < ActiveRecord::Base
   MAXIMUM_AMOUNT_OF_TAGS = 5
 
   after_create :create_notification
+  before_destroy :destroy_notification
 
   has_many :gift_request_black_list
   has_many :gift_request_white_list
@@ -36,6 +37,9 @@ class GiftRequest < ActiveRecord::Base
 
   def create_notification
     Notification.create_notification(self, "gift_request")
+  end
+  def destroy_notification
+    Notification.destroy_notification(self, "gift_request")
   end
 
   def username
