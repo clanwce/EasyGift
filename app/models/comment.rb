@@ -13,11 +13,16 @@ class Comment < ActiveRecord::Base
   validate :one_final_answer, :if => :final_answer_changed?
 
   after_create :create_notification
+  before_destroy :destroy_notification
 
   def create_notification
     Notification.create_notification(self, "comment")
   end
-
+  def destroy_notification
+    Notification.destroy_notification(self, "comment")
+    Notification.destroy_notification(self, "final_answer_selected")
+    Notification.destroy_notification(self, "final_answer_selection")
+  end
   def one_final_answer
     if Comment.where(gift_request_id: gift_request.id, final_answer: true).count > 0
       errors[:base ] << "A gift request cannot have more than one final answer"

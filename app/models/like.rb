@@ -17,9 +17,14 @@ class Like < ActiveRecord::Base
     message: "can only be either like or dislike" }
 
   after_create :create_notification
+  before_destroy :destroy_notification
 
   def create_notification
     Notification.create_notification(self, "like")
+  end
+
+  def destroy_notification
+    Notification.destroy_notification(self, "like")
   end
 
   def post_or_comment_owner
