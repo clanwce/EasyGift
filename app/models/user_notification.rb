@@ -26,6 +26,9 @@ class UserNotification < ActiveRecord::Base
     notification.formatted_url
   end
 
+  def notification_formatted_id
+    notification.formatted_id
+  end
   def notification_link_to_url
     notification.link_to_url
   end

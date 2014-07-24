@@ -35,7 +35,7 @@
 .usercontent .commentarea
 {
 	border:1px solid #e9e9e9;
-	background-color:#f6f7f8;
+	background-color:#eee;
 	
 }
 
@@ -87,74 +87,110 @@ node.setAttribute("class", "active padd");
 		<!-- <br> -->
 
 		<div class="container-fluid">
+			<h3>News Feed</h3>
 			<table class="table" align="center" style="background-color:#ffffff; width:90%;">
-				<!-- xxxxxxxxxxxxxxxxxxx  -->
 
-				<!-- start loop -->
+				<% @feed.each do |feed| %>
 				<tr>
+
 					<td >
-						<!-- xxxxxxxxxxxxxxxxxxx  -->
+						
+
 
 						<div class="row" align="center" style="padding-top:10px;">
-							<div class="inline col-xs-12 col-md-8" align="left" style="padding-left:40px;"><p><font color="purple"><b>Norman</b></font> liked <font color="purple">Sidney</font>'s comment.</p>
+							<div class="inline col-xs-12 col-md-8" align="left" style="padding-left:40px;"><p><font color="blue"><h5><%= feed["message"] %> </h5></font></p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="inline col-xs-12 col-md-12" style="padding-left:40px;">
 								<div class="usercontent">
-									<font color="purple" size="3px"> [Gift request Title]</font>
+									<a href="<%= feed["url"] %>"><font color="purple" size="3px"> <%= GiftRequest.find(feed["gid"]).title %></font></a>
 									<div class="createdby">
 										<strong>Created By:&nbsp;</strong>
-										<a href="/users/2">
-											Norman
+										<a href="/users/<%= GiftRequest.find(feed["gid"]).id %>">
+											<%= GiftRequest.find(feed["gid"]).username %>
 										</a>
 										<br>
 										<strong>Rank:&nbsp;</strong>
-										Bronze  
-										1550
+										<%= GiftRequest.find(feed["gid"]).user.rank %>  
+										<%= GiftRequest.find(feed["gid"]).user.points %>
 										<br>
 										<br>
-										<strong> Last Answer By: &nbsp;</strong>Sidney
+										<strong> Last Answer By: &nbsp;</strong><a href="/users/<%=GiftRequest.find(feed["gid"]).comments.last.user.id%>"><%= GiftRequest.find(feed["gid"]).comments.last.username %> </a>
 									</div>
 									<br>
-									<p><b>Description: </b>I am in need of a lot of items please help.</p>
+									<p><b>Description: </b><%= GiftRequest.find(feed["gid"]). description[0..150]%> <% if GiftRequest.find(feed["gid"]).description.size > 150 %> ... <% end %> </p>
 									<br>
-									<a class="label label-info" href="/tags/21 ">asse</a>
+									<div class="row" align="center" >
+										<div class="inline col-xs-12 col-md-8" align="left" style="margin-top:-5px;"> 
+											<% if GiftRequest.find(feed["gid"]).tags %>
+											<% counteri = 0 %>
+											<% GiftRequest.find(feed["gid"]).tags.each do |tags| %>
+											<% if counteri ==4 %>
+											<br><br>
+											<% end %>
+											<% counteri = counteri+1 %>
+											<h4 class="inline">
+												<a class="label label-info" href="/tags/<%= tags.id %>"><%= tags.name %></a>
+											</h4>
+											<% end %>
+											<% end %>
+										</div>
+									</div>
 									<div align="left">
 										<div align="center">
-											<span> Asked on: Jul 19, 2014 23:09
+											<span> Asked on: <%= GiftRequest.find(feed["gid"]).created_at.strftime("%b %d, %Y %H:%M") %>
 											</span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-											Comments:&nbsp;<strong>1&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-											Views:&nbsp;<strong>2&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-											Likes:&nbsp;<strong>0</strong> 
+											Comments:&nbsp;<strong><%= GiftRequest.find(feed["gid"]).comments.count %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Views:&nbsp;<strong><%= GiftRequest.find(feed["gid"]).views %>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+											Likes:&nbsp;<strong><%= GiftRequest.find(feed["gid"]).like_count %></strong> 
 										</div>
 									</div>
 
 									<!-- Loop this area for comments -->
+									
+									<% GiftRequest.find(feed["gid"]).comments.each do |comment| %>
 									<div class="commentarea">
 										<div class="comments">
-											<font color="purple"><b>Sidney</b>:</font> Maybe you should purchase a bike.
+											<a href="/users/<%= comment.user_id %>"><font color="purple"><b><%= comment.username %></b>:</font></a> <%= comment.description %>
 
 											<div class="timestamp">
-												Jul 21, 2014 02:48 
-												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
-												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
+												<%= comment.created_at.strftime("%b %d, %Y %H:%M") %> 
+
+
+
+												<form action="/likes/create" method="post" class="inline">
+													<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+													<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+													<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
+													<input type="hidden" name="like[status]" value="like" />
+													<button type="submit" class="inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+												</form>
+
+
+
+
+
+
+
+
+
+
+												<!-- img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15"> -->
+												<!-- <img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">   -->
+												<form action="/likes/create" method="post" class="inline">
+													<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+													<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
+													<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
+													<input type="hidden" name="like[status]" value="dislike" />
+													<button type="submit" class="inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
+												</form>
 											</div>
 										</div>
 									</div>
-									<!-- End of loop -->
-
-									<div class="commentarea">
-										<div class="comments">
-											<font color="purple"><b>Tian</b>:</font> Maybe you should purchase a bike.
-
-											<div class="timestamp">
-												Jul 21, 2014 02:48 
-												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
-												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
-											</div>
-										</div>
-									</div>
+									<!-- end loop -->
+									<% end %>
+									<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Write a comment...">
 								</div>
 							</div>
 
@@ -163,88 +199,21 @@ node.setAttribute("class", "active padd");
 							<hr  style="width:60%; padding-bottom:0; margin-bottom:0; border: 1px solid #D8D8D8">
 						</div>
 
+					</td>
+
+				</tr>
+				<% end %>
 
 
-
-						<!-- xxxxxxxxxxxxxxxxxxx  -->
-						<div class="row" align="center" style="padding-top:10px;">
-							<div class="inline col-xs-12 col-md-8" align="left" style="padding-left:40px;"><p><font color="purple"><b>Norman</b></font> created a gift request post called <font color="purple">blahblah</font>.
-							</div>
-						</div>
-						<div class="row">
-							<div class="inline col-xs-12 col-md-12" style="padding-left:40px;">
-								<div class="usercontent">
-									<font color="purple" size="3px"> Blahblah</font>
-									<div class="createdby">
-										<strong>Created By:&nbsp;</strong>
-										<a href="/users/2">
-											Norman
-										</a>
-										<br>
-										<strong>Rank:&nbsp;</strong>
-										Bronze  
-										1550
-										<br>
-										<br>
-										<strong> Last Answer By: &nbsp;</strong>Sidney
-									</div>
-									<br>
-									<p><b>Description: </b>I am in need of a lot of items please help.</p>
-									<br>
-									<a class="label label-info" href="/tags/21 ">asse</a>
-									<div align="left">
-										<div align="center">
-											<span> Asked on: Jul 19, 2014 23:09
-											</span><strong>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-											Comments:&nbsp;<strong>1&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-											Views:&nbsp;<strong>2&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
-											Likes:&nbsp;<strong>0</strong> 
-										</div>
-									</div>
-
-									<!-- Loop this area for comments -->
-									<div class="commentarea">
-										<div class="comments">
-											<font color="purple"><b>Sidney</b>:</font> Maybe you should purchase a bike.
-
-											<div class="timestamp">
-												Jul 21, 2014 02:48 
-												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
-												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
-											</div>
-										</div>
-									</div>
-									<!-- End of loop -->
-
-									<div class="commentarea">
-										<div class="comments">
-											<font color="purple"><b>Tian</b>:</font> Maybe you should purchase a bike.
-
-											<div class="timestamp">
-												Jul 21, 2014 02:48 
-												<img alt="lgo" class="inline " height="15" src="/assets/like.png" width="15">
-												<img alt="lgo" class="inline " height="15" src="/assets/dislike.png" width="15">  
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						</td>
-
-					</tr>
+			</table>
 
 
-					<!-- end loop -->
-				</table>
-
-
-				<!-- xxxxxxxxxxxxxxxxxxx  -->
-			</div>
+			<!-- xxxxxxxxxxxxxxxxxxx  -->
 		</div>
-
-
 	</div>
+
+
+</div>
 
 </div> <!-- end of main cc div -->  
 <br>
