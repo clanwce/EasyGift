@@ -96,6 +96,10 @@ class Notification < ActiveRecord::Base
     link_to_url.id.to_s
   end
   
+  def gift_request
+    GiftRequest.find(formatted_id)
+  end
+
   def link_to_url
     if type_of_event == "like"
       event.gift_request_object

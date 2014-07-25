@@ -1,37 +1,38 @@
 
 // Type : like / dislike
 // algo: comment/ gift request
-// id: comment id / request id
-// 
-function postlikedislike(type, algo, )
+// algoid: comment id / request id
+// userid: userid
+
+function postlikedislike(obj)
 {
-	//document.getElementById("likeform").submit();
+	document.getElementById(obj).submit();
 
-		var link = "/likes/create";
-		like = {};data={};
-		a = document.getElementById("like_userid").value;
-		b = document.getElementById("like_giftrequest_id").value;
-		c = document.getElementById("like_status").value;
-		
-		like['user_id'] = a;
-		like['gift_request_id'] = b;
-		like['status']= c
-		data['authenticity_token'] = $('#authenticity_token').val();
-		data['like']=like;
+		// var link = "/likes/create";
+		// like = {};data={};
+		// var a = algo+"userid";
+		// var b = algo+"giftrequest_id";
+		// var c = algo+"status";
 
-	    $.ajax({
-		    type: "POST",
-		    url: link,
-		    data: data,
-		    success: function(resp) {
-		    	alert("done");
+		// like['user_id'] = document.getElementById(a).value;
+		// like['gift_request_id'] = document.getElementById(b).value;
+		// like['status']= document.getElementById(c).value;
+		// data['authenticity_token'] = $('#authenticity_token').val();
+		// data['like']=like;
 
-			},
-			
-		    error: function(response) {
-		    	alert(response.responseText);
-		    }
-	    });	
+	 //    $.ajax({
+		//     type: "POST",
+		//     url: link,
+		//     data: data,
+		//     success: function(resp) {
+		//     	alert(resp.responseText);
+
+		// 	},
+
+		//     error: function(response) {
+		//     	alert(response.responseText);
+		//     }
+	 //    });	
 
 }
 

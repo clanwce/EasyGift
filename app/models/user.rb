@@ -81,16 +81,18 @@ class User < ActiveRecord::Base
   def feed
     feed = []
     followed_users.each do |followed_user|
-      feed += followed_user.activity
+      feed += followed_user.activity.sort_by(&:created_at).reverse
     end
     # feed = feed.sort_by &:created_at
     message_feed = []
     feed.each do |notification|
       notification_hash = {}
       notification_hash["id"] = notification.id
+      notification_hash["actor_id"] = notification.actor_id
       notification_hash["url"] = notification.formatted_url
       notification_hash["type"] = notification.type_of_event
       notification_hash["gid"] = notification.formatted_id
+      notification_hash["gift_request"] = notification.gift_request
       notification_hash["message"] = notification.constructActivityMessage(self)
       notification_hash["created_at"] = notification.created_at
       notification_hash["updated_at"] = notification.updated_at
