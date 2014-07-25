@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :reset_password_token, :points, :rank
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :reset_password_token, :points, :rank, :business_account
   # attr_accessible :title, :body
 
   validates_presence_of :username
@@ -39,6 +39,9 @@ class User < ActiveRecord::Base
 
   has_many :gift_request_black_list
   has_many :gift_request_white_list
+
+  has_many :business_account_tags
+  has_many :tags, :through => :business_account_tags
 
   def apply_omniauth(omniauth)
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
@@ -114,9 +117,49 @@ class User < ActiveRecord::Base
     end  
   end
 
-  # def points_update(type)
-  #   case type
-  #   when "like"
-  #     update_attributes(points: new_count)
+  def subscribe_tags(tag_id)
+    if business_account
+      tag = Tag.find(tag_id)
+      if tag
+        begin
+          self.tags << tag
+        end
+      end
+      return true
+    else
+      return false
+    end
+  end
+
+  def unsubscribe_tags(tag_id)
+    if business_account
+      tags_to_unsubscribe = BusinessAccountTag.where(tag_id: tag_id, user_id: id)
+      tags_to_unsubscribe.each do |tag|
+        tag.destroy
+      end
+      return true
+    else
+      return false
+    end
+  end
+
+  def upgrade_to_business_account
+    update_attributes(business_account: true)
+  end
+
+  # def is_business_account
+  #   if business_account
+  #     return true
+  #   else
+  #     return false
+  #   end
+  # end
+  def subscribed_tags
+    if business_account
+      return tags
+    else
+      return false
+    end
+  end
 
 end

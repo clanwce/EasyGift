@@ -91,6 +91,35 @@ class TagsController < ApplicationController
     end
   end
 
+  def tag_subscribe
+    current_user.subscribe_tags(params[:tag_id])
+  end
+  def tag_unsubscribe
+    current_user.unsubscribe_tags(params[:tag_id])
+  end
+  # def subscribe_tag
+  #   newsubscribe = BusinessAccountTag.new
+  #   newsubscribe.user_id = current_user.id
+  #   newsubscribe.tag_id = id
+  #   respond_to do |format|
+  #     if newsubscribe.save
+  #       format.html { notice: 'Tag was subscribed successfully' }
+  #       format.json { render json: @tag }
+  #     else
+  #       format.html { notice: @tag.errors.full_messages.to_sentence}
+  #       format.json { 
+  #         @tag = Tag.find_by_name(@tag.name)
+  #         render json: @tag 
+  #       }
+  #     end
+  #   end
+  # end
+
+  # def delete_subscribed_tag
+  #   tag_to_be_deleted = Tag.find(params[:tag_id])
+  #   tag_to_be_deleted.business_account_tag. 
+  # end
+  
   # PUT /tags/1
   # PUT /tags/1.json
   # def update
