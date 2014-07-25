@@ -162,7 +162,7 @@ class Notification < ActiveRecord::Base
       else
         actee = event.user.username + "'s"
       end
-      "#{actor} has selected #{actee} comment on '#{event.gift_request.title}' as the final answer"
+      "#{actor} selected #{actee} comment on '#{event.gift_request.title}' as the final answer"
     end
   end
 
@@ -178,7 +178,7 @@ class Notification < ActiveRecord::Base
       else
         like_actee = event.post_or_comment_owner.username + "'s"
       end
-      like_actor + " " + event.status + "s " + like_actee + " " + event.type
+      like_actor + " " + event.status + "d " + like_actee + " " + event.type
     end
   end
 

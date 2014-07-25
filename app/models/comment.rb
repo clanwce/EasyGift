@@ -11,6 +11,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :gift_request
 
   validate :one_final_answer, :if => :final_answer_changed?
+  validate :email_business_accounts, :if => :final_answer_changed?
 
   after_create :create_notification
   before_destroy :destroy_notification
@@ -31,6 +32,10 @@ class Comment < ActiveRecord::Base
       user.update_attributes(points: newpoints)
       create_final_answer_notifications
     end
+  end
+
+  def email_business_accounts
+    
   end
 
   def username
