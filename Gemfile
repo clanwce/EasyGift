@@ -15,15 +15,18 @@ gem 'fuzzy-string-match_pure'
 #gem "sphinx"
 gem "thinking-sphinx"
 gem 'pusher'
-gem 'pg'
+# gem 'pg'
 gem 'flying-sphinx', '1.2.0'
 gem 'kaminari'
 gem 'bluecloth' 
+
+gem 'delayed_job_active_record'
 
 group :development do
   gem "debugger"
 end
 
+gem 'ruby-aaws', '~> 0.7.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

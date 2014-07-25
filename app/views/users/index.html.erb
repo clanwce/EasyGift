@@ -81,7 +81,7 @@ node.setAttribute("class", "active padd");
                       <div class="userimage">
                       <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
                       </div>
-                      <b><%= link_to user.username, user %>
+                      <b><%= link_to user.username, user, :style => "background:none;color:#333" %>
                       <br>
                       <%= user.points %>
                       <br>
@@ -131,7 +131,7 @@ node.setAttribute("class", "active padd");
                     <div class="userimage">
                       <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
                       </div>
-                      <b><%= link_to user.username, user %>
+                      <b><%= link_to user.username, user, :style => "background:none;color:#333" %>
                       <br>
                       <%= user.points %>
                       <br>
@@ -167,7 +167,7 @@ node.setAttribute("class", "active padd");
                     <div class="userimage">
                       <img src="/assets/gift.png" alt="Sample Image" height="48x" width="48px"> 
                       </div>
-                      <b><%= link_to user.username, user %></b>
+                      <b><%= link_to user.username, user, :style => "background:none;color:#333" %></b>
                       <br>
                       <b><%= user.points %>
                       <br>

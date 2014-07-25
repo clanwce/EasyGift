@@ -71,7 +71,9 @@ table {
         border-collapse: separate;
         border-spacing: 10px 5px;
       }
-
+tr.border_bottom td {
+  border-bottom:1pt solid #D8D8D8;
+}
 </style>
 
 
@@ -344,7 +346,7 @@ table {
           <table class="table table-condensed">
             <tbody>
 
-            <% @newgifts = @gifts.sort_by(&:created_at) %>
+            <% @newgifts = @gifts.sort_by(&:created_at).reverse %>
 
             <% @newgifts.each do |gift| %>
             <tr style="padding-bottom:40px"><td width="50px" align="center">
@@ -457,7 +459,7 @@ table {
           <table class="table table-condensed">
             <tbody>
 
-            <% @newcomments = @comments.sort_by(&:created_at) %>
+            <% @newcomments = @comments.sort_by(&:created_at).reverse %>
 
             <% @newcomments.each do |comment| %>
             <tr style="padding-bottom:40px;"><td width="50px" align="center">
@@ -515,7 +517,13 @@ table {
             <table class="table">
               <tr>
                 <br>
-                  <% i = 0 %>
+                            <% if alltags.empty? %>
+                               <td class="tag-cell">
+                              <div class="excerpt">
+                                <h4 class="inline">
+                              </p> No Tags by this user </p></h4></div></td>
+                              <% end %>
+                <% i = 0 %>
                  <% tt = alltags.sort_by(&:gift_request_count).reverse %>
 
                   <% tt.each do |tag| %>
@@ -527,6 +535,7 @@ table {
                       <td class="tag-cell">
                       <div class="excerpt">
                         <h4 class="inline">
+
                         <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
                         <%= tag.gift_requests.count %> 
                      <br><br>
@@ -547,6 +556,12 @@ table {
             <table class="table">
               <tr>
                 <br>
+                          <% if alltags.empty? %>
+                               <td class="tag-cell">
+                              <div class="excerpt">
+                                <h4 class="inline">
+                              </p> No Tags by this user </p></h4></div></td>
+                              <% end %>
                   <% i = 0 %>
                  <% nametags = alltags.sort_by(&:name) %>
                   <% nametags.each do |tag| %>
@@ -589,6 +604,37 @@ table {
           </div>
           <div class="modal-body" style="overflow:auto" id="likecommentbody">
             <table class="table" id="liketable">
+              <% if @user.followed_users.nil? %>
+              <% %>
+              <% else %>
+              <% @user.followed_users.each do |followed| %>
+              <tr  class="border_bottom">
+                <td>
+                  <div class="inline">
+                    <div style="width:100%" >
+                  <a href="/users/<%= followed.id %>" class="inline" style="background:transparent;text-decoration:none">
+                  <div style="background-color:#008080;width:50%" align="center">
+                    
+                  <%= image_tag 'gift.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %>
+                  <%= button_to [followed.username], {:controller => "users",:action => "show", :id => followed.id}, :class => "btn inline ", :method => :get %>
+                
+                 </div>
+                 </a>
+                </div>
+                </div>
+              </td>
+              <td>
+                  <div class="inline">
+                  <button type="submit" class="btn btn-info btn-medium inline" onclick="unfollow(<%= current_user.id %>,<%= followed.id %>)"><span class="inline glyphicon glyphicon-minus">UnFollow</span></button>
+
+                    </div>
+                  
+                  
+                </td>
+              </tr>
+              <% end %>
+              <% end %>
+
             </table>
           </div>
           <div class="modal-footer">
@@ -607,8 +653,45 @@ table {
             <h4 class="modal-title" id="myModalLabel">Followers: Users following <%= @user.username %>  </h4>
           </div>
           <div class="modal-body" style="overflow:auto" id="likecommentbody">
-            <table class="table" id="liketable">
-              
+            <table class="table" id="liketable">  
+              <% if @user.followers.nil? %>
+              <% %>
+              <% else %>
+              <% @user.followers.each do |follower| %>
+              <tr  class="border_bottom">
+                <td>
+                  <div class="inline">
+                    <div style="width:100%" >
+                  <a href="/users/<%= follower.id %>" class="inline" style="background:transparent;text-decoration:none">
+                  <div style="background-color:#008080;width:50%" align="center">
+                    
+                  <%= image_tag 'gift.png', :alt => 'lgo', width:"80",   height:"80", :class => "inline" %> 
+                  <%= button_to [follower.username], {:controller => "users",:action => "show", :id => follower.id}, :class => "btn inline ", :method => :get %>
+                  </div>
+                </a>
+                </div>
+                </div>
+              </td>
+              <td>
+                  <div class="inline">
+                     <% if current_user.id != follower.id %>
+                     <% followerflag = current_user.following?(follower)  %>
+                    <% if followerflag.nil? %>
+                   
+                  <button type="submit" class="btn btn-info btn-medium " onclick="follow(<%= current_user.id %>,<%= follower.id %>)"><span class="glyphicon glyphicon-plus">
+                   Follow</span></button>
+                    <% else %>
+                  <button type="submit" class="btn btn-info btn-medium" onclick="unfollow(<%= current_user.id %>,<%= follower.id %>)"><span class="glyphicon glyphicon-minus">
+                   UnFollow</span></button>
+                    <% end %>
+                    <% end %>
+                    </div>
+                  
+                  
+                </td>
+              </tr>
+              <% end %>
+              <% end %>
             </table>
           </div>
           <div class="modal-footer">
