@@ -24,6 +24,7 @@ group :development do
   gem "debugger"
 end
 
+gem 'ruby-aaws', '~> 0.7.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

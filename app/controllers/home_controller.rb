@@ -11,6 +11,7 @@ class HomeController < ApplicationController
 
 	def feed
 	
+	
 	@feed = current_user.feed
 	
     # @gift_request = GiftRequest.new
@@ -21,10 +22,10 @@ class HomeController < ApplicationController
     # elsif params[:filter] == "top"
     #   @gift_requests = GiftRequest.top.page(params[:page]).per(10)
     # end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @gift_requests }
-    end
+	    respond_to do |format|
+	      format.html # index.html.erb
+	      format.json { render json: @gift_requests }
+	    end
 	end
 
 	def account_settings
