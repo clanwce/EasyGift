@@ -20,6 +20,8 @@ gem 'flying-sphinx', '1.2.0'
 gem 'kaminari'
 gem 'bluecloth' 
 
+gem 'delayed_job_active_record'
+
 group :development do
   gem "debugger"
 end
