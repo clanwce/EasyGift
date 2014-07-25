@@ -198,6 +198,10 @@ tr.border_bottom td {
        <% case activity["type"] %>
         <% when "gift_request" %>
           <b> Gift Request </b>  
+        <% when "like" %>
+          <b> Like </b>  
+        <% when "comment" %>
+          <b> Comment </b>  
         <% when "final_answer_selected" %>
           <b style="color:green">Final Answer Selected </b>
         <% else  %>
@@ -625,8 +629,17 @@ tr.border_bottom td {
               </td>
               <td>
                   <div class="inline">
-                  <button type="submit" class="btn btn-info btn-medium inline" onclick="unfollow(<%= current_user.id %>,<%= followed.id %>)"><span class="inline glyphicon glyphicon-minus">UnFollow</span></button>
-
+                    <% if current_user.id != followed.id %>
+                     <% followedflag = current_user.following?(followed)  %>
+                    <% if followedflag.nil? %>
+<!--                   <button type="submit" class="btn btn-info btn-medium inline" onclick="unfollow(<%= current_user.id %>,<%= followed.id %>)"><span class="inline glyphicon glyphicon-minus">UnFollow</span></button> -->
+                <button type="submit" class="btn btn-info btn-medium " onclick="follow(<%= current_user.id %>,<%= followed.id %>)"><span class="glyphicon glyphicon-plus">
+                                   Follow</span></button>
+                    <% else %>
+                  <button type="submit" class="btn btn-info btn-medium" onclick="unfollow(<%= current_user.id %>,<%= followed.id %>)"><span class="glyphicon glyphicon-minus">
+                   UnFollow</span></button>
+                    <% end %>
+                    <% end %>
                     </div>
                   
                   
