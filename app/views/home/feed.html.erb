@@ -35,8 +35,19 @@ node.setAttribute("class", "active padd");
 
   <div class="container-fluid">
     <table class="table" align="center" style="background-color:#ffffff; width:90%;">
-     
-			<% @feed.each do |feed| %>
+     	<form action="/likes/create" method="post" class="inline" id="likeform">
+				<input name="authenticity_token" id="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+				<input type="hidden" name="like[user_id]"  id="like_userid" value="<%= current_user.id %>" />
+				<input type="hidden" name="like[gift_request_id]" id="like_giftrequest_id" value="15" />
+				<input type="hidden" name="like[status]" id="like_status" value="like" />
+				<button type="submit" class="btn btn-class"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
+						</form>
+			
+<script>
+postlikedislike();
+</script>			
+
+	<% @feed.each do |feed| %>
 				<tr>
 					<td>
 						<div class="row" align="center" style="padding-top:10px;">
