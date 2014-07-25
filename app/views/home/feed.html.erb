@@ -58,7 +58,7 @@ node.setAttribute("class", "active padd");
 										<%= GiftRequest.find(feed["gid"]).user.points %>
 										<br>
 										<br>
-										<strong> Last Answer By: &nbsp;</strong><a href="/users/<%=GiftRequest.find(feed["gid"]).comments.last.user.id%>"><%= GiftRequest.find(feed["gid"]).comments.last.username %> </a>
+										<strong> Last Answer By: &nbsp;</strong></a>
 									</div>
 									<br>
 									<p><b>Description: </b><%= GiftRequest.find(feed["gid"]). description[0..150]%> <% if GiftRequest.find(feed["gid"]).description.size > 150 %> ... <% end %> </p>
