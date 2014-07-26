@@ -15,10 +15,10 @@ class Tag < ActiveRecord::Base
   end
 
   def is_subscribed(user_id)
-    if tag.user.where(id: user_id)
-      return true
-    else
+    if users.where(id: user_id).empty?
       return false
+    else
+      return true
     end
   end
 

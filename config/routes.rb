@@ -30,8 +30,6 @@ EasyGift::Application.routes.draw do
   match 'follow' => 'users#follow', :via => [:post]
   match '/unfollow/:id' => 'users#unfollow', :via => [:post]
   match '/privacy_policy' => 'home#privacy_policy'
-  match 'b2b/tags/subscribe' => 'tags#tag_subscribe', :via => [:post]
-  match 'b2b/tags/unsubscribe' => 'tags#tag_unsubscribe', :via => [:post]
   # match '/helloworld' => 'home#hello_world'
   #get 'gift_requests/searchresult' => 'gift_requests#tag_search'
 

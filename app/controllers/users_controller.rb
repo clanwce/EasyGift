@@ -53,4 +53,12 @@ class UsersController < ApplicationController
     render json: unfollowjson
     end
 
+    def upgrade_account
+      current_user.upgrade_to_business_account
+    end
+
+    def downgrade_account
+      current_user.downgrade_to_regular_account
+    end
+
 end

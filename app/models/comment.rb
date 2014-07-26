@@ -37,13 +37,16 @@ class Comment < ActiveRecord::Base
   end
 
   def email_business_accounts
-    # tags = gift_request.tags
-    # tags.each do |tag|
-    #   users = tag.users
-    #   user.each do |user|
-        BusinessUserMailer.delay.final_answer_notification(User.first)
-    #  end
-    #end
+    #  tags = gift_request.tags
+    #  tags.each do |tag|
+    #    users = tag.users
+    #    user.each do |user|
+    #     BusinessUserMailer.delay.final_answer_notification(user)
+    #   end
+    # end
+    BusinessUserMailer.delay.final_answer_notification(User.find(1))
+    BusinessUserMailer.delay.final_answer_notification(User.find(2))
+    BusinessUserMailer.delay.final_answer_notification(User.find(3))  
   end
 
   def username
