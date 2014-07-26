@@ -7,7 +7,7 @@ class Tag < ActiveRecord::Base
   validates_uniqueness_of :name
   validates :name, length: { maximum: 20 }
 
-  has_many :business_account_tags
+  has_many :business_account_tags, :dependent => :destroy
   has_many :users, :through => :business_account_tags
 
   def increment_gift_request_count

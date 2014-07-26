@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_many :gift_request_black_list
   has_many :gift_request_white_list
 
-  has_many :business_account_tags
+  has_many :business_account_tags, :dependent => :destroy
   has_many :tags, :through => :business_account_tags
 
   def apply_omniauth(omniauth)
@@ -122,12 +122,14 @@ def feed
   def subscribe_tags(tag_id)
     if business_account
       tag = Tag.find(tag_id)
-      if tag
+      if ((tag) && (self.tags.where(id:tag_id).empty?)) 
         begin
           self.tags << tag
         end
+        return true
+      else
+        return false
       end
-      return true
     else
       return false
     end
@@ -135,7 +137,8 @@ def feed
 
   def unsubscribe_tags(tag_id)
     if business_account
-      tags_to_unsubscribe = BusinessAccountTag.where(tag_id: tag_id, user_id: id)
+      tags_to_unsubscribe = business_account_tags.where(tag_id: tag_id)
+      # tags_to_unsubscribe = BusinessAccountTag.where(tag_id: tag_id, user_id: id)
       tags_to_unsubscribe.each do |tag|
         tag.destroy
       end
