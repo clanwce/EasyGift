@@ -3,8 +3,8 @@ class TagsController < ApplicationController
   # GET /tags.json
   def index
 
-
-    @tags = Tag.order('lower(name)').all
+    @tags = Kaminari.paginate_array(Tag.all).page(params[:page]).per(36)
+    #@tags = Tag.order('lower(name)').all
 
     respond_to do |format|
       format.html # index.html.erb

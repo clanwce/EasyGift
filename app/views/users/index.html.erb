@@ -49,14 +49,17 @@ node.setAttribute("class", "active padd");
   <!-- Tab panes -->
   <div class="tab-content" style="background-color:white;">
     <div class="tab-pane fade in active" id="following">
+      <div align="center">
+          <% @users = Kaminari.paginate_array(current_user.followed_users).page(params[:page]).per(36) %>
+          <%= paginate @users %>
+      </div>
     <div class="table-responsive">
       <div class="row">
       <table class="table">
         <tr>
             <% i = 0 %>
           
-           <% @users = current_user.followed_users %>
-                    <% if current_user.followed_users.empty? %>
+                    <% if @users.empty? %>
                     <br>
                     <div align="center">
                       <br>
@@ -98,7 +101,10 @@ node.setAttribute("class", "active padd");
     </div>
 
     <div class="tab-pane fade" id="followers">
-
+      <div align="center">
+          <% @users = Kaminari.paginate_array(current_user.followers).page(params[:page]).per(36) %>
+          <%= paginate @users %>
+      </div>
     <div class="table-responsive">
       <div class="row">
       <table class="table">
@@ -106,7 +112,7 @@ node.setAttribute("class", "active padd");
             <% i = 0 %>
 
            <% @users = current_user.followers %>
-                   <% if current_user.followers.empty? %>
+                   <% if @users.empty? %>
                     <br>
                     <div align="center">
                       <br>
@@ -148,14 +154,17 @@ node.setAttribute("class", "active padd");
 
     </div>
     <div class="tab-pane fade" id="all">
+      <div align="center">
+          <% @users = Kaminari.paginate_array(User.all).page(params[:page]).per(36) %>
+         <%= paginate @users %>
+      </div>
     <div class="table-responsive">
       <div class="row">
       <table class="table">
         <tr>
             <% i = 0 %>
 
-           <% @users = User.all %>
-
+           
             <% @users.each do |user| %>
               <% if i == 4 %>
               <% i = 0 %>
