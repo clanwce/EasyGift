@@ -46,7 +46,7 @@ $(document).ready(function(){
 			<div class="container-fluid" style="padding-left:8%;">
 				<br>
 				<div align="left">
-					<p class="inline" data-title='<%= @gift_request.title %>' id="gift_request_title" style="font-family:Times New Roman; font-size:24px"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %></p>
+					<div style=" width:900px"> <p class="inline" data-title='<%= @gift_request.title %>' id="gift_request_title" style="font-family:Times New Roman;word-wrap:break-word; font-size:24px;"><Strong>Title:&nbsp;</Strong> <%= @gift_request.title %></p></div>
 
 					<% if current_user.id == @gift_request.user_id %>
 					<div class="inline" style="float:right; padding-right:6%;">

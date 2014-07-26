@@ -120,13 +120,13 @@ body{
               <% @count = current_user.user_notifications.where(read: false).count %>
             <h4><span class="glyphicon glyphicon-globe"><span id="navigation_count" data-count=<%= @count %> class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>
           </a>
-          <ul id="user_notification_ul" class="dropdown-menu" style=" margin-top:1px; width: 400px;overflow: auto; height: 500px" role="menu" id="notify" align="center" >
+          <ul id="user_notification_ul" class="dropdown-menu" style=" margin-top:1px; width: 400px; height: 500px;word-wrap:break-word;overflow:auto;" role="menu" id="notify" align="center" >
                                   <% @notifications = current_user.user_notifications.order("notification_id desc") %>
                     <% @notifications.each do |notification| %>
                     <% if !notification.read %>              
-                      <li data-id=<%= notification.id %> class="new_notification" ><%= link_to notification.message, notification.notification_link_to_url %></li><hr>
+                      <li data-id=<%= notification.id %> class="new_notification" ><div style="word-wrap:break-word;" ><%= link_to notification.message, notification.notification_link_to_url %></div></li><hr>
                     <% else %>  
-                      <li data-id=<%= notification.id %> ><%= link_to notification.message, notification.notification_link_to_url %></li><hr>
+                      <li data-id=<%= notification.id %> ><div style=" word-wrap:break-word;" > <%= link_to notification.message, notification.notification_link_to_url %></div></li><hr>
                     <% end %>
               <% end %>
           </ul>

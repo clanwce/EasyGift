@@ -15,7 +15,7 @@ $( document ).ready(function() {
     });
 
     function addNotificationToNav(data) {
-    	$('#user_notification_ul').prepend("<li data-id=" + data["user_notification_id"] + " class='new_notification' ><a href='" + data["url"] + "'>" + data["message"] + "</a></li><hr>");
+    	$('#user_notification_ul').prepend("<li data-id=" + data["user_notification_id"] + " class='new_notification' ><div style='word-wrap:break-word;' ><a href='" + data["url"] + "'>" + data["message"] + "</a></div></li><hr>");
     	new_count = $('#navigation_count').data("count") + 1;
     	$('#navigation_count').data("count", new_count);
     	$('#navigation_count').html(new_count);
