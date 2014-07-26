@@ -5,7 +5,8 @@ $( document ).ready(function() {
 
 	$('#add_tag_to_gift_request').click(function(e) {
 		e.preventDefault();
-		create_tag_and_associate_to_gift_request($('#autocomplete_tag').val());
+		tag = $('#autocomplete_tag').val().toLowerCase();
+		create_tag_and_associate_to_gift_request(tag);
 	});
 
 	// $('.remove_tag_from_new_gift_request').click(function(e) {
