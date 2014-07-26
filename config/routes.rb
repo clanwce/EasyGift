@@ -2,7 +2,7 @@ EasyGift::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # match '/users/sign_in' => 'home#index'
-  root :to => 'home#profile'
+  root :to => 'home#feed'
   match 'testpage' => 'home#test'
   match 'landing' => 'home#index'
   match 'account_settings' => 'home#account_settings'

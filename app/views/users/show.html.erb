@@ -204,6 +204,8 @@ tr.border_bottom td {
           <b> Comment </b>  
         <% when "final_answer_selected" %>
           <b style="color:green">Final Answer Selected </b>
+        <% when "final_answer_selection" %>
+          <b style="color:green">Final Answer Selection </b>
         <% else  %>
           <b> <%= activity["type"] %> </b> 
         <% end %> 
@@ -436,7 +438,7 @@ tr.border_bottom td {
                 <% if @votes >= 0 %>
                 +<%= @votes %>
                 <% else  %>
-                -<%= @votes %>
+                <%= @votes %>
                 <% end %>
                 </h4><p style="font-size=10">Likes</p></div>
             </td><td width="80%" align="left">
@@ -472,7 +474,7 @@ tr.border_bottom td {
                 <% if @votes >= 0 %>
                 +<%= @votes %>
                 <% else  %>
-                -<%= @votes %>
+                <%= @votes %>
                 <% end %>
                 </h4><p style="font-size=10">Likes</p></div>
             </td><td width="80%" align="left">

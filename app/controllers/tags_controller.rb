@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   def index
 
 
-    @tags = Tag.all
+    @tags = Tag.order('lower(name)').all
 
     respond_to do |format|
       format.html # index.html.erb
