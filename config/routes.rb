@@ -9,6 +9,7 @@ EasyGift::Application.routes.draw do
   match 'profile'   => 'home#profile'
 
   match 'likes/create' => 'likes#create', :via => [:post]
+  match 'likes/feed/create' => 'likes#feedcreate', :via => [:post]
   match 'comments/final' => 'comments#final', :via => [:post]
   match '/user_notifications/create' => 'user_notifications#create'
 
@@ -23,6 +24,7 @@ EasyGift::Application.routes.draw do
   match 'users/update_password' => 'users#update_password'
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
   post 'comments' => 'comments#create'
+  match 'comments/feed' => 'comments#feedcreate', :via => [:post]
   match 'feed' => 'home#feed'
   match 'gift_requests/searchresult' => 'gift_requests#gift_request_search', :via => [:post]
   match 'tags/tag_search' => 'tags#tag_search', :via => [:post]

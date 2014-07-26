@@ -36,7 +36,7 @@ function postlikedislike(obj)
 
 }
 
-function onclickbttn(obj,likestatus)
+function onclickbttnfeed(obj,likestatus)
 {
 	id= document.getElementById(obj);
 	id= obj.id;

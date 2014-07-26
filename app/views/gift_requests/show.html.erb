@@ -51,7 +51,9 @@ $(document).ready(function(){
 					<% if current_user.id == @gift_request.user_id %>
 					<div class="inline" style="float:right; padding-right:6%;">
 
-					<%= link_to '', edit_gift_request_path(@gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline",  :method => :get%>
+					<%= link_to '', edit_gift_request_path(@gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline",  :method => :get %>
+					<%= link_to '', @gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger glyphicon glyphicon-trash inline" %> 
+
 					</div>
 					<% end %>
 

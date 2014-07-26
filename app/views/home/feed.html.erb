@@ -30,6 +30,7 @@ node.setAttribute("class", "active padd");
 
 
 <div class="container cc" align="center">
+    <%= paginate @feed %>
 
 	<div class="container-fluid">
 		<table class="table" align="center" style="background-color:#ffffff; width:90%;">
@@ -46,7 +47,7 @@ node.setAttribute("class", "active padd");
 									<%= feed["message"] %></font>
 								</p>
 							</div>
-							
+							<% @flag = false %>
 							 <% feed["gift_request"].comments.each do |comment| %>
 					              <% if comment.final_answer == true %>
 					                <% @flag = true %>
@@ -94,9 +95,10 @@ node.setAttribute("class", "active padd");
 								<div class="scroll" style="height:50px; width:650px; padding-top:5px; word-wrap:break-word;">
 									<!-- not done yet -->
 									<b>Description:&nbsp;</b>
-									<%= feed["gift_request"].description[0..120]%> 
+									<%= feed["gift_request"].description[0..120] %> 
 									<% if feed["gift_request"].description.size > 120 %> 
-									... 
+									<a href="<%= feed["url"] %>"  style="background:transparent;text-decoration:none;color: black">
+										(see more...) </a> 
 									<% end %>
 								</div>
 
@@ -111,7 +113,7 @@ node.setAttribute("class", "active padd");
 								<br>
 								
 								<div class="inline" align="center">
-									<form action="/likes/create" method="post" class="inline" id="likeform">
+									<form action="/likes/feed/create" method="post" class="inline" id="likeform">
 										<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 										<input type="hidden" name="like[user_id]" id="like_userid" value="<%= current_user.id %>" />
 										<input type="hidden" name="like[gift_request_id]" id="like_giftrequest_id" value="<%= feed["gift_request"].id %>" />
@@ -121,7 +123,7 @@ node.setAttribute("class", "active padd");
 
 									&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 
-									<form action="/likes/create" method="post" class="inline" id="dislikeform">
+									<form action="/likes/feed/create" method="post" class="inline" id="dislikeform">
 										<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 										<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 										<input type="hidden" name="like[gift_request_id]" value="<%= feed["gift_request"].id %>" />
@@ -257,12 +259,17 @@ node.setAttribute("class", "active padd");
 								<% feed['gift_request'].comments.each do |comment|%>
 								<div class="comments" style="padding:8px;padding-left:16px;padding-right:16px;">
 									
-									<a href="/users/<%= comment.user_id %>"><font color="purple"><b><%= comment.username %></b>:</font></a> <%= comment.description %>
+									<a href="/users/<%= comment.user_id %>" style="background:transparent;text-decoration:none"><font color="purple"><b><%= comment.username %></b>:</font></a> 
+									<%= comment.description[0..120] %>
+									<% if comment.description.size > 120 %> 
+									<a href="<%= feed["url"] %>"  style="background:transparent;text-decoration:none;color: black">
+										(see more...) </a>
+									<% end %>
 
 									<div class="timestamp">
 										<%= comment.created_at.strftime("%b %d, %Y %H:%M") %> 
 
-										<form action="/likes/create" method="post" class="inline">
+										<form action="/likes/feed/create" method="post" class="inline">
 											<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 											<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 											<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
@@ -270,20 +277,34 @@ node.setAttribute("class", "active padd");
 											<button type="submit" class="inline"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 										</form>
 
-										<form action="/likes/create" method="post" class="inline">
+										<form action="/likes/feed/create" method="post" class="inline">
 											<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 											<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
 											<input type="hidden" name="like[comment_id]" value="<%= comment.id %>" />
 											<input type="hidden" name="like[status]" value="dislike" />
 											<button type="submit" class="inline"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"15",   height:"15" %></button>
 										</form>
+										<% if comment.like_count > 0 %>
+										
+										<strong>&nbsp;&middot;&nbsp;
+
+										<button type="submit" class="inline" style="background-color:#5cb85c;color:white;border-color:#4cae4c;padding-left:5px;padding-right:5px" id="<%= comment.id %>" onclick="onclickbttnfeed(this,'like')" data-toggle="modal" data-target="#commentlikemodal" > <%= comment.like_count %> Liked</button>
+										</strong>
+										<% end %>
+										
+										<% if comment.dislike_count > 0 %>
+										<strong>&nbsp;&middot;&nbsp;
+										<button type="submit"   class="inline" style="background-color:#d9534f;color:white;border-color:#d43f3a;padding-left:5px;padding-right:5px"  id="<%= comment.id %>" onclick="onclickbttnfeed(this,'dislike')" data-toggle="modal" data-target="#commentdislikemodal" > <%= comment.dislike_count %> Disliked</button>
+
+										</strong>
+										<% end %>
 
 									</div>
 
 								</div>
 
 								<% end %>
-								<% end %>
+							<% end %>
 
 							</div>
 
@@ -292,9 +313,20 @@ node.setAttribute("class", "active padd");
 							<div align="center">
 								<div style="width:80%;">
 
-									<input type="email" class="form-control inline" id="exampleInputEmail1" placeholder="Write a comment...">
+									<form action="/comments/feed" method="post">
+									<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+									<input type="hidden" name="comment[user_id]" value="<%= current_user.id %>" >
+									<input type="hidden" name="comment[gift_request_id]" value="<%= feed["gift_request"].id %>">
+									<textarea name="comment[description]" class="form-control inline newcomment" id="newcomment" rows="4" cols="140" style="max-width:80%;" placeholder="Write a comment...">
+									</textarea>
+									<br>
+									<br>
+									<input class="btn btn-default" type="submit" value="Submit">
+									</form>						
+
 								</div>
 							</div>
+							
 							<br>
 						</div>
 
@@ -317,7 +349,13 @@ node.setAttribute("class", "active padd");
 <br>
 <br>
 <br>
-
+<script>
+$(document).ready(function(){
+	$(".newcomment").each(function() {
+    $(this).val("")
+		});
+});
+</script>
 		<!-- Modals go in the end -->
 		<!-- Comment Like Modal -->
 		<div class="modal fade" id="commentlikemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

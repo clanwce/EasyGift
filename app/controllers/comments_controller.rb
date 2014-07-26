@@ -17,6 +17,22 @@ class CommentsController < ApplicationController
     end
   end
 
+  def feedcreate
+    @comment = Comment.new(user_id: current_user.id, description: params[:comment]["description"], gift_request_id: params[:comment]["gift_request_id"])
+    gift_requests = @comment.gift_request
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to "/feed", notice: 'Comment was successfully created.' }
+        format.json { render json: @comment, status: :created, location: @comment }
+      else
+        format.html {
+          redirect_to "/feed", notice: @comment.errors.full_messages.to_sentence 
+        }
+        format.json { render json: @comment.errors.full_messages.to_sentence, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def final
     @comment = Comment.find(params[:comment_id])
     if @comment
