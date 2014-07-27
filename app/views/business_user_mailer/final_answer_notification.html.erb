@@ -1,1 +1,6 @@
-<h1>yoyo check it out!</h1>
+<p>Hi <%= @user.username %>, there is a new business opportunity for you!</p><br>
+<p><%= @poster.username %> has selected a final answer on post <%= link_to @post.title, "http://easy-gift.herokuapp.com/gift_requests/#{@post.id}" %>. You can contact the post owner at <%= @poster.email%></p>
+<br><br>
+<p>Tags: <% @post.tags.each do |tag| %>
+				&nbsp;<%= tag.name %></p>
+				<% end %>

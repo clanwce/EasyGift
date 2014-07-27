@@ -14,6 +14,10 @@ class Tag < ActiveRecord::Base
   	update_attributes(gift_request_count: gift_request_count+1)
   end
 
+  def decrement_gift_request_count
+    update_attributes(gift_request_count: gift_request_count-1)
+  end
+
   def is_subscribed(user_id)
     if users.where(id: user_id).empty?
       return false
