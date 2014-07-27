@@ -4,46 +4,59 @@
 // algoid: comment id / request id
 // userid: userid
 
-//function postlikedislike(obj)
-function postlikedislike(type,algo,algoid, userid)
+function postlikedislike(obj)
+//function postlikedislike(type,algo,algoid, userid)
 {
-	//document.getElementById(obj).submit();
+	document.getElementById(obj).submit();
 
-		var link = "/likes/feed/create";
-		like = {};data={};
-		var a = type+"_userid";
-		var b = type+"_giftrequest_id";
-		var c = type+"_status";
-		like['user_id'] = document.getElementById(a).value;
-		like['gift_request_id'] = document.getElementById(b).value;
-		like['status']= document.getElementById(c).value;
-		data['authenticity_token'] = $('#authenticity_token').val();
-		data['like']=like;
-		// alert(algoid);
-		// return false;
-	    $.ajax({
-		    type: "POST",
-		    url: link,
-		    data: data,
-		    success: function(resp) {
+		// var link = "/likes/feed/create";
+		// like = {};data={};var a;var b; var c;
+		// if(algo=="gift_request")
+		// {
+		// a = type+"_userid";
+		// b = type+"_giftrequest_id";
+		// c = type+"_status";
+		// }
+		// else
+		// {
+		// a = type+"_userid";
+		// b = type+"_comment_id";
+		// c = type+"_status";			
+		// }
+		// // alert(a);
+		// // return false;
+		// like['user_id'] = document.getElementById(a).value;
+		// like['gift_request_id'] = document.getElementById(b).value;
+		// like['status']= document.getElementById(c).value;
+		// data['authenticity_token'] = $('#authenticity_token').val();
+		// data['like']=like;
+		// // alert(algoid);
+		// // return false;
+	 //    $.ajax({
+		//     type: "POST",
+		//     url: link,
+		//     data: data,
+		//     success: function(resp) {
 		    	
-		    	alert(resp.temp.status);
-		    	$( "#note" ).html("");
-		    	$( "#note" ).html("<p>like</p>");
-		    	// document.getElementById('note').style.paddingTop='10px';
-		    	// document.getElementById("note").innerHTML = "<p>like</p>";
-		    	//$( "#note" ).html("");
+		//     	alert(resp.temp.status);
+		//     	$("#note").html("");
+		//     	$("#note").html("<p>like</p>");
+		//     	document.getElementById('note').style.paddingTop='10px';
+		//     	window.setInterval(function(){$("#note").html("");}, 5000);
+
+		//     	// document.getElementById("note").innerHTML = "<p>like</p>";
+		//     	//$( "#note" ).html("");
 		    	
-		    	//var obj = JSON.parse(resp);
+		//     	//var obj = JSON.parse(resp);
 
-		    	//alert(obj.name);
+		//     	//alert(obj.name);
 
-			},
+		// 	},
 
-		    error: function(response) {
-		    	alert(response.responseText);
-		    }
-	    });	
+		//     error: function(response) {
+		//     	alert(response.responseText);
+		//     }
+	 //    });	
 
 }
 
@@ -92,4 +105,49 @@ function onclickbttnfeed(obj,likestatus)
 	  })
 
 	}
+}
+
+function onclickdiv(divid, id, type)
+{
+		if(type=="gift")
+		{
+			divid = "gf"+divid;
+		}
+		else
+		{
+			divid = "cm"+divid;
+		}
+		//alert(divid);
+		//return false;
+		var link = "/feed/description";
+		data={};
+		data['id']=id;
+		data['type']=type;
+		data['divid']=divid;
+		
+		//return false;
+		data['authenticity_token'] = $('#authenticity_token').val();
+
+	    $.ajax({
+		    type: "POST",
+		    url: link,
+		    data: data,
+		    success: function(resp) {
+		    	if(resp.type=="gift")
+			    {
+			    	//alert(resp.divid);
+			    	$("#"+resp.divid).html("<p><b>Description:&nbsp;</b>"+resp.description+"</p>");	
+			    }
+			    else
+			    {
+					$("#"+resp.divid).html("<p><b>Description:&nbsp;</b>"+resp.description+"</p>");
+			    }
+
+			},
+
+		    error: function(response) {
+		    	alert(response.responseText);
+		    }
+	    });	
+
 }

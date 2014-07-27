@@ -32,4 +32,22 @@ class HomeController < ApplicationController
 
 	end
 
+	def description
+    id = params[:id]
+    type = params[:type]
+    divid = params[:divid]
+    response = {}
+    	if type == 'gift'
+    		response['description'] = GiftRequest.find(id).description
+    		response['type']= type
+    		response['id'] = id
+    		response['divid'] = divid
+    	else
+    		response['description'] = Comment.find(id).description
+    		response['id'] = id
+    		response['divid'] = divid
+    		response['type']= type
+    	end
+	render json: response
+    end
 end

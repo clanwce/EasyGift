@@ -3,10 +3,26 @@
 {
 	display:inline;
 }
-.scroll
+.scrolldiv
 {
+	height:70px; 
+	width:650px;
+	position:relative;
+	overflow-y:scroll; 
 	overflow:auto;
+	word-wrap:break-word;
 }
+
+.scrollcomment
+{
+	height:70px; 
+	width:400px;
+	position:relative;
+	overflow-y:scroll; 
+	overflow:auto;
+	word-wrap:break-word;
+}
+
 .btn-danger{
 	color:#000;
 }
@@ -28,6 +44,8 @@ var node = document.getElementById("subnav").getElementsByTagName("li")[0];
 node.setAttribute("class", "active padd");
 </script>
 
+<% @commentcount = 0 %>
+<% @giftcount = 0 %>
 
 <div class="container cc" align="center">
     <%= paginate @feed %>
@@ -48,7 +66,8 @@ node.setAttribute("class", "active padd");
 								</p>
 							</div>
 							<% @flag = false %>
-							 <% feed["gift_request"].comments.each do |comment| %>
+							 <% @allcomments = feed["gift_request"].comments %>
+							 <% @allcomments.each do |comment| %>
 					              <% if comment.final_answer == true %>
 					                <% @flag = true %>
 					              <% end %>
@@ -65,7 +84,7 @@ node.setAttribute("class", "active padd");
 
 						<div class="row">
 
-							<div class="inline col-md-8 usercontent">
+							<div class="inline col-md-8 usercontent" style="width: 600px; word-wrap:break-word;">
 
 								<a href="<%= feed["url"] %>" style="background:transparent;text-decoration:none"><font color="purple" size="3px"> 
 									<%= feed["gift_request"].title %></font>
@@ -92,13 +111,17 @@ node.setAttribute("class", "active padd");
 									</a>
 								</div>
 								
-								<div class="scroll" style="height:50px; width:650px; padding-top:5px; word-wrap:break-word;">
+								<div class="scrolldiv" style="padding-top:5px;"  id="gf<%= @giftcount %>">
 									<!-- not done yet -->
 									<b>Description:&nbsp;</b>
-									<%= feed["gift_request"].description[0..120] %> 
-									<% if feed["gift_request"].description.size > 120 %> 
-									<a href="<%= feed["url"] %>"  style="background:transparent;text-decoration:none;color: black">
-										(see more...) </a> 
+									<%= feed["gift_request"].description[0..80] %> 
+									<% if feed["gift_request"].description.size > 80 %>
+									<div style=" cursor: pointer;" onclick="onclickdiv('<%= @giftcount %>','<%= feed["gift_request"].id %>','gift')"> 
+										
+									<!-- <a href="<%= feed["url"] %>"  style="background:transparent;text-decoration:none;color: black"> -->
+										... (see more) 
+										 
+									</div>
 									<% end %>
 								</div>
 
@@ -113,21 +136,21 @@ node.setAttribute("class", "active padd");
 								<br>
 								
 								<div class="inline" align="center">
-								<!-- 	<form action="/likes/feed/create" method="post" class="inline" id="likeform">
-								 -->		<input name="authenticity_token" id="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+									<form action="/likes/feed/create" method="post" class="inline" id="likeform">
+										<input name="authenticity_token" id="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 										<input type="hidden" name="like[user_id]" id="like_userid" value="<%= current_user.id %>" />
 										<input type="hidden" name="like[gift_request_id]" id="like_giftrequest_id" value="<%= feed["gift_request"].id %>" />
 										<input type="hidden" name="like[status]"  id="like_status" value="like" />
-										<button type="submit" class="btn btn-sm" onclick="return postlikedislike('like','gift_request','<%= feed["gift_request"].id %>','<%= current_user.id %>')"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
-									<!-- </form> -->
+										<button type="submit" class="btn btn-sm" onclick="return postlikedislike('likeform')"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
+									</form>
 
 									&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 
 									<form action="/likes/feed/create" method="post" class="inline" id="dislikeform">
 										<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-										<input type="hidden" name="like[user_id]" value="<%= current_user.id %>" />
-										<input type="hidden" name="like[gift_request_id]" value="<%= feed["gift_request"].id %>" />
-										<input type="hidden" name="like[status]" value="dislike" />
+										<input type="hidden" name="like[user_id]"  id="dislike_userid" value="<%= current_user.id %>" />
+										<input type="hidden" name="like[gift_request_id]"  id="dislike_giftrequest_id" value="<%= feed["gift_request"].id %>" />
+										<input type="hidden" name="like[status]"  id="dislike_status" value="dislike" />
 										<button type="submit" class="btn btn-sm" onclick="return postlikedislike('dislikeform')"><%= image_tag 'dislike.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
 									</form>
 
@@ -141,16 +164,16 @@ node.setAttribute("class", "active padd");
 							<div align="left">
 								<div align="center">
 									
-									Comments:&nbsp;<strong><%= feed["gift_request"].comments.count %>
+									Comments:&nbsp;<%= feed["gift_request"].comments.count %>
 
 
-									&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+									<strong>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
 									
-									Views:&nbsp;<strong><%= feed["gift_request"].views %>
+									Views:&nbsp;<%= feed["gift_request"].views %>
 
 									<% if feed["gift_request"].like_count > 0 %>
 									
-									&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
+									<strong>&nbsp;&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;</strong>
 
 									<button type="submit" class="btn btn-success " data-toggle="modal" data-target="#likemodal<%= feed["gift_request"].id %>" > <%= feed["gift_request"].like_count %> Liked </button>
 									<% end %>
@@ -253,17 +276,36 @@ node.setAttribute("class", "active padd");
 						<div class="row">
 								<!-- not done yet -->
 							<div class="commentarea" style="background:#F8F8F8">
-								<% if feed['gift_request'].comments.empty? %>
+								<% if @allcomments.empty? %>
 								<% %>
 								<% else %>
-								<% feed['gift_request'].comments.each do |comment|%>
-								<div class="comments" style="padding:8px;padding-left:16px;padding-right:16px;">
+									<% if @flag==true %>
+										<% @allcomments.each do |comment|%>
+											<% if comment.final_answer == true %>
+											<% @var = comment %>
+											<% end %>
+										<% end %>
+									<% else %>
+									<% @var = @allcomments.last %>
+									<% end %>
+								
+								<% comment = @var %>
+								
+
+								<div class="comments"  style="width:900px;padding:8px;padding-left:16px;padding-right:16px;" >
 									
-									<a href="/users/<%= comment.user_id %>" style="background:transparent;text-decoration:none"><font color="purple"><b><%= comment.username %></b>:</font></a> 
+									<a href="/users/<%= comment.user_id %>" style="background:transparent;text-decoration:none"><font color="purple"><b><%= comment.username %></b>:</font></a>
+									<div class="inline scrollcomment" id="cm<%= @commentcount %>"> 
 									<%= comment.description[0..120] %>
-									<% if comment.description.size > 120 %> 
-									<a href="<%= feed["url"] %>"  style="background:transparent;text-decoration:none;color: black">
-										(see more...) </a>
+									<% if comment.description.size > 120 %>
+									<div style=" cursor: pointer;" onclick="onclickdiv('<%= @commentcount %>','<%= comment.id %>','comment')">
+										
+									... (see more)
+										
+									</div>
+									</div> 
+									<!-- <a href="<%= feed["url"] %>"  style="background:transparent;text-decoration:none;color: black">
+										(see more...) </a> -->
 									<% end %>
 
 									<div class="timestamp">
@@ -303,8 +345,9 @@ node.setAttribute("class", "active padd");
 
 								</div>
 
-								<% end %>
+							<% @commentcount = @commentcount + 1 %>
 							<% end %>
+
 
 							</div>
 
@@ -334,7 +377,7 @@ node.setAttribute("class", "active padd");
 
 
 			</td>
-
+			<% @giftcount = @giftcount + 1 %>
 		</tr>
 
 		<% end %>
