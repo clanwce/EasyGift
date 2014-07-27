@@ -47,7 +47,7 @@ body{
         position: absolute;
         color: white;
         opacity: 0.95;
-        padding-top: 10px;
+        padding-top: 0px;
         z-index: 6001;
         top: 0;
         left: 0;
@@ -145,19 +145,32 @@ body{
         </div><!--/.nav-collapse -->
       
     <div id="custom_notice_container">
-      <% if flash[:notice] %>
+
+
+      
           <div id="note" align = "center" style="">
             <div class="inline">
+              <% if flash[:notice] %>
                 <p id="flash_alert"><%= flash[:notice] if flash[:notice] %></p>
+            <% elsif flash[:alert] %>
+                <p id="flash_alert"><%= flash[:alert] if flash[:alert] %></p>
+            <% else %>
+            <% %>   
+            <% end %>
+<% if flash[:notice] %>
+<script>
+document.getElementById('note').style.paddingTop='10px';
+</script>
+<% elsif flash[:alert] %>
+<script>
+document.getElementById('note').style.paddingTop='10px';
+</script>
+            <% else %>
+            <% %>   
+            <% end %>
+      
             </div>
           </div>
-      <% elsif flash[:alert] %>
-           <div id="note" align = "center" style="">
-            <div class="inline">
-                <p id="flash_alert"><%= flash[:alert] if flash[:alert] %></p>
-            </div>
-          </div>      
-      <% end %>
     </div>
   
       </div>
@@ -170,7 +183,6 @@ body{
 <%= yield %>
 
 </body>
-
 
 <div class="footer" align="center">
       CopyRights @  

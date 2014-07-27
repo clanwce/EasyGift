@@ -4,35 +4,46 @@
 // algoid: comment id / request id
 // userid: userid
 
-function postlikedislike(obj)
+//function postlikedislike(obj)
+function postlikedislike(type,algo,algoid, userid)
 {
-	document.getElementById(obj).submit();
+	//document.getElementById(obj).submit();
 
-		// var link = "/likes/create";
-		// like = {};data={};
-		// var a = algo+"userid";
-		// var b = algo+"giftrequest_id";
-		// var c = algo+"status";
+		var link = "/likes/feed/create";
+		like = {};data={};
+		var a = type+"_userid";
+		var b = type+"_giftrequest_id";
+		var c = type+"_status";
+		like['user_id'] = document.getElementById(a).value;
+		like['gift_request_id'] = document.getElementById(b).value;
+		like['status']= document.getElementById(c).value;
+		data['authenticity_token'] = $('#authenticity_token').val();
+		data['like']=like;
+		// alert(algoid);
+		// return false;
+	    $.ajax({
+		    type: "POST",
+		    url: link,
+		    data: data,
+		    success: function(resp) {
+		    	
+		    	alert(resp.temp.status);
+		    	$( "#note" ).html("");
+		    	$( "#note" ).html("<p>like</p>");
+		    	// document.getElementById('note').style.paddingTop='10px';
+		    	// document.getElementById("note").innerHTML = "<p>like</p>";
+		    	//$( "#note" ).html("");
+		    	
+		    	//var obj = JSON.parse(resp);
 
-		// like['user_id'] = document.getElementById(a).value;
-		// like['gift_request_id'] = document.getElementById(b).value;
-		// like['status']= document.getElementById(c).value;
-		// data['authenticity_token'] = $('#authenticity_token').val();
-		// data['like']=like;
+		    	//alert(obj.name);
 
-	 //    $.ajax({
-		//     type: "POST",
-		//     url: link,
-		//     data: data,
-		//     success: function(resp) {
-		//     	alert(resp.responseText);
+			},
 
-		// 	},
-
-		//     error: function(response) {
-		//     	alert(response.responseText);
-		//     }
-	 //    });	
+		    error: function(response) {
+		    	alert(response.responseText);
+		    }
+	    });	
 
 }
 

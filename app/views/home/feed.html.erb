@@ -113,13 +113,13 @@ node.setAttribute("class", "active padd");
 								<br>
 								
 								<div class="inline" align="center">
-									<form action="/likes/feed/create" method="post" class="inline" id="likeform">
-										<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+								<!-- 	<form action="/likes/feed/create" method="post" class="inline" id="likeform">
+								 -->		<input name="authenticity_token" id="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 										<input type="hidden" name="like[user_id]" id="like_userid" value="<%= current_user.id %>" />
 										<input type="hidden" name="like[gift_request_id]" id="like_giftrequest_id" value="<%= feed["gift_request"].id %>" />
 										<input type="hidden" name="like[status]"  id="like_status" value="like" />
-										<button type="submit" class="btn btn-sm" onclick="return postlikedislike('likeform')"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
-									</form>
+										<button type="submit" class="btn btn-sm" onclick="return postlikedislike('like','gift_request','<%= feed["gift_request"].id %>','<%= current_user.id %>')"><%= image_tag 'like.png', :class=>"inline " , :alt => 'lgo', width:"20",   height:"20" %></button>
+									<!-- </form> -->
 
 									&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 
