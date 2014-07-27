@@ -7,9 +7,11 @@ class BusinessUserMailer < ActionMailer::Base
   # 	body		"#{user.name} is gay"
   # end
   default from: "easygift195@gmail.com"
-  def final_answer_notification(user)
+  def final_answer_notification(user, post)
     @user = user
+    @post = post
+    @poster = post.user
     mail(:to => user.email,
-         :subject => "New Opportunity")
+         :subject => "New Business Opportunity from Easy Gift")
   end
 end
