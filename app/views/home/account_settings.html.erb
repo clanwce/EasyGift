@@ -11,17 +11,154 @@
 }
 
 
+   .tag-cell
+        {
+            width: 180px;
+            vertical-align: top;
+        }
+
+         .excerpt
+        {
+          font-size: 12px;
+          height: 70px;
+          line-height: 14px;
+          overflow: hidden;
+          margin-bottom: 4px;
+        }
+
+        .tagpost
+        {
+          color: #4a6b82;
+          background-color:#e0eaf1;
+          border-bottom:1px solid #b3cee1;
+          border-right: 1px solid #b3cee1;
+          /*padding: 3px 4px 3px 4px;*/
+          margin: 2px 2px 2px 0;
+          text-decoration: none;
+          /*font-size: 90%;*/
+          line-height: 1.4;
+          white-space: nowrap;
+          display: inline-block;
+        }
+
+        .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+    border-bottom:  1px solid #ddd;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
+
 
 </style>
 
 <div class="container">
-<ul class="nav nav-pills">
-		  <li class="active"><a href="#">Change Password</a></li>
-		</ul>
+<ul class="nav nav-pills" role="tablist" style="">
+		 <li class="active"><a href="#changepassword" role="tab" data-toggle="tab">Change Password</a></li>
+		<% if current_user.business_account == true %>
+	    <li><a href="#upgradeaccount" role="tab" data-toggle="tab">Business User Panel</a></li>
+		<% else %>
+	    <li><a href="#upgradeaccount" role="tab" data-toggle="tab">Upgrade Account</a></li>
+	    <% end %>
+  </ul>
+
 	<div class="jumbotron">
 
+  <div class="tab-content" style="background-color:white">
+    <div class="tab-pane fade in active" id="changepassword">
 		<%= render :template => 'users/edit_password_form', 
 		:locals => { :resource => current_user, :resource_name => "user" } %>
+
+    </div>
+
+    <div class="tab-pane fade in" id="upgradeaccount">
+    	<% if current_user.business_account == true %>
+		<ul class="nav  nav-tabs" role="tablist" style="">
+				 <li class="active"><a href="#tags" role="tab" data-toggle="tab">Tags</a></li>
+			    <li><a href="#downgrade" role="tab" data-toggle="tab">Downgrade</a></li>
+		  </ul>
+		<div class="tab-content" style="background-color:white">
+   		<div class="tab-pane fade in " id="downgrade">
+   				
+    	<h3> Downgrade to regular account </h3>
+    	   	<div align="center">
+    	<textarea rows="10" cols="100" disabled style="resize: none;word-wrap:break-word;" >You can downgrade to regular account anytime. Once you downgrade, all your saved tags will be lost. You can choose to upgrade your account to business account anytime in the future.
+    	    </textarea>
+	    	<div class="checkbox" align="center">
+			    <label>
+			      <input type="checkbox" id="downgradecheckbox" style="position:relative;float:center"> By checking, you understand that your business account data will be lost. 
+			    </label>
+			      <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+			      <br><br><br>
+			      <button onclick="return downgradeuser()" type="submit" class="btn btn-success inline" >Downgrade</button>
+			</div>
+		</div>	
+ 	</div>
+    	
+    	<div class="tab-pane fade in active" id="tags">
+   		
+   		<h3> Business User Panel: Tags Unsubscribe </h3>
+    	<div class="table-responsive">
+	      <table class="table">
+	        <tr>
+	          <br>
+	            <% i = 0 %>
+
+	           <% tt = current_user.subscribed_tags %>
+
+	            <% tt.each do |tag| %>
+	              <% if i == 4 %>
+	              <% i = 0 %>
+	              </tr>
+	              <tr> 
+	              <% end %> 
+	                <td class="tag-cell" id="tag<%= tag.id %>">
+	                <div class="excerpt">
+	                  <h4 class="inline">
+	                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+	                  <%= tag.gift_request_count %>&nbsp;&nbsp;
+	                  <!-- <form action="/b2b/tags/unsubscribe" method="post" class="inline"> -->
+	                  	<input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+	                	<button onclick="unsubscribedtag(<%= tag.id %>)" type="submit" class="btn btn-danger glyphicon glyphicon-trash inline" ></button>
+					  <!-- </form> -->
+	                </div>
+	              </td>
+	              <% i = i+1 %>
+	            <% end %>
+	        </tr>
+	      </table>
+	    </div>
+	  	</div>
+
+    	<% else %>
+    	<h3> Upgrade Account </h3>
+    	<div align="center">
+    	<textarea rows="10" cols="100" disabled style="resize: none;word-wrap:break-word;" > POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY POLICY </textarea>
+	    	<div class="checkbox" align="center">
+			    <label>
+			      <input type="checkbox" id="upgradecheckbox" style="position:relative;float:center"> By checking, you agree our business account terms and agreement. 
+			    </label>
+			      <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+			      <br><br><br>
+			      <button onclick="return upgradeuser()" type="submit" class="btn btn-success inline" >Upgrade</button>
+			</div>
+		</div>	
+    	<% end %>
+
+    </div>
+
+</div>
+	
 
 	</div>
 </div>

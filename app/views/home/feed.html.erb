@@ -48,6 +48,10 @@ node.setAttribute("class", "active padd");
 <% @giftcount = 0 %>
 
 <div class="container cc" align="center">
+		<div class="inline">
+			<a style='display:none' id="facebook_login_button" href=<%= ENV['FACEBOOK_LOGIN_URL'] %> class="popup" data-height="400" data-width="600"><%= image_tag 'fb.png', :alt => 'lgo', width:"150", height:"40"%></a>
+		</div>
+		<br>
     <%= paginate @feed %>
 
 	<div class="container-fluid">
@@ -129,8 +133,7 @@ node.setAttribute("class", "active padd");
 
 							<div class="col-md-4" align="center">
 								<br>
-								<a  id="facebook_share" style="background:transparent" href="#"> <%= image_tag "share.png", :style => "height:38px;"%>
-								</a>
+									<a  id="facebook_share" style="background:transparent" href="#"> <%= image_tag "share.png", :style => "width: ;height:38px;" %></a>
 								
 								<br>
 								<br>

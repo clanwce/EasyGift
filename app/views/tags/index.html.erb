@@ -114,8 +114,14 @@ Type to find tags:
                   <h4 class="inline">
                   <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
                   <%= tag.gift_request_count %> 
-               <br><br>
-                  Last used <%= time_ago_in_words(tag.updated_at) %> ago
+                   <br><br>
+                  Last used <%= time_ago_in_words(tag.updated_at) %> ago&nbsp;
+                  <% if tag.is_subscribed(current_user) %>
+                  <% %>
+                  <% else %>
+                  <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+                  <button onclick="return subscribedtag(<%= tag.id %>,'pbutton')" id="pbutton<%= tag.id %>" type="submit" class="btn btn-xs btn-success inline">Attach</button>
+                  <% end %>
                 </div>
               </td>
               <% i = i+1 %>
@@ -146,8 +152,14 @@ Type to find tags:
                   <h4 class="inline">
                   <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
                   <%= tag.gift_request_count %> 
-               <br><br>
-                  New Request <%= time_ago_in_words(tag.updated_at) %> ago
+                   <br><br>
+                  Last used <%= time_ago_in_words(tag.updated_at) %> ago&nbsp;
+                  <% if tag.is_subscribed(current_user) %>
+                  <% %>
+                  <% else %>
+                  <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+                  <button onclick="return subscribedtag(<%= tag.id %>,'nbutton')" id="nbutton<%= tag.id %>" type="submit" class="btn btn-xs btn-success inline">Attach</button>
+                  <% end %>
                 </div>
               </td>
               <% i = i+1 %>
@@ -176,11 +188,17 @@ Type to find tags:
               <% end %> 
                 <td class="tag-cell">
                 <div class="excerpt">
-                  <h4 class="inline">
+                 <h4 class="inline">
                   <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
                   <%= tag.gift_request_count %> 
-               <br><br>
-                  New Request <%= time_ago_in_words(tag.updated_at) %> ago
+                   <br><br>
+                  Last used <%= time_ago_in_words(tag.updated_at) %> ago&nbsp;
+                  <% if tag.is_subscribed(current_user) %>
+                  <% %>
+                  <% else %>
+                  <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+                  <button onclick="return subscribedtag(<%= tag.id %>,'nnbutton')" id="nnbutton<%= tag.id %>" type="submit" class="btn btn-xs btn-success inline">Attach</button>
+                  <% end %>
                 </div>
               </td>
               <% i = i+1 %>
