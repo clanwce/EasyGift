@@ -102,8 +102,12 @@ body{
             <span class="icon-bar"></span>
           </button>
           <div style="padding-top:3px; padding-bottom:3px">
-          <a class="inline" href="/users/<%= current_user.id %>" style="background-color:transparent;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
-          </a>
+          <% if current_user %>
+            <a class="inline" href="/users/<%= current_user.id %>" style="background-color:transparent;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
+            </a>
+          <% else %>
+            <a class="inline" href="/" style="background-color:transparent;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
+          <% end %>
           </div>
         </div>
         <div id="user_navigation_bar" <% if current_user %> data-user-id=<%= current_user.id %> <% end %> class="navbar-collapse collapse">
