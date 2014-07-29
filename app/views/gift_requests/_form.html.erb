@@ -1,16 +1,16 @@
 <script>
 function validate(i)
 {
-if(i==1)
-{
-document.getElementById("gift_request_public").className = "active btn btn-primary btn-sm";
-document.getElementById("gift_request_private").className = "btn btn-sm";
-}
-else
-{
-document.getElementById("gift_request_private").className = "active btn btn-primary btn-sm";
-document.getElementById("gift_request_public").className = "btn btn-sm";
-}
+	if(i==1)
+	{
+		document.getElementById("gift_request_public").className = "active btn btn-primary btn-sm";
+		document.getElementById("gift_request_private").className = "btn btn-sm";
+	}
+	else
+	{
+		document.getElementById("gift_request_private").className = "active btn btn-primary btn-sm";
+		document.getElementById("gift_request_public").className = "btn btn-sm";
+	}
 }
 
 $(document).ready(function(){
@@ -20,58 +20,120 @@ $(document).ready(function(){
 
 </script>
 <style type="text/css">textarea {
-    resize: none;
-}</style>
+	resize: none;
+	}</style>
 
- <form id="new_gift_request_form" class="form-horizontal" role="form" action="/gift_requests" method="post">
-  <input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    <input type="hidden" maxlength="50" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
-	
-	<div class="form-group">
-	    <label for="new_gift_request_title" class="col-sm-4 control-label">Title:</label>
-	    <div class="col-sm-4">
-	      <input  maxlength="100" type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
-	    </div>
-	  </div>
+	<form id="new_gift_request_form" class="form-horizontal" role="form" action="/gift_requests" method="post">
+		<input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+		<input type="hidden" maxlength="50" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
 
-	<div class="form-group">
-	    <label for="new_gift_request_description" class="col-sm-4 control-label">Description:</label>
-	    <div class="col-sm-4">
-	    	<textarea rows="5" cols="50" name="gift_request[description]" class="form-control" id="new_gift_request_description" placeholder="Description">
-	    	</textarea>
-	    </div>
-	</div>
-	
-	<div class="form-group">
-	    <label class="col-sm-4 control-label">Accessor:</label>
-	    <div class="col-sm-4">
- 	  	<button type="button" id="gift_request_public" name="gift_request_public" class=" active btn btn-primary btn-sm" onclick="validate('1')">Public</button>
- 	  	<button type="button" id="gift_request_private" name="gift_request_private" class=" btn  btn-sm" onclick="validate('2')">Private</button>
-	    </div>
-	</div>
-	
-	<div class="form-group">
-	    <label class="col-sm-4 control-label">Tags:</label>
-	    <div class="col-sm-3">
-	    <div style="margin:0;padding:0;display:inline">
-	    </div>
-        <input maxlength="20"  data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag" placeholder="Tags"/>
-        
-    </div>
-    
-    <div>
-        <input id="add_tag_to_gift_request" style="padding-left:32px; padding-right:32px;" class=" btn btn-default" type="submit" value="Add">
-    	     
-	</div>
-	</div>
-	   <div id='tag_holder' class="" align="center">
-    		</div>
-<br>
-   <div class="form-group">
-    <div class="col-sm-offset-5" style="padding-left:60px">
-    	<button id="create_gift_request_button" type="submit"  class="btn btn-default" value="Submit">Submit</button>
-    </div>
-   </div>
-</form> 
-<br>
-<br>
+		<div class="form-group">
+			<label for="new_gift_request_title" class="col-sm-4 control-label">Title:</label>
+			<div class="col-sm-4">
+				<input  maxlength="100" type="text" name="gift_request[title]" class="form-control" id="new_gift_request_title" placeholder="Title">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="new_gift_request_description" class="col-sm-4 control-label">Description:</label>
+			<div class="col-sm-4">
+				<textarea rows="5" cols="50" name="gift_request[description]" class="form-control" id="new_gift_request_description" placeholder="Description">
+				</textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Accessor:</label>
+			<div class="col-sm-4">
+				<button type="button" id="gift_request_public" name="gift_request_public" class=" active btn btn-primary btn-sm" onclick="validate('1')">Public</button>
+				<button type="button" id="gift_request_private" name="gift_request_private" class=" btn  btn-sm" onclick="validate('2')" data-toggle="modal" data-target="#myModal">Private</button>
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								<h4 class="modal-title" id="myModalLabel">Private Post Settings</h4>
+							</div>
+							<div class="modal-body">
+								
+									
+										Who can view this:
+									<br>
+								
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> Followers
+											</label>
+										</div>
+									
+								
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> Following
+											</label>
+										</div>
+										<br>
+										<div style="border-top: 1px solid gray"><br>
+										Specific Users who can view this:
+
+									
+										<div class="row">
+											<div class="col-sm-6"><input maxlength="20" class="form-control" id="privateusers" placeholder="Enter Usernames">
+											</div>
+											<div class="col-sm-2"><input id="privateusers" class=" btn btn-warning" type="submit" value="Add">
+												
+											</div>
+										</div>
+										</div>
+										<br>
+										<div style="border-top: 1px solid gray"><br>
+										Specific Users who can not view this:
+
+									
+										<div class="row">
+											<div class="col-sm-6"><input maxlength="20" class="form-control" id="privateusers" placeholder="Enter Usernames">
+											</div>
+											<div class="col-sm-2"><input id="privateusers" class=" btn btn-warning" type="submit" value="Add">
+												
+											</div>
+										</div>
+										</div>
+
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save changes</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Tags:</label>
+			<div class="col-sm-3">
+				<div style="margin:0;padding:0;display:inline">
+				</div>
+				<input maxlength="20"  data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag" placeholder="Tags"/>
+
+			</div>
+
+			<div>
+				<input id="add_tag_to_gift_request" style="padding-left:32px; padding-right:32px;" class=" btn btn-default" type="submit" value="Add">
+
+			</div>
+		</div>
+		<div id='tag_holder' class="" align="center">
+		</div>
+		<br>
+		<div class="form-group">
+			<div class="col-sm-offset-5" style="padding-left:60px">
+				<button id="create_gift_request_button" type="submit"  class="btn btn-default" value="Submit">Submit</button>
+			</div>
+		</div>
+	</form> 
+	<br>
+	<br>
