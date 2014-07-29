@@ -21,7 +21,7 @@ EasyGift::Application.routes.draw do
   match 'users/:id' => 'users#show'
   match 'users/edit_password' => 'users#edit_password'
   match 'auth/:provider/callback' => 'authentications#create'
-  match 'users/update_password' => 'users#update_password'
+  match 'password/users/update_password' => 'users#update_password'
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
   post 'comments' => 'comments#create'
   match 'comments/feed' => 'comments#feedcreate', :via => [:post]

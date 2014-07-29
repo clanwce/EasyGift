@@ -116,6 +116,11 @@ $( document ).ready(function() {
               alert('Facebook share error: ' + facebook_response.error.message);
             }
          } else {
+            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+                                                      '<div class="inline">' +                      
+                                                        '<p id="flash_alert">Shared with facebook</p>' +
+                                                      '</div>' +
+                                                    '</div>');
          }
       }
     );
