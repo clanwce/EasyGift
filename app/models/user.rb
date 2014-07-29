@@ -83,7 +83,7 @@ def feed
     followed_users.each do |followed_user|
       feed += followed_user.activity.sort_by(&:created_at)
     end
-    # feed = feed.sort_by &:created_at
+    feed = feed.sort_by &:created_at
     message_feed = []
     feed.each do |notification|
       notification_hash = {}
