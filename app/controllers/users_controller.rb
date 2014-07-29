@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       sign_in(@user, :bypass => true)
       redirect_to '/account_settings', :notice => "Your Password has been updated!"
     else
-      render :edit,:locals => { :resource => @user, :resource_name => "user" }
+      redirect_to '/account_settings', :notice => "Your Password was not changed. Try again"
     end
   end
 
