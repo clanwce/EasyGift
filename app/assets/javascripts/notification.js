@@ -74,7 +74,11 @@ $( document ).ready(function() {
 					// window.location.replace(redirect_url);
 			    },
 				error: function(response) {
-			    	alert(response.responseText);
+	            	$('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 			    }	    
 			});
 	});

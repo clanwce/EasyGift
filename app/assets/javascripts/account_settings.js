@@ -22,7 +22,11 @@ function unsubscribedtag(tagid)
 			},
 
 		    error: function(response) {
-		    	alert(response.responseText);
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 		    }
 	    });	
 
@@ -60,7 +64,11 @@ function subscribedtag(tagid, buttonname)
 			},
 
 		    error: function(response) {
-		    	alert(response.responseText);
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 		    }
 	    });	
 
@@ -89,7 +97,12 @@ function upgradeuser()
 	    }
 	    else
 	    {
-	    	alert("Kindly agree to the agreement first");
+            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+                                      '<div class="inline">' +                      
+                                        '<p id="flash_alert">Kindly agree to the agreement first</p>' +
+                                      '</div>' +
+                                    '</div>');	    	
+	    	// alert("Kindly agree to the agreement first");
 	    	return false;
 	    }
 }
@@ -111,13 +124,21 @@ function downgradeuser()
 		    	    location.reload();
 			},
 		    error: function(response) {
-		    	alert(response.responseText);
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 		    }
 	    });	
 	    }
 	    else
 	    {
-	    	alert("Kindly agree to the terms and agreement first");
+            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+                                      '<div class="inline">' +                      
+                                        '<p id="flash_alert">Kindly agree to the agreement first</p>' +
+                                      '</div>' +
+                                    '</div>');	  
 	    	return false;
 	    }
 }
