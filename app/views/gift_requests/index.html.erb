@@ -169,7 +169,7 @@ chck();
               </h4>          
             <% end %>
             &nbsp;
-            <% if current_user.id == gift_request.user.id %>
+            <% if current_user.id == gift_request.user.id && @flag != true %>
               <h5 class="inline"><%= link_to '', edit_gift_request_path(gift_request), :class => "btn btn-warning glyphicon glyphicon-pencil inline", :method => :get  %>
               </h5>
               <h5 class="inline"> <%= link_to '', gift_request, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger glyphicon glyphicon-trash inline" %> 

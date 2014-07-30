@@ -23,45 +23,13 @@
   <!-- Custom Theme CSS -->
   <link href="https://dl.dropboxusercontent.com/u/70856403/landingPage.css" rel="stylesheet"> 
 
-  <style>
-    #note {
-        position: absolute;
-        padding-top: 10px;
-        z-index: 6001;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #fde073;
-        text-align: center;
-        line-height: 3;
-        overflow: hidden; 
-        -webkit-box-shadow: 0 0 5px black;
-        -moz-box-shadow:    0 0 5px black;
-        box-shadow:         0 0 5px black;
-    }
-    .cssanimations.csstransforms #note {
-        -webkit-transform: translateY(-50px);
-        -webkit-animation: slideDown 4s 1.0s 1 ease forwards;
-        -moz-transform:    translateY(-50px);
-        -moz-animation:    slideDown 4s 1.0s 1 ease forwards;
-    }
-
-    @-webkit-keyframes slideDown {
-        0%, 100% { -webkit-transform: translateY(-50px); }
-        10%, 90% { -webkit-transform: translateY(0px); }
-    }
-    @-moz-keyframes slideDown {
-        0%, 100% { -moz-transform: translateY(-50px); }
-        10%, 90% { -moz-transform: translateY(0px); }
-    }
-  </style>
 
 <style>
     #note {
         position: absolute;
         color: white;
         opacity: 0.95;
-        padding-top: 10px;
+        padding-top: 0px;
         z-index: 6001;
         top: 0;
         left: 0;
@@ -108,11 +76,40 @@
       <% elsif flash[:alert] %>
            <div id="note" align ="center">
             <div class="inline">
-                <p style="font-size:12px; line-height:5px;" id="flash_alert">
+                <p style="" id="flash_alert">
                   <%= flash[:alert] if flash[:alert] %></p>
               </div>
-          </div>      
+          </div>    
+          <% else %>
+          <% %>   
       <% end %>
+<% if current_page?("/landing") %>
+      <% if flash[:notice] %>
+      <script>
+      document.getElementById('note').style.paddingTop='10px';
+      </script>
+      <% elsif flash[:alert] %>
+      <script>
+      document.getElementById('note').style.paddingTop='10px';
+      </script>
+      <% else %>
+      <% %>   
+      <% end %>
+<% else %>
+      <script>
+       document.getElementById('note').style.paddingTop='10px';
+      function changemethod()
+      {
+          window.setInterval(function(){$("#note").html("");}, 4000);
+        document.getElementById('note').style.paddingTop='0px';
+      }
+      changemethod();
+
+      </script>
+
+<% end %> 
+
+
     </div>
       
       <div class="container">
