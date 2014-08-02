@@ -5,8 +5,12 @@ class ConversationsController < ApplicationController
 
   def show
       conversation = Conversation.find(params[:id])
-      @other_user = conversation.users.where("user_id != #{current_user.id}").first
-      @messages = conversation.show_messages(current_user.id)
+      if conversation.users.find_by_id(current_user.id)
+        @other_user = conversation.users.where("user_id != #{current_user.id}").first
+        @messages = conversation.show_messages(current_user.id)
+      else
+        redirect_to "/"
+      end
   end
 
   def create
