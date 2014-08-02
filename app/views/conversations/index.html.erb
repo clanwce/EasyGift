@@ -3,7 +3,7 @@
 <br><br>
 <% @conversations.each do |conversation|%>
 <%  other_user = conversation.users.where("user_id != #{current_user.id}").first %>
-<%= other_user.username %>
+<%= link_to other_user.username, '/conversations/' + conversation.id.to_s %>
 <br>
 <% if conversation.is_read?(current_user.id) %>
 <% 	read = "READ" %>

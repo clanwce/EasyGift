@@ -8,6 +8,7 @@ class ConversationsController < ApplicationController
       if conversation.users.find_by_id(current_user.id)
         @other_user = conversation.users.where("user_id != #{current_user.id}").first
         @messages = conversation.show_messages(current_user.id)
+        conversation.mark_as_read(current_user.id)
       else
         redirect_to "/"
       end
