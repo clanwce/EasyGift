@@ -5,11 +5,18 @@ function validate(i)
 	{
 		document.getElementById("gift_request_public").className = "active btn btn-primary btn-sm";
 		document.getElementById("gift_request_private").className = "btn btn-sm";
+		document.getElementById("public").value = 1;
+		var cb = document.getElementById('boxes').getElementsByTagName('input');
+		for (var i = 0; i < cb.length; i++) {
+		cb[i].checked = false;
+	}
+
 	}
 	else
 	{
 		document.getElementById("gift_request_private").className = "active btn btn-primary btn-sm";
 		document.getElementById("gift_request_public").className = "btn btn-sm";
+		document.getElementById("public").value = 0;
 	}
 }
 
@@ -23,7 +30,7 @@ $(document).ready(function(){
 	resize: none;
 	}</style>
 
-	<form id="new_gift_request_form" class="form-horizontal" role="form" action="/gift_requests" method="post">
+	<form id="new_gift_request_form" class="form-horizontal" role="form" action="" method="">
 		<input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 		<input type="hidden" maxlength="50" name="gift_request[user_id]" value="<%= current_user.id %>" id='new_gift_request_current_user_id' >    
 
@@ -45,9 +52,40 @@ $(document).ready(function(){
 		<div class="form-group">
 			<label class="col-sm-4 control-label">Accessor:</label>
 			<div class="col-sm-4">
+				<input id="public" name="public" type="hidden" value="1"/>
 				<button type="button" id="gift_request_public" name="gift_request_public" class=" active btn btn-primary btn-sm" onclick="validate('1')">Public</button>
 				<button type="button" id="gift_request_private" name="gift_request_private" class=" btn  btn-sm" onclick="validate('2')" data-toggle="modal" data-target="#myModal">Private</button>
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Tags:</label>
+			<div class="col-sm-3">
+				<div style="margin:0;padding:0;display:inline">
+				</div>
+				<input maxlength="20"  data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag" placeholder="Tags"/>
+
+			</div>
+
+			<div>
+				<input id="add_tag_to_gift_request" style="padding-left:32px; padding-right:32px;" class=" btn btn-default" type="submit" value="Add">
+
+			</div>
+		</div>
+		<div id='tag_holder' class="" align="center">
+		</div>
+		<br>
+		<div class="form-group">
+			<div class="col-sm-offset-5" style="padding-left:60px">
+				<button id="create_gift_request_button" type="submit"  class="btn btn-default" value="Submit">Submit</button>
+			</div>
+		</div>
+	</form> 
+	<br>
+	<br>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -59,7 +97,7 @@ $(document).ready(function(){
 									
 										Who can view this:
 									<br>
-								
+										<div id="boxes">
 										<div class="checkbox">
 											<label>
 												<input type="checkbox"> Followers
@@ -72,6 +110,12 @@ $(document).ready(function(){
 												<input type="checkbox"> Following
 											</label>
 										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> All Users
+											</label>
+										</div>
+									</div>
 										<br>
 										<div style="border-top: 1px solid gray"><br>
 										Specific Users who can view this:
@@ -109,31 +153,3 @@ $(document).ready(function(){
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="col-sm-4 control-label">Tags:</label>
-			<div class="col-sm-3">
-				<div style="margin:0;padding:0;display:inline">
-				</div>
-				<input maxlength="20"  data-autocomplete="autocomplete_tag_name" class=" form-control" id="autocomplete_tag" placeholder="Tags"/>
-
-			</div>
-
-			<div>
-				<input id="add_tag_to_gift_request" style="padding-left:32px; padding-right:32px;" class=" btn btn-default" type="submit" value="Add">
-
-			</div>
-		</div>
-		<div id='tag_holder' class="" align="center">
-		</div>
-		<br>
-		<div class="form-group">
-			<div class="col-sm-offset-5" style="padding-left:60px">
-				<button id="create_gift_request_button" type="submit"  class="btn btn-default" value="Submit">Submit</button>
-			</div>
-		</div>
-	</form> 
-	<br>
-	<br>
