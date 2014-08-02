@@ -102,8 +102,12 @@ body{
             <span class="icon-bar"></span>
           </button>
           <div style="padding-top:3px; padding-bottom:3px">
-          <a class="inline" href="/users/<%= current_user.id %>" style="background-color:transparent;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
-          </a>
+          <% if current_user %>
+            <a class="inline" href="/users/<%= current_user.id %>" style="background-color:transparent;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
+            </a>
+          <% else %>
+            <a class="inline" href="/" style="background-color:transparent;"><%= image_tag 'EasyGifts.png', :alt => 'lgo', width:"170", height:"80", class: "inline" %>
+          <% end %>
           </div>
         </div>
         <div id="user_navigation_bar" <% if current_user %> data-user-id=<%= current_user.id %> <% end %> class="navbar-collapse collapse">
@@ -120,23 +124,23 @@ body{
               <% @count = current_user.user_notifications.where(read: false).count %>
             <h4><span class="glyphicon glyphicon-globe"><span id="navigation_count" data-count=<%= @count %> class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>
           </a>
-          <ul id="user_notification_ul" class="dropdown-menu" style=" margin-top:1px; width: 400px; height: 500px;word-wrap:break-word;overflow:auto;" role="menu" id="notify" align="center" >
+          <ul id="user_notification_ul" class="dropdown-menu" style=" margin-top:1px; width: 400px; height: 500px;word-wrap:break-word;overflow:auto;" role="menu" id="notify" align="left" >
                                   <% @notifications = current_user.user_notifications.order("notification_id desc") %>
                     <% @notifications.each do |notification| %>
                     <% if !notification.read %>              
-                      <li data-id=<%= notification.id %> class="new_notification" ><div style="word-wrap:break-word;" ><%= link_to notification.message, notification.notification_link_to_url %></div></li><hr>
+                      <li data-id=<%= notification.id %> class="new_notification" style="padding-left:20px;padding-right:20px;padding-bottom:30px;"><div style="word-wrap:break-word;" > <%= link_to notification.message, notification.notification_link_to_url ,:style=>"text-decoration:none;background:transparent;color:#333" %></div></li>
                     <% else %>  
-                      <li data-id=<%= notification.id %> ><div style=" word-wrap:break-word;" > <%= link_to notification.message, notification.notification_link_to_url %></div></li><hr>
+                      <li data-id=<%= notification.id %>  style="padding-left:20px;padding-right:20px;padding-bottom:30px;"><div style=" word-wrap:break-word;" > <%= link_to notification.message, notification.notification_link_to_url ,:style=>"text-decoration:none;background:transparent;color:#333" %></div></li>
                     <% end %>
               <% end %>
           </ul>
           </li>
         <% end %>
-        <li  style="color:#ffffff;padding-left:5px; padding-top:10px"><a href="/gift_requests" style= "background-color:transparent; color:white;">Home</a></li>
+        <li  style="color:#ffffff;padding-left:5px; padding-top:10px"><a href="/feed" style= "background-color:transparent; color:white;">Home</a></li>
         <li class="dropdown" style="padding-top:10px;padding-left:5px;">
           <a href="#" class="dropdown-toggle" style= "background-color:transparent; color:white;" data-toggle="dropdown">Settings <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu" style="margin-top:15px;">
-            <li ><a href="/account_settings" >Change Password</a></li>
+            <li ><a href="/account_settings" >Settings Panel</a></li>
             <!-- <li class="divider"></li> -->
           </ul>
         </li>

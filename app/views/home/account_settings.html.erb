@@ -11,17 +11,233 @@
 }
 
 
+   .tag-cell
+        {
+            width: 180px;
+            vertical-align: top;
+        }
+
+         .excerpt
+        {
+          font-size: 12px;
+          height: 70px;
+          line-height: 14px;
+          overflow: hidden;
+          margin-bottom: 4px;
+        }
+
+        .tagpost
+        {
+          color: #4a6b82;
+          background-color:#e0eaf1;
+          border-bottom:1px solid #b3cee1;
+          border-right: 1px solid #b3cee1;
+          /*padding: 3px 4px 3px 4px;*/
+          margin: 2px 2px 2px 0;
+          text-decoration: none;
+          /*font-size: 90%;*/
+          line-height: 1.4;
+          white-space: nowrap;
+          display: inline-block;
+        }
+
+        .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+    border-bottom:  1px solid #ddd;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
+
 
 </style>
 
 <div class="container">
-<ul class="nav nav-pills">
-		  <li class="active"><a href="#">Change Password</a></li>
-		</ul>
+<ul class="nav nav-pills" role="tablist" style="">
+		 <li class="active"><a href="#changepassword" role="tab" data-toggle="tab">Change Password</a></li>
+		<% if current_user.business_account == true %>
+	    <li><a href="#upgradeaccount" role="tab" data-toggle="tab">Business User Panel</a></li>
+		<% else %>
+	    <li><a href="#upgradeaccount" role="tab" data-toggle="tab">Upgrade Account</a></li>
+	    <% end %>
+  </ul>
+
 	<div class="jumbotron">
 
+  <div class="tab-content" style="background-color:white">
+    <div class="tab-pane fade in active" id="changepassword">
 		<%= render :template => 'users/edit_password_form', 
 		:locals => { :resource => current_user, :resource_name => "user" } %>
+
+    </div>
+
+    <div class="tab-pane fade in" id="upgradeaccount">
+    	<% if current_user.business_account == true %>
+		<ul class="nav  nav-tabs" role="tablist" style="">
+				 <li class="active"><a href="#tags" role="tab" data-toggle="tab">Tags</a></li>
+			    <li><a href="#downgrade" role="tab" data-toggle="tab">Downgrade</a></li>
+		  </ul>
+		<div class="tab-content" style="background-color:white">
+   		<div class="tab-pane fade in " id="downgrade">
+   				
+    	<h3> Downgrade to regular account </h3>
+    	   	<div align="center">
+    	<textarea rows="10" cols="100" disabled style="resize: none;word-wrap:break-word;" >You can downgrade to regular account anytime. Once you downgrade, all your saved tags will be lost. You can choose to upgrade your account to business account anytime in the future.
+    	    </textarea>
+	    	<div class="checkbox" align="center">
+			    <label>
+			      <input type="checkbox" id="downgradecheckbox" style="position:relative;float:center"> By checking, you understand that your business account data will be lost. 
+			    </label>
+			      <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+			      <br><br><br>
+			      <button onclick="return downgradeuser()" type="submit" class="btn btn-success inline" >Downgrade</button>
+			</div>
+		</div>	
+ 	</div>
+    	
+    	<div class="tab-pane fade in active" id="tags">
+   		
+   		<h3> Business User Panel: Tags Unsubscribe </h3>
+   		 <h5>To subscribe a tag:</h5> 
+   		 <h5>1. Go to Tags</h5>
+   		 <h5>2. Click on subscribe button next to tag to subscribe to it</h5>
+   		 
+    	<div class="table-responsive">
+	      <table class="table">
+	        <tr>
+	          <br>
+	            <% i = 0 %>
+
+	           <% tt = current_user.subscribed_tags %>
+
+	            <% tt.each do |tag| %>
+	              <% if i == 4 %>
+	              <% i = 0 %>
+	              </tr>
+	              <tr> 
+	              <% end %> 
+	                <td class="tag-cell" id="tag<%= tag.id %>">
+	                <div class="excerpt">
+	                  <h4 class="inline">
+	                  <%= link_to tag.name, tag, :class => "label label-info inline"%></h4> x
+	                  <%= tag.gift_request_count %>&nbsp;&nbsp;
+	                  <!-- <form action="/b2b/tags/unsubscribe" method="post" class="inline"> -->
+	                  	<input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+	                	<button onclick="unsubscribedtag(<%= tag.id %>)" type="submit" class="btn btn-danger glyphicon glyphicon-trash inline" ></button>
+					  <!-- </form> -->
+	                </div>
+	              </td>
+	              <% i = i+1 %>
+	            <% end %>
+	        </tr>
+	      </table>
+	    </div>
+	  	</div>
+
+    	<% else %>
+    	<h3> Upgrade Account </h3>
+    	<p style='font-size:small'> Upgrading to a business account helps you get connected to users searching for gifts. Once you upgrade, you will be able to subscribe to tags, which allows you to receive automatic emails when user's are looking for gifts related to those tags. You can then use our messaging feature to get in touch with those users. But before that you must read and accept the policy agreement to ensure the best user experience for both parties.</p>
+    	<div align="center">
+    	<textarea rows="10" cols="100" disabled style="resize: none;word-wrap:break-word;" >
+Terms of Service Agreement
+
+Last updated: July 29, 2014.
+
+This Terms of Service agreement is an agreement between EasyGift and you, the user. We provide users with materials such as e-commerce tools and services directly through the EasyGift website, that is, if you wish to create a business account. By upgrading to a business account, you will be notified by email whenever a gift request post owner selects a "final gift" that has tags associated with your business acount. Altough EasyGift provides this service to you, it is ultimately up to you to follow up with this service. With that said, we sincerely hope that you agree to the terms below. By using the site, you are agreeing with the terms of services, as well as our privacy policy.
+
+1. What we own
+
+We own all the material and services that are available on the EasyGift website, as well as all affiliates and commercial partners. All logos, trademarks, and taglines are property of their respective owners. 
+
+2. Rights to Use what we Own
+
+With agreement to the Terms of Service, EasyGift will grant you limited, non-transferable license to use the materials we own through a business account. The license does not permit you to modify, lease, sell, distribute, or decipher rogramming and source code used with the materials. You may not sell, exchange, or otherwise transfer the rights to the license. You may not use the materials given for any purpose other than what EasyGift allows, in accordance to this agreement.
+
+3. What You Provide To Us
+
+You are responsible for all information in connection with your use of the services. EasyGift is not responsible for your content. You are responsible for all conent that may be lost or impossible to recover through the use of the services. 
+
+4. Monitoring What you Provide Us
+
+EasyGift may monitor the content that you create using our services. We may disclose any information necessary to satisfy any legal obligation that we may have in order to protect EasyGift and its users. 
+
+5. Rules
+
+You agree to all of the following:
+
+a. You are at least 18 years of age.
+
+b. You provided a valid email address during account registration that will continue to be valid at all times.
+
+c. You will not use our services for any unlawful purpose or activity.
+
+d. You will not use our services to impersonate another person.
+
+e. You will not send junk mail or spam with our services.
+
+f. You will not access the services through bots, or automated methods. 
+
+g. You will not share your account.
+
+h. You will not publish content or links to content that is pornographic or violent.
+
+6. Selling through EasyGift
+
+Our services and materials allow you the opportunity to sell your goods or services to other users. We are providing you the platform to where buyers and sellers can complete transactions. However, you must follow the rules below when selling or purchasing commercial products.
+
+a. You may not offer or sell illegal or potentially illegal products. This includes, but not limited to, stolen or counterfeited products. The commercial products sold must comply with all applicable laws.
+
+b. You may not sell any commercial product that may infringe or have a chance of infringing any property rights of another.
+
+c. You may not sell or offer any commercial products that we determine to be inappropriate.
+
+d. You may not use images or names of any third party when selling commercial products without consent.
+
+7. Fees
+
+By upgrading into a business account, you are hereby bound by contract with fees that are agreed upon. You may opt to downgrade back to a free, normal account with consent of EasyGift. 
+
+8. Termination
+
+a. Services may be terminated by us.
+
+b. Serevices may be terminated by you.
+
+c. Notice of termination may be sent through e-mail.
+
+9. Misc
+
+a. If we fail to enforace any of this agreement, it will not be considered a waiver.
+
+b. You will not transfer any of your rights under this agreement to anyone without our consent.
+
+
+    	</textarea>
+	    	<div class="checkbox" align="center">
+			    <label>
+			      <input type="checkbox" id="upgradecheckbox" style="position:relative;float:center"> By checking, you agree our business account terms and agreement. 
+			    </label>
+			      <input name="authenticity_token" type="hidden" id="authenticity_token" value="<%= form_authenticity_token %>">
+			      <br><br><br>
+			      <button onclick="return upgradeuser()" type="submit" class="btn btn-success inline" >Upgrade</button>
+			</div>
+		</div>	
+    	<% end %>
+
+    </div>
+
+</div>
+	
 
 	</div>
 </div>

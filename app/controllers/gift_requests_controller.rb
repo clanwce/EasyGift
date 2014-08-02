@@ -26,6 +26,7 @@ class GiftRequestsController < ApplicationController
     @request = request.fullpath
     @gift_request = GiftRequest.find(params[:id])
     if @gift_request.user_has_access?(current_user.id) == false
+      flash[:notice] = "You are not authorized to view the gift request"
       redirect_to '/gift_requests'
     end
 

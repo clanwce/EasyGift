@@ -15,7 +15,7 @@ $( document ).ready(function() {
     });
 
     function addNotificationToNav(data) {
-    	$('#user_notification_ul').prepend("<li data-id=" + data["user_notification_id"] + " class='new_notification' ><div style='word-wrap:break-word;' ><a href='" + data["url"] + "'>" + data["message"] + "</a></div></li><hr>");
+    	$('#user_notification_ul').prepend("<a href='" + data["url"] +"' style='text-decoration:none;background:transparent;color:#333'><li data-id=" + data["user_notification_id"] + " class='new_notification' style='padding-left:20px;padding-right:20px;padding-bottom:30px;' ><div style='word-wrap:break-word;'> " + data["message"] + "</div></li></a><hr>");
     	new_count = $('#navigation_count').data("count") + 1;
     	$('#navigation_count').data("count", new_count);
     	$('#navigation_count').html(new_count);
@@ -74,7 +74,11 @@ $( document ).ready(function() {
 					// window.location.replace(redirect_url);
 			    },
 				error: function(response) {
-			    	alert(response.responseText);
+	            	$('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 			    }	    
 			});
 	});

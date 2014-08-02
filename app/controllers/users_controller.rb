@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       sign_in(@user, :bypass => true)
       redirect_to '/account_settings', :notice => "Your Password has been updated!"
     else
-      render :edit,:locals => { :resource => @user, :resource_name => "user" }
+      redirect_to '/account_settings', :notice => "Your Password was not changed. Try again"
     end
   end
 
@@ -54,11 +54,27 @@ class UsersController < ApplicationController
     end
 
     def upgrade_account
-      current_user.upgrade_to_business_account
+      flag = current_user.upgrade_to_business_account
+      if flag
+        response={}
+        response["flag"]=true
+        render json: response
+      end
     end
 
     def downgrade_account
-      current_user.downgrade_to_regular_account
+      tags = current_user.subscribed_tags
+        if !tags.empty?
+          tags.each do |tag|
+            current_user.unsubscribe_tags(tag.id)
+          end
+        end
+      flag = current_user.downgrade_to_regular_account
+      if flag
+        response={}
+        response["flag"]=true
+        render json: response
+      end
     end
 
     def user_search

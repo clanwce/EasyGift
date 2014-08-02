@@ -96,7 +96,11 @@ function onclicktagsearch()
 		    	
 			},
 		    error: function(response) {
-		    	alert(response.responseText);
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 		    }
 	    });	
 
@@ -122,7 +126,11 @@ function unfollow(userid, otherid)
 
 			},
 		    error: function(response) {
-		    	alert(response.responseText);
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 		    }
 	    });	
 
@@ -146,7 +154,11 @@ function follow(userid, otherid)
 		    	location.reload();
 			},
 		    error: function(response) {
-		    	alert(response.responseText);
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
 		    }
 	    });	
 }

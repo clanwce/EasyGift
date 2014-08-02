@@ -24,7 +24,6 @@ EasyGift::Application.routes.draw do
   match '/user_notifications/create' => 'user_notifications#create'
   match 'feed/description' => 'home#description', :via => [:post]
 
-
   devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'user_sessions' }
 
   # resources :authentications
@@ -32,7 +31,9 @@ EasyGift::Application.routes.draw do
   match 'users/:id' => 'users#show'
   match 'users/edit_password' => 'users#edit_password'
   match 'auth/:provider/callback' => 'authentications#create'
-  match 'users/update_password' => 'users#update_password' #NEED FIX
+
+  match 'password/users/update_password' => 'users#update_password'
+
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
   post 'comments' => 'comments#create'
   match 'comments/feed' => 'comments#feedcreate', :via => [:post]
@@ -45,6 +46,9 @@ EasyGift::Application.routes.draw do
   match '/privacy_policy' => 'home#privacy_policy'
   match 'b2b/tags/subscribe' => 'tags#tag_subscribe', :via => [:post]
   match 'b2b/tags/unsubscribe' => 'tags#tag_unsubscribe', :via => [:post]
+  match 'b2b/upgrade' => 'users#upgrade_account', :via => [:post]
+  match 'b2b/downgrade' => 'users#downgrade_account', :via => [:post]
+
 
   # match '/helloworld' => 'home#hello_world'
   #get 'gift_requests/searchresult' => 'gift_requests#tag_search'

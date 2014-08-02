@@ -68,10 +68,35 @@ class TagsController < ApplicationController
   end
 
   def tag_subscribe
-    current_user.subscribe_tags(params[:tag_id])
+    tagid = params[:tag_id]
+    f = current_user.subscribe_tags(tagid)
+    if f==true
+        result={}
+        result["id"]=tagid
+        result["flag"]=true   
+        render json: result     
+    else
+        result={}
+        result["id"]=tagid
+        result["flag"]=false
+        render json: result
+    end
   end
+
   def tag_unsubscribe
-    current_user.unsubscribe_tags(params[:tag_id])
+    tagid = params[:tag_id]
+    f = current_user.unsubscribe_tags(tagid)
+    if f==true
+        result={}
+        result["id"]=tagid
+        result["flag"]=true   
+        render json: result     
+    else
+        result={}
+        result["id"]=tagid
+        result["flag"]=false
+        render json: result
+    end
   end
 
 end
