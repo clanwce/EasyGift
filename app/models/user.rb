@@ -203,7 +203,7 @@ def feed
         conversation.user_conversations.find_by_user_id(self.id).mark_read
         conversation.last_message_at = new_message.created_at
         conversation.save
-        return true
+        return conversation
       else
         return false
       end

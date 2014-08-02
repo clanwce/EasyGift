@@ -1,9 +1,9 @@
 EasyGift::Application.routes.draw do
 
-  match 'conversations' => 'conversations#index'
+  get 'conversations' => 'conversations#index'
 
   match 'conversations/:id' => 'conversations#show'
-  post "conversations/create" => 'conversations#create'
+  post "conversations" => 'conversations#create'
   post "conversations/delete" => 'conversations#delete'
   post "conversations/mark_as_read" => 'conversations#mark_as_read'
   post "conversations/mark_as_unread" => 'conversations#mark_as_unread'

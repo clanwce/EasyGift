@@ -727,6 +727,7 @@ tr.border_bottom td {
         <h4 class="modal-title">Say Hello!</h4>
       </div>
       <div class="modal-body">
+        <input id="send_message_from_user_page_submit_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
         <textarea data-user-to='<%= @user.id %>' style='resize:none'rows="5" cols="50" name="gift_request[description]" class="form-control" id="send_message_from_user_page" placeholder="Enter a message"></textarea>
       </div>
       <div class="modal-footer">

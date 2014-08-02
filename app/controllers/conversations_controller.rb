@@ -16,7 +16,11 @@ class ConversationsController < ApplicationController
   def create
     @other_user = User.find(params[:id])
     message = params[:message]
-    current_user.send_private_message(@other_user.id, message)
+    conversation = current_user.send_private_message(@other_user.id, message)
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: conversation }
+    end
   end
 
   def delete
