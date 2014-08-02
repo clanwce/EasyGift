@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
   has_many :business_account_tags, :dependent => :destroy
   has_many :tags, :through => :business_account_tags
 
+  has_many :user_conversations
+  has_many :conversations, :through => :user_conversations
+  has_many :private_messages, :through => :conversations
+
   def apply_omniauth(omniauth)
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
@@ -137,11 +141,11 @@ def feed
 
   def unsubscribe_tags(tag_id)
     if business_account
-      tags_to_unsubscribe = business_account_tags.where(tag_id: tag_id)
+      tag_to_unsubscribe = business_account_tags.find_by_tag_id(tag_id)
       # tags_to_unsubscribe = BusinessAccountTag.where(tag_id: tag_id, user_id: id)
-      tags_to_unsubscribe.each do |tag|
-        tag.destroy
-      end
+      #tags_to_unsubscribe.each do |tag|
+      tag_to_unsubscribe.destroy
+      # end
       return true
     else
       return false
@@ -156,13 +160,6 @@ def feed
     update_attributes(business_account: false)
   end
 
-  # def is_business_account
-  #   if business_account
-  #     return true
-  #   else
-  #     return false
-  #   end
-  # end
   def subscribed_tags
     if business_account
       return tags
@@ -170,5 +167,68 @@ def feed
       return false
     end
   end
+# if current_user has past conversation with user, return conversation, else return nil
+  def past_user_conversation(user_id)
+    past_user_conversation = nil
+      conversations.each do |conversation|
+        unless conversation.user_conversations.find_by_user_id(user_id).nil?
+          past_user_conversation = conversation.user_conversations.find_by_user_id(user_id)
+          break
+        end
+      end
+    return past_user_conversation
+  end
+
+  def send_private_message(user_id, message)
+    if self.id == user_id
+      return false
+    else
+      user_conversation = past_user_conversation(user_id)
+      if user_conversation.nil?
+        conversation = create_new_conversation(user_id)
+      else
+        conversation = user_conversation.conversation
+        conversation.user_conversations.each do |user_conversation|
+          if user_conversation.deleted
+            user_conversation.update_attributes(deleted: false)
+          end
+        end
+      end
+      new_message = PrivateMessage.new
+      new_message.user_id = id
+      new_message.conversation_id = conversation.id
+      new_message.message = message
+      if new_message.save
+        conversation.user_conversations.find_by_user_id(user_id).mark_unread
+        conversation.user_conversations.find_by_user_id(self.id).mark_read
+        conversation.last_message_at = new_message.created_at
+        conversation.save
+        return true
+      else
+        return false
+      end
+    end
+  end
+
+  def create_new_conversation(user_id)
+    conversation = Conversation.new
+    if conversation.save
+      self.conversations << conversation
+      User.find(user_id).conversations << conversation
+      return conversation
+    else
+      return false
+    end
+  end
+
+  def show_all_conversations
+    conversations.where("user_conversations.deleted = false").order("last_message_at DESC")
+  end
+
+  def delete_conversation(conversation_id)
+    user_conversations.find_by_conversation_id(conversation_id).mark_delete
+  end
+
+
 
 end

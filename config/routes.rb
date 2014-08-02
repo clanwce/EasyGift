@@ -1,4 +1,14 @@
 EasyGift::Application.routes.draw do
+
+  match 'conversations' => 'conversations#index'
+
+  match 'conversations/:id' => 'conversations#show'
+  post "conversations/create" => 'conversations#create'
+  post "conversations/delete" => 'conversations#delete'
+  post "conversations/mark_as_read" => 'conversations#mark_as_read'
+  post "conversations/mark_as_unread" => 'conversations#mark_as_unread'
+
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # match '/users/sign_in' => 'home#index'
@@ -22,7 +32,7 @@ EasyGift::Application.routes.draw do
   match 'users/:id' => 'users#show'
   match 'users/edit_password' => 'users#edit_password'
   match 'auth/:provider/callback' => 'authentications#create'
-  match 'users/update_password' => 'users#update_password'
+  match 'users/update_password' => 'users#update_password' #NEED FIX
   match 'users/generate_new_password_email' => 'users#generate_new_password_email'
   post 'comments' => 'comments#create'
   match 'comments/feed' => 'comments#feedcreate', :via => [:post]

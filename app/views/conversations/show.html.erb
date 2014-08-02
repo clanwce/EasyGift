@@ -1,0 +1,18 @@
+<h1>Conversations#show</h1>
+<p>Find me in app/views/conversations/show.html.erb</p>
+
+<br><br>
+<% @messages.each do |message|%>
+<% if message.user_id != current_user.id %>
+<%= @other_user.username %>:
+<br>
+<%= message.message+" ===> Sent At: #{message.created_at}" %>
+<br><br>
+<% else %> 
+<%= current_user.username %>:
+<br>
+<%= message.message+" ===> Sent At: #{message.created_at}" %>
+<br><br>
+<% end %>
+<br><br>
+<% end %>

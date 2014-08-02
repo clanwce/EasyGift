@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140725032456) do
+ActiveRecord::Schema.define(:version => 20140802031906) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20140725032456) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "business_account_tags", ["user_id", "tag_id"], :name => "index_business_account_tags_on_user_id_and_tag_id", :unique => true
+
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "gift_request_id"
@@ -38,6 +40,12 @@ ActiveRecord::Schema.define(:version => 20140725032456) do
     t.boolean  "final_answer"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "conversations", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.datetime "last_message_at"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -108,6 +116,14 @@ ActiveRecord::Schema.define(:version => 20140725032456) do
     t.integer  "actor_id"
   end
 
+  create_table "private_messages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "conversation_id"
+    t.text     "message"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -125,6 +141,18 @@ ActiveRecord::Schema.define(:version => 20140725032456) do
     t.datetime "updated_at",                        :null => false
     t.integer  "gift_request_count", :default => 0
   end
+
+  create_table "user_conversations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "conversation_id"
+    t.boolean  "deleted",         :default => false
+    t.boolean  "read",            :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.datetime "last_delete_at"
+  end
+
+  add_index "user_conversations", ["user_id", "conversation_id"], :name => "index_user_conversations_on_user_id_and_conversation_id", :unique => true
 
   create_table "user_notifications", :force => true do |t|
     t.integer  "user_id"

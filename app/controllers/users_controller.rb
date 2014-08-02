@@ -61,4 +61,23 @@ class UsersController < ApplicationController
       current_user.downgrade_to_regular_account
     end
 
+    def user_search
+      @users = Array.new
+      keyword = params[:keyword]
+      all_users = User.all
+
+      require 'fuzzystringmatch'
+      jarow = FuzzyStringMatch::JaroWinkler.create( :native )
+      all_users.each do |user|
+          if(jarow.getDistance( user.username, keyword ) > 0.8)
+            @users << user
+          end
+      end
+      respond_to do |format|
+        format.json { 
+          render json: @users
+        }
+      end
+    end
+
 end
