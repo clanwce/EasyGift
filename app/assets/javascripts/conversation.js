@@ -47,4 +47,31 @@ $( document ).ready(function() {
 	    });	
 	});
 
+ 	$('#conversation_message_submit').click(function(e) {
+		e.preventDefault();
+		message = $('#conversation_message').val();
+		user_to = $('#conversation_message').data('user-to');
+		data = {};
+		data['id'] = user_to;
+		data['message'] = message;
+		data['authenticity_token'] = $('#send_message_from_converation_page_authenticity_token').val();
+	    $.ajax({
+		    type: "POST",
+		    dataType: 'json',
+		    url: "/conversations",
+		    data: data,
+		    success: function(response) {
+				window.location.replace('/conversations/' + response.id);
+		    },
+		    error: function(response) {
+		    	// $('#message_modal').modal('hide');
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
+		    }
+	    });	
+	});
+
 });
