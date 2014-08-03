@@ -203,11 +203,27 @@ def feed
         conversation.user_conversations.find_by_user_id(self.id).mark_read
         conversation.last_message_at = new_message.created_at
         conversation.save
-        return true
+        real_time_message(user_id, new_message)
+        return conversation
       else
         return false
       end
     end
+  end
+
+  def real_time_message(user_id, new_message)
+    to_channel = 'user' + user_id.to_s + '_channel'
+    Pusher[to_channel].trigger('new_message', {
+      message: new_message.message,
+      from: username,
+      created_at: new_message.created_at
+    })
+    from_channel = 'user' + id.to_s + '_channel'
+    Pusher[from_channel].trigger('new_message', {
+      message: new_message.message,
+      from: username,
+      created_at: new_message.created_at
+    })
   end
 
   def create_new_conversation(user_id)
