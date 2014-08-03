@@ -108,7 +108,10 @@ class UsersController < ApplicationController
             @users << user
           end
       end
-        render json: @users
+        jsonusers={}
+        jsonusers["key"]=params[:key]
+        jsonusers["users"]= @users
+        render json: jsonusers
     end
 
 

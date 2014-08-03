@@ -22,13 +22,47 @@ function validate(i)
 
 $(document).ready(function(){
 	$('#new_gift_request_description').val("");
+	$('#whitelistkeyword').val("");
+	$('#blacklistkeyword').val("");
 });
+
+
+
+function usersearchvalidation(div)
+{
+		var divname = div+"listkeyword"; 
+		var divval = document.getElementById(divname).value;
+		$('#'+div+'usersearchtable').html("");
+		if(divval.length == 0 || divval == null)
+		{
+			$('#'+div+'listerror').html("<h4>Field cannot be left blank</h4>");
+			return false;
+		}
+		else
+		{
+			$('#'+div+'listerror').html("");
+			// $("#"+div+"usersearchmodal").css("display", "inline");
+			 onclickusersearch(divname,div);
+		}
+}
 
 
 </script>
 <style type="text/css">textarea {
 	resize: none;
-	}</style>
+	}
+
+	.scrollit {
+    overflow:scroll;
+    height:300px;
+}
+
+.scrollbody {
+    overflow:scroll;
+    height:100px;
+    padding-left: 18px;
+}
+</style>
 
 	<form id="new_gift_request_form" class="form-horizontal" role="form" action="" method="">
 		<input id="new_gift_request_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
@@ -55,7 +89,8 @@ $(document).ready(function(){
 				<input id="public" name="public" type="hidden" value="1"/>
 				<button type="button" id="gift_request_public" name="gift_request_public" class=" active btn btn-primary btn-sm" onclick="validate('1')">Public</button>
 				<button type="button" id="gift_request_private" name="gift_request_private" class=" btn  btn-sm" onclick="validate('2')" data-toggle="modal" data-target="#myModal">Private</button>
-				
+				<input id="black_list" name="black_list" type="hidden" value="" />
+				<input id="white_list" name="white_list" type="hidden" value="" />
 			</div>
 		</div>
 
@@ -89,7 +124,7 @@ $(document).ready(function(){
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only" id="mainmodalclose">Close</span></button>
 								<h4 class="modal-title" id="myModalLabel">Private Post Settings</h4>
 							</div>
 							<div class="modal-body">
@@ -98,34 +133,41 @@ $(document).ready(function(){
 										Who can view this:
 									<br>
 										<div id="boxes">
-										<div class="checkbox">
-											<label>
-												<input type="checkbox"> Followers
-											</label>
-										</div>
+											<div class="checkbox">
+												<label>
+													<input value="-1" type="checkbox" id="followerscheckbox"> Followers
+												</label>
+											</div>
+										
 									
-								
-										<div class="checkbox">
-											<label>
-												<input type="checkbox"> Following
-											</label>
+											<div class="checkbox">
+												<label>
+													<input value="-2" type="checkbox" id="followingcheckbox"> Following
+												</label>
+											</div>
+											<div class="checkbox">
+												<label>
+													<input value ="0" type="checkbox" id="alluserscheckbox"> All Users
+												</label>
+											</div>
 										</div>
-										<div class="checkbox">
-											<label>
-												<input type="checkbox"> All Users
-											</label>
-										</div>
-									</div>
 										<br>
 										<div style="border-top: 1px solid gray"><br>
 										Specific Users who can view this:
 
 									
 										<div class="row">
-											<div class="col-sm-6"><input maxlength="20" class="form-control" id="privateusers" placeholder="Enter Usernames">
+											<div class="col-sm-6"><input maxlength="20" class="form-control" id="whitelistkeyword" placeholder="Enter Username">
 											</div>
-											<div class="col-sm-2"><input id="privateusers" class=" btn btn-warning" type="submit" value="Add">
-												
+											<div class="col-sm-2"><input id="privateusers" class=" btn btn-warning" type="submit" value="Search "  onclick="return usersearchvalidation('white')" data-toggle="modal"  data-target="#whiteusersearchmodal">
+											</div>
+										</div>
+
+										<div class="row" id ="">
+											<div class="scrollbody">
+											<table  id="whitelistusers" style="overflow:auto">
+
+											</table>
 											</div>
 										</div>
 										</div>
@@ -135,12 +177,22 @@ $(document).ready(function(){
 
 									
 										<div class="row">
-											<div class="col-sm-6"><input maxlength="20" class="form-control" id="privateusers" placeholder="Enter Usernames">
+											<div class="col-sm-6"><input maxlength="20" class="form-control" id="blacklistkeyword" placeholder="Enter Username">
 											</div>
-											<div class="col-sm-2"><input id="privateusers" class=" btn btn-warning" type="submit" value="Add">
+											<div class="col-sm-2"><input id="privateusers" class=" btn btn-warning" type="submit" value="Search" onclick="return usersearchvalidation('black')" data-toggle="modal" data-target="#blackusersearchmodal" >
 												
 											</div>
+
 										</div>
+
+										<div class="row" id ="">
+											<div class="scrollbody">
+											<table id="blacklistusers" style="overflow:auto">
+
+											</table>
+											</div>
+										</div>
+
 										</div>
 
 
@@ -148,8 +200,59 @@ $(document).ready(function(){
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Save changes</button>
+								<button type="button" class="btn btn-primary" onclick="savechanges()">Save changes</button>
 							</div>
 						</div>
 					</div>
 				</div>
+
+
+	<!-- Modals go in the end -->
+		<!-- White user Modal -->
+		<div class="modal fade" id="whiteusersearchmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" id="whiteusersearchmodalbutton" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel"> Users </h4>
+					</div>
+					<div class="modal-body" style="overflow:auto" id="whiteusersearchbody">
+						<div class="row" style="padding-left:18px;color:red" id ="whitelisterror">
+						</div>
+						<div class="scrollit">
+						<table class="table " id="whiteusersearchtable" style="overflow:auto">
+						</table>
+					</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleartext()">Close</button>
+						<button type="button" class="btn btn-primary" onclick="addusers('whitelist','whiteusersearchtable','whitelistusers','#whiteusersearchmodalbutton')">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Black user Modal -->
+		<div class="modal fade" id="blackusersearchmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" id="blackusersearchmodalbutton" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel"> Users </h4>
+					</div>
+					<div class="modal-body" style="overflow:auto" id="blackusersearchbody">
+						<div class="row" style="padding-left:18px;color:red" id ="blacklisterror">
+											
+										</div>
+
+						<table class="table" id="blackusersearchtable">
+
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleartext()">Close</button>
+						<button type="button" class="btn btn-primary" onclick="addusers('blacklist','blackusersearchtable','blacklistusers','#blackusersearchmodalbutton')">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>

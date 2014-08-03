@@ -48,7 +48,7 @@ EasyGift::Application.routes.draw do
   match 'b2b/tags/unsubscribe' => 'tags#tag_unsubscribe', :via => [:post]
   match 'b2b/upgrade' => 'users#upgrade_account', :via => [:post]
   match 'b2b/downgrade' => 'users#downgrade_account', :via => [:post]
-
+  match 'user/user_search' => 'users#user_search_ajax', :via => [:post]
 
   # match '/helloworld' => 'home#hello_world'
   #get 'gift_requests/searchresult' => 'gift_requests#tag_search'
