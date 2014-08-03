@@ -194,7 +194,7 @@ $( document ).ready(function() {
 		    url: "/conversations",
 		    data: data,
 		    success: function(response) {
-				// window.location.replace('/conversations/' + response.id);
+				window.location.replace('/conversations/' + response.id);
 		    },
 		    error: function(response) {
 		    	// $('#message_modal').modal('hide');

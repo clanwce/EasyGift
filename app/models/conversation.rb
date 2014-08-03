@@ -24,6 +24,7 @@ class Conversation < ActiveRecord::Base
   		else
   			private_messages.where("created_at < '#{user1_delete_time}'").delete_all
   		end
+      return true
   	end  	
   end
 
