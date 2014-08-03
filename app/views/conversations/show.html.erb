@@ -1,25 +1,27 @@
 <h1>Conversations#show</h1>
 <p>Find me in app/views/conversations/show.html.erb</p>
+	<br><br>
+<div id="conversation_list">
+	<% @messages.each do |message|%>
+		<% if message.user_id != current_user.id %>
+			<%= @other_user.username %>:
+			<br>
+			<%= message.message %> ===> Sent At: <%= message.created_at.strftime('%l:%M %P') %>
+			<br><br>
+		<% else %> 
+			<%= current_user.username %>:
+			<br>
+			<%= message.message %> ===> Sent At: <%= message.created_at.strftime('%l:%M %P') %>
+			<br><br>
+		<% end %>
+	<br><br>
+	<% end %>
+</div>
 
-<br><br>
-<% @messages.each do |message|%>
-<% if message.user_id != current_user.id %>
-<%= @other_user.username %>:
-<br>
-<%= message.message+" ===> Sent At: #{message.created_at}" %>
-<br><br>
-<% else %> 
-<%= current_user.username %>:
-<br>
-<%= message.message+" ===> Sent At: #{message.created_at}" %>
-<br><br>
-<% end %>
-<br><br>
-<% end %>
 <form class="form-inline" role="form">
   <div class="form-group">
   	<input id="send_message_from_converation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
     <textarea data-user-to='<%= @other_user.id %>' style='resize:none'rows="5" cols="50" name="gift_request[description]" class="form-control" id="conversation_message" placeholder="Enter a message"></textarea>
   </div>
-  <button id="conversation_message_submit" type="submit" class="btn btn-default">Sign in</button>
+  <button id="conversation_message_submit" type="submit" class="btn btn-default">Send</button>
 </form>

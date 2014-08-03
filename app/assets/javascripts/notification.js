@@ -84,4 +84,101 @@ $( document ).ready(function() {
 	});
 	
 
+    user_channel.bind('new_message', function(data) {
+    	addMessageToConversation(data);
+    });
+
+    Date.prototype.format = function(format) //author: meizz
+	{
+	  var o = {
+	    "M+" : this.getMonth()+1, //month
+	    "d+" : this.getDate(),    //day
+	    "h+" : this.getHours(),   //hour
+	    "m+" : this.getMinutes(), //minute
+	    "s+" : this.getSeconds(), //second
+	    "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+	    "S" : this.getMilliseconds() //millisecond
+	  }
+
+	  if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+	    (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+	  for(var k in o)if(new RegExp("("+ k +")").test(format))
+	    format = format.replace(RegExp.$1,
+	      RegExp.$1.length==1 ? o[k] :
+	        ("00"+ o[k]).substr((""+ o[k]).length));
+	  return format;
+	}
+
+    function ConvertUTCTimeToLocalTime(UTCDateString)
+    {
+        var convertdLocalTime = new Date(UTCDateString);
+
+        var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
+
+        convertdLocalTime.setHours( convertdLocalTime.getHours() + hourOffset ); 
+
+        return convertdLocalTime;
+    }
+
+ 	function addMessageToConversation(data) {
+ 		pst_created = ConvertUTCTimeToLocalTime(data["created_at"]);
+ 		$('#conversation_list').append(
+ 			data["from"] + "<br>" + data["message"] + "===> Sent At:" + pst_created.format("MM-dd-yyyy") + "<br><br>"
+ 		);
+ 	}
+
+ 	$('#send_message_from_user_page_submit').click(function(e) {
+		e.preventDefault();
+		message = $('#send_message_from_user_page').val();
+		user_to = $('#send_message_from_user_page').data('user-to');
+		data = {};
+		data['id'] = user_to;
+		data['message'] = message;
+		data['authenticity_token'] = $('#send_message_from_user_page_submit_authenticity_token').val();
+	    $.ajax({
+		    type: "POST",
+		    dataType: 'json',
+		    url: "/conversations",
+		    data: data,
+		    success: function(response) {
+				// window.location.replace('/conversations/' + response.id);
+		    },
+		    error: function(response) {
+		    	// $('#message_modal').modal('hide');
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
+		    }
+	    });	
+	});
+
+ 	$('#conversation_message_submit').click(function(e) {
+		e.preventDefault();
+		message = $('#conversation_message').val();
+		user_to = $('#conversation_message').data('user-to');
+		data = {};
+		data['id'] = user_to;
+		data['message'] = message;
+		data['authenticity_token'] = $('#send_message_from_converation_page_authenticity_token').val();
+	    $.ajax({
+		    type: "POST",
+		    dataType: 'json',
+		    url: "/conversations",
+		    data: data,
+		    success: function(response) {
+				// window.location.replace('/conversations/' + response.id);
+		    },
+		    error: function(response) {
+		    	// $('#message_modal').modal('hide');
+	            $('#custom_notice_container').html('<div id="note" align = "center" style="">' +
+	                                      '<div class="inline">' +                      
+	                                        '<p id="flash_alert">' + response.responseText + '</p>' +
+	                                      '</div>' +
+	                                    '</div>');
+		    }
+	    });	
+	});
+
 });
