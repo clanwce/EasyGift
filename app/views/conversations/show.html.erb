@@ -14,10 +14,9 @@
 			<%= message.message %> ===> Sent At: <%= message.created_at.strftime('%l:%M %P') %>
 			<br><br>
 		<% end %>
-	<br><br>
 	<% end %>
 </div>
-
+<br><br>
 <form class="form-inline" role="form">
   <div class="form-group">
   	<input id="send_message_from_converation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />

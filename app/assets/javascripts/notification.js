@@ -168,6 +168,7 @@ $( document ).ready(function() {
 		    url: "/conversations",
 		    data: data,
 		    success: function(response) {
+		    	$('#conversation_message').val('');
 				// window.location.replace('/conversations/' + response.id);
 		    },
 		    error: function(response) {
