@@ -15,5 +15,5 @@
 // = require jquery-ui-1.10.4.custom
 // = require jquery_ujs
 // = require autocomplete-rails
-// = require_tree a.
+// = require_tree .
 

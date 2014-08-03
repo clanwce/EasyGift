@@ -73,8 +73,9 @@ $( document ).ready(function() {
 		gift_request['user_id'] = $('#new_gift_request_current_user_id').val();
 		gift_request['title'] = $('#new_gift_request_title').val();
 		gift_request['description'] = $('#new_gift_request_description').val();
-		gift_request['public']= $('input[name=gift_request_public]:checked', '#new_gift_request_form').val()
-		// gift_request['black_list'] = ;
+		gift_request['public']= $('#public').val();
+		gift_request['black_list'] = $('#black_list').val();
+		gift_request['white_list'] = $('#white_list').val();
 		data['gift_request'] = gift_request;
 		data['tags'] = tags_on_page;
 		data['authenticity_token'] = $('#new_gift_request_authenticity_token').val();

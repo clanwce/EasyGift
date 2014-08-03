@@ -80,8 +80,16 @@ function savechanges()
 			whitelist.push($('#alluserscheckbox').val());
 		}		
 	}
+
+	if(whitelist.length==0 && blacklist.length ==0)
+	{
+		alert("No privacy settings changed. Please add Users");
+		return;
+	}
 	$("#white_list").val(whitelist);	
 	$("#black_list").val(blacklist);
+
+
 	// alert($("#black_list").val());
 	// alert($("#white_list").val());	
 	$("#mainmodalclose").click();

@@ -5,7 +5,7 @@ function validate(i)
 	{
 		document.getElementById("gift_request_public").className = "active btn btn-primary btn-sm";
 		document.getElementById("gift_request_private").className = "btn btn-sm";
-		document.getElementById("public").value = 1;
+		document.getElementById("public").value = true;
 		var cb = document.getElementById('boxes').getElementsByTagName('input');
 		for (var i = 0; i < cb.length; i++) {
 		cb[i].checked = false;
@@ -16,7 +16,7 @@ function validate(i)
 	{
 		document.getElementById("gift_request_private").className = "active btn btn-primary btn-sm";
 		document.getElementById("gift_request_public").className = "btn btn-sm";
-		document.getElementById("public").value = 0;
+		document.getElementById("public").value = false;
 	}
 }
 
@@ -86,7 +86,7 @@ function usersearchvalidation(div)
 		<div class="form-group">
 			<label class="col-sm-4 control-label">Accessor:</label>
 			<div class="col-sm-4">
-				<input id="public" name="public" type="hidden" value="1"/>
+				<input id="public" name="public" type="hidden" value="true"/>
 				<button type="button" id="gift_request_public" name="gift_request_public" class=" active btn btn-primary btn-sm" onclick="validate('1')">Public</button>
 				<button type="button" id="gift_request_private" name="gift_request_private" class=" btn  btn-sm" onclick="validate('2')" data-toggle="modal" data-target="#myModal">Private</button>
 				<input id="black_list" name="black_list" type="hidden" value="" />
