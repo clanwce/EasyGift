@@ -120,10 +120,63 @@ $( document ).ready(function() {
         return convertdLocalTime;
     }
 
+    function formatted_date(date) {
+    	day = date.getDate();
+    	month_number = date.getMonth() + 1;
+    	year = date.getFullYear();
+    	hour = date.getHours() % 12;
+    	if(hour < 10) {
+    		hour = "0" + hour;
+    	}
+    	minutes = date.getMinutes();
+    	if(minutes < 10) {
+    		minutes = "0" + minutes;
+    	}
+    	meridian = "AM";
+    	if(date.getHours() > 12) {
+    		meridian = "PM";
+    	}
+    	month = "Jan";
+    	if(month_number == 2) {
+    		month = "Feb";
+    	}
+    	else if(month_number == 3) {
+    		month = "March";
+    	}
+    	else if(month_number == 4) {
+    		month = "Mar";
+    	}
+    	else if(month_number == 5) {
+    		month = "Apr";
+    	}
+    	else if(month_number == 6) {
+    		month = "Jun";
+    	}
+    	else if(month_number == 7) {
+    		month = "Jul";
+    	}
+    	else if(month_number == 8) {
+    		month = "Aug";
+    	}
+    	else if(month_number == 9) {
+    		month = "Sep";
+    	}
+    	else if(month_number == 10) {
+    		month = "Oct";
+    	}
+    	else if(month_number == 11) {
+    		month = "Nov";
+    	}
+    	else if(month_number == 12) {
+    		month = "Dec";
+    	}
+    	return month + " " + day + ", " + year + " " + hour + ":" + minutes + " " + meridian;
+    }
+
  	function addMessageToConversation(data) {
  		pst_created = ConvertUTCTimeToLocalTime(data["created_at"]);
  		$('#conversation_list').append(
- 			data["from"] + "<br>" + data["message"] + "===> Sent At:" + pst_created.format("MM-dd-yyyy") + "<br><br>"
+ 			data["from"] + "<br>" + data["message"] + "===> Sent At: " + formatted_date(new Date(data["created_at"])) + "<br><br>"
  		);
  	}
 

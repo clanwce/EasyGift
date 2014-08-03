@@ -6,12 +6,12 @@
 		<% if message.user_id != current_user.id %>
 			<%= @other_user.username %>:
 			<br>
-			<%= message.message %> ===> Sent At: <%= message.created_at.strftime('%l:%M %P') %>
+			<%= message.message %> ===> Sent At: <%= message.created_at.strftime("%b %d, %Y %l:%M %p") %>
 			<br><br>
 		<% else %> 
 			<%= current_user.username %>:
 			<br>
-			<%= message.message %> ===> Sent At: <%= message.created_at.strftime('%l:%M %P') %>
+			<%= message.message %> ===> Sent At: <%= message.created_at.strftime("%b %d, %Y %l:%M %p") %>
 			<br><br>
 		<% end %>
 	<% end %>
