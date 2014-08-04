@@ -78,6 +78,7 @@ class User < ActiveRecord::Base
       notification_hash["id"] = notification.id
       notification_hash["type"] = notification.type_of_event
       notification_hash["url"] = notification.formatted_url
+      notification_hash["gift_request"] = notification.gift_request
       notification_hash["message"] = notification.constructActivityMessage(viewing_user)
       notification_hash["created_at"] = notification.created_at
       notification_hash["updated_at"] = notification.updated_at

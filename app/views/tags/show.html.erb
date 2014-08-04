@@ -101,7 +101,13 @@ chck();
 <h3> Gift Request for <%= @tag.name %> </h3>
 
     <br>
-   <p class="inline" style="font-style:italic;"><strong>Total Questions: <%=  @tag_gift_request.count %></strong></p><br>
+    <% @postcount = 0 %>
+    <% @tag_gift_request.each do |gift_request| %>
+      <% if gift_request.private_post != true %>
+      <% @postcount = @postcount + 1 %>
+      <% end %>
+      <% end %>
+   <p class="inline" style="font-style:italic;"><strong>Questions: <%= @postcount %></strong></p><br>
     <br>
   </div>
 
@@ -112,6 +118,7 @@ chck();
   <div class="container-fluid">
     <table class="table" align="center" style="background-color:#ffffff; width:90%;">
 	<% @tag_gift_request.each do |gift_request| %>
+  <% if gift_request.private_post==false || (gift_request.private_post==true && gift_request.user_has_access?(current_user.id)) %>
      <tr>
       <td >
         <div class="row" align="center" style="padding-top:10px;">
@@ -200,7 +207,7 @@ chck();
         </td>
 
       </tr>
-
+      <% end %>
       <% end %>
     </table>
   </div>
