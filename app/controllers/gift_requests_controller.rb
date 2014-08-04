@@ -28,15 +28,15 @@ class GiftRequestsController < ApplicationController
     if @gift_request.user_has_access?(current_user.id) == false
       flash[:notice] = "You are not authorized to view the gift request"
       redirect_to '/gift_requests'
-    end
-
-    @gift_request_comments = @gift_request.comments
-    @gift_request_likes = @gift_request.likes
-    @gift_request_tags = @gift_request.tags
-    respond_to do |format|
-      UserView.create(gift_request_id: @gift_request.id, user_id: current_user.id)
-      format.html # show.html.erb
-      format.json { render json: @gift_request }
+    else
+      @gift_request_comments = @gift_request.comments
+      @gift_request_likes = @gift_request.likes
+      @gift_request_tags = @gift_request.tags
+      respond_to do |format|
+        UserView.create(gift_request_id: @gift_request.id, user_id: current_user.id)
+        format.html # show.html.erb
+        format.json { render json: @gift_request }
+      end
     end
   end
 
@@ -56,16 +56,51 @@ class GiftRequestsController < ApplicationController
     @gift_request = GiftRequest.find(params[:id])
   end
 
+#"gift_request"=>{"user_id"=>"1", "title"=>"test private post", "description"=>"asdasda", "public"=>"false", "black_list"=>"", "white_list"=>"2,-2"}, "tags"=>["test", "private post"],
   # POST /gift_requests
   # POST /gift_requests.json
   def create
-    if params[:gift_request]["public"]
-      @gift_request = GiftRequest.new(user_id: current_user.id, title: params[:gift_request]["title"], description: params[:gift_request]["description"], private_post: params[:gift_request]["public"])
+    if (params[:gift_request]["public"] == "false")
+      private_post = true
     else
-
+      private_post = false
     end
+    @gift_request = GiftRequest.new(user_id: current_user.id, title: params[:gift_request]["title"], description: params[:gift_request]["description"], private_post: private_post)    
+
     respond_to do |format|
       if @gift_request.save && @gift_request.attach_tags_to_gift_request(params[:tags])
+        if @gift_request.private_post
+          white_lists = params[:gift_request]["white_list"].split(',').map {|n| n.to_i}
+          if white_lists.include?(0)
+            white_list = GiftRequestWhiteList.new(gift_request_id: @gift_request.id, user_id: 0)
+            white_list.save
+          else
+            all_follower = white_lists.include?(-1)
+            all_following = white_lists.include?(-2)
+            white_lists.each do |white_list|
+              if white_list > 0
+                if all_following && @gift_request.user.following?(User.find(white_list))
+                  next
+                elsif all_follower && @gift_request.user.followed?(User.find(white_list))
+                  next
+                else
+                  white_list = GiftRequestWhiteList.new(gift_request_id: @gift_request.id, user_id: white_list)
+                  white_list.save
+                end
+              else
+                white_list = GiftRequestWhiteList.new(gift_request_id: @gift_request.id, user_id: white_list)
+                white_list.save
+              end
+            end
+          end
+
+          black_lists = params[:gift_request]["black_list"].split(',').map {|n| n.to_i}
+          black_lists.each do |black_list|
+            black_list = GiftRequestBlackList.new(gift_request_id: @gift_request.id, user_id: black_list)
+            black_list.save
+          end
+
+        end
           format.html { redirect_to @gift_request, notice: 'Gift request was successfully created.' }
           format.json { render json: @gift_request, status: :created, location: @gift_request }
       else
