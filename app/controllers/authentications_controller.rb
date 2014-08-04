@@ -8,7 +8,7 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication && current_user.nil? #third-party authentication belonging to user is found & no user is logged in, so sign them in
-      if referrer == ENV['HOMEPAGE_SIGN_IN']
+      if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
         flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, authentication.user)
       else
