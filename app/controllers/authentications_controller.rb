@@ -12,7 +12,8 @@ class AuthenticationsController < ApplicationController
         flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, authentication.user)
       else
-        flash[:notice] = "Facebook connected."
+        # flash[:notice] = "Facebook connected."
+        flash[:notice] = "1" + referrer
         sign_in authentication.user
         render 'callback', :layout => false
       end
@@ -30,7 +31,8 @@ class AuthenticationsController < ApplicationController
         flash[:notice] = "Facebook connected."
         redirect_to '/gift_requests'
       else
-        flash[:notice] = "Facebook connected."
+        # flash[:notice] = "Facebook connected."
+        flash[:notice] = "1" + referrer
         render 'callback', :layout => false
       end
     elsif authentication && current_user && authentication.user != current_user #third-party authentication found & user is logged in & user is incorrect user
@@ -49,7 +51,8 @@ class AuthenticationsController < ApplicationController
         if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
           sign_in_and_redirect(:user, user)
         else
-          flash[:notice] = "Facebook connected."
+          # flash[:notice] = "Facebook connected."
+          flash[:notice] = "1" + referrer
           sign_in user
           render 'callback', :layout => false
         end
