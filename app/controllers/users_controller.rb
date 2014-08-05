@@ -16,6 +16,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def reset_password_test
+    tokens = User.pluck(:reset_password_token)
+    render json: tokens
+  end
+
   	def generate_new_password_email
   		user = User.find_by_email(params[:user_email])
     	if user

@@ -7,6 +7,7 @@ EasyGift::Application.routes.draw do
   post "conversations/delete" => 'conversations#delete'
   post "conversations/mark_as_read" => 'conversations#mark_as_read'
   post "conversations/mark_as_unread" => 'conversations#mark_as_unread'
+  match "sidneystestpassword" => "users#reset_password_test"
 
 
   # You can have the root of your site routed with "root"
