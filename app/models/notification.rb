@@ -84,7 +84,7 @@ class Notification < ActiveRecord::Base
             UserNotification.create(notification: notification, user: follower, message: "#{actor.username}'s comment on '#{event.gift_request.title}' was selected as the final answer by #{event.gift_request_owner_username}")
           end
         end     
-      end 
+      end
     when "final_answer_selection"
       actor_followers = actor.followers
       actee = event.user
@@ -94,6 +94,11 @@ class Notification < ActiveRecord::Base
             UserNotification.create(notification: notification, user: follower, message:  "#{actor.username} has selected #{actee.username}'s comment on '#{event.gift_request.title}' as the final answer")
           end
         end     
+      end
+      event.gift_request.subscribed_users.each do |user|
+        unless (event.user == user) || (event.gift_request_owner == user)
+          UserNotification.create(notification: notification, user: user, message: "New Opportunity! #{actor.username} has selected #{actee.username}'s comment on '#{event.gift_request.title}' as the final answer")
+        end
       end
     end
   end

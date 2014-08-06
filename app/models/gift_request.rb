@@ -99,4 +99,16 @@ class GiftRequest < ActiveRecord::Base
     end
   end
 
+  def subscribed_users
+    users = []
+    tags.each do |tag|
+      tag.users.each do |user|
+        unless users.include?(user)
+          users << user
+        end
+      end
+    end
+    return users
+  end
+
 end

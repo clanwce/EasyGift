@@ -91,7 +91,7 @@ class UsersController < ApplicationController
       require 'fuzzystringmatch'
       jarow = FuzzyStringMatch::JaroWinkler.create( :native )
       all_users.each do |user|
-          if(jarow.getDistance( user.username, keyword ) > 0.8)
+          if(jarow.getDistance( user.username.downcase, keyword.downcase ) > 0.8)
             @users << user
           end
       end
@@ -110,7 +110,7 @@ class UsersController < ApplicationController
       require 'fuzzystringmatch'
       jarow = FuzzyStringMatch::JaroWinkler.create( :native )
       all_users.each do |user|
-          if(jarow.getDistance( user.username, keyword ) > 0.8) && (user.id != current_user.id)
+          if(jarow.getDistance( user.username.downcase, keyword.downcase ) > 0.8) && (user.id != current_user.id)
             @users << user
           end
       end

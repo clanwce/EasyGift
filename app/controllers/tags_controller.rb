@@ -56,7 +56,7 @@ class TagsController < ApplicationController
     require 'fuzzystringmatch'
     jarow = FuzzyStringMatch::JaroWinkler.create( :native )
     all_tags.each do |tag|
-        if(jarow.getDistance( tag.name, keyword ) > 0.8)
+        if(jarow.getDistance( tag.name.downcase, keyword.downcase ) > 0.8)
           @tags << tag
         end
     end
