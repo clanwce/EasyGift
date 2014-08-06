@@ -2,11 +2,12 @@ EasyGift::Application.routes.draw do
 
   get 'conversations' => 'conversations#index'
 
-  match 'conversations/:id' => 'conversations#show'
+ 
   post "conversations" => 'conversations#create'
   post "conversations/delete" => 'conversations#delete'
   post "conversations/mark_as_read" => 'conversations#mark_as_read'
   post "conversations/mark_as_unread" => 'conversations#mark_as_unread'
+  match 'conversations/:id' => 'conversations#show'
 
 
   # You can have the root of your site routed with "root"

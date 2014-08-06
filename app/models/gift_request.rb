@@ -94,6 +94,8 @@ class GiftRequest < ActiveRecord::Base
       else
         return false
       end
+    else
+      return true
     end
   end
 

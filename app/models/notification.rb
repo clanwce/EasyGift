@@ -54,7 +54,9 @@ class Notification < ActiveRecord::Base
       UserNotification.create(notification: notification, user: event.post_or_comment_owner, message: "#{actor.username} #{event.status}s your #{event.type}")
       actor_followers.each do |follower|
         unless follower == event.post_or_comment_owner
-          UserNotification.create(notification: notification, user: follower, message: "#{actor.username} #{event.status}s #{event.post_or_comment_owner.username}'s' #{event.type}")
+          if event.gift_request_object.user_has_access?(follower.id)
+            UserNotification.create(notification: notification, user: follower, message: "#{actor.username} #{event.status}s #{event.post_or_comment_owner.username}'s' #{event.type}")
+          end
         end
       end   
     when "comment"
@@ -63,18 +65,24 @@ class Notification < ActiveRecord::Base
       end
       actor_followers.each do |follower|
         unless follower == event.gift_request_owner
-          UserNotification.create(notification: notification, user: follower, message: "#{actor.username} has made comments on #{event.gift_request_owner_username}'s post: #{event.gift_request.title}")
+          if event.gift_request.user_has_access?(follower.id)
+            UserNotification.create(notification: notification, user: follower, message: "#{actor.username} has made comments on #{event.gift_request_owner_username}'s post: #{event.gift_request.title}")
+          end
         end
       end   
     when "gift_request"
       actor_followers.each do |follower|
+        if event.user_has_access?(follower.id)
           UserNotification.create(notification: notification, user: follower, message: "#{actor.username} has posted a new gift request: #{event.title}")
+        end
       end
     when "final_answer_selected"
       UserNotification.create(notification: notification, user: actor, message: "#{event.gift_request_owner_username} has selected your comment on '#{event.gift_request.title}' as the final answer")
       actor_followers.each do |follower|
         unless follower == event.gift_request_owner
-          UserNotification.create(notification: notification, user: follower, message: "#{actor.username}'s comment on '#{event.gift_request.title}' was selected as the final answer by #{event.gift_request_owner_username}")
+          if event.gift_request.user_has_access?(follower.id)
+            UserNotification.create(notification: notification, user: follower, message: "#{actor.username}'s comment on '#{event.gift_request.title}' was selected as the final answer by #{event.gift_request_owner_username}")
+          end
         end     
       end 
     when "final_answer_selection"
@@ -82,7 +90,9 @@ class Notification < ActiveRecord::Base
       actee = event.user
       actor_followers.each do |follower|
         unless follower == actee
-          UserNotification.create(notification: notification, user: follower, message:  "#{actor.username} has selected #{actee.username}'s comment on '#{event.gift_request.title}' as the final answer")
+          if event.gift_request.user_has_access?(follower.id)
+            UserNotification.create(notification: notification, user: follower, message:  "#{actor.username} has selected #{actee.username}'s comment on '#{event.gift_request.title}' as the final answer")
+          end
         end     
       end
     end

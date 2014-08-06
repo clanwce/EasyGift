@@ -1,3 +1,33 @@
+<script type="text/javascript" >
+	function mark_read(conversation_id, form_authenticity_token){
+		$.post( 'conversations/mark_as_read', {id:conversation_id, authenticity_token: form_authenticity_token}, function(returned){
+			location.reload();
+		});
+	}
+
+	function mark_unread(conversation_id){
+		token = $('#conversation_page_authenticity_token').val();
+		data = {};
+		data['id']=conversation_id;
+		data['authenticity_token'] = token;
+		$.ajax({
+		    type: "POST",
+		    dataType: 'json',
+		    url: "/conversations/mark_as_unread",
+		    data: data,
+		    success: function(response) {
+				location.reload();
+		    },
+	    });	
+	}
+	function delete_conversation(conversation_id, form_authenticity_token){
+		$.post( 'conversations/delete', {id:conversation_id, authenticity_token: form_authenticity_token}, function(returned){
+			location.reload();
+		});
+
+	}
+</script>
+
 <h1>Conversations#index</h1>
 <p>Find me in app/views/conversations/index.html.erb</p>
 <br><br>
@@ -7,13 +37,18 @@
 <br>
 <% if conversation.is_read?(current_user.id) %>
 <% 	read = "READ" %>
+<button id="mark_as_unread" type="button" onclick="mark_unread(<%= conversation.id %>)" >Mark as Unread</button>
 <% else %>
 <%  read = "UNREAD" %>
+<button id="mark_as_read" type="button" onclick="mark_read(<%= conversation.id %>, <%=form_authenticity_token %>)" >Mark as Read</button>
 <% end %>
 <% if conversation.last_message.user_id == current_user.id %>
 <%= current_user.username+"(SELF): "+conversation.last_message.message+":: AT: #{conversation.last_message_at}"+" ====> "+read %>
 <% else %> 
 <%= other_user.username+": "+conversation.last_message.message+":: AT: #{conversation.last_message_at}"+" ====> "+read %>
 <% end %>
-<br><br>
+<button id="delete_conversation" type="button" onclick="delete_conversation(<%= conversation.id %>, <%=form_authenticity_token %>)" >Delete</button>
+<input id="converation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+<br>
+<br>
 <% end %>
