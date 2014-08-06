@@ -8,12 +8,18 @@ class UsersController < ApplicationController
   def update_password
     @user = current_user
     # raise params.inspect
+    puts "SIDNEYKEY" + params[:user]["reset_password_token"]
     if @user.update_with_password(params[:user])
       sign_in(@user, :bypass => true)
       redirect_to '/account_settings', :notice => "Your Password has been updated!"
     else
       redirect_to '/account_settings', :notice => "Your Password was not changed. Try again"
     end
+  end
+
+  def reset_password_test
+    tokens = User.pluck(:reset_password_token)
+    render json: tokens
   end
 
   	def generate_new_password_email

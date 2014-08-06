@@ -8,20 +8,20 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication && current_user.nil? #third-party authentication belonging to user is found & no user is logged in, so sign them in
-      if referrer == ENV['HOMEPAGE_SIGN_IN']
+      # if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
         flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, authentication.user)
-      else
-        flash[:notice] = "Facebook connected."
-        sign_in authentication.user
-        render 'callback', :layout => false
-      end
+      # else
+      #   flash[:notice] = "Facebook connected."
+      #   sign_in authentication.user
+      #   render 'callback', :layout => false
+      # end
     elsif authentication && current_user == authentication.user
       if referrer == ENV['HOMEPAGE_SIGN_IN'] || referrer == ENV['HOMEPAGE_SIGN_IN2'] || referrer == ENV['HOMEPAGE_SIGN_IN3']
         flash[:notice] = "Already connected"
         redirect_to '/gift_requests'
       else
-        flash[:notice] = "Already connected"
+        flash[:notice] = "Facebook connected"
         render 'callback', :layout => false
       end
     elsif !authentication && current_user #third-party authentication is not found and user is logged in, so create & connect a new authentication to their account

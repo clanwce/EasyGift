@@ -63,6 +63,7 @@ node.setAttribute("class", "active padd");
 
 			<!-- xxxxxxxxxxxxx -->
 			<% @feed.each do |feed| %>
+			 <% if feed["gift_request"].private_post==false || (feed["gift_request"].private_post==true &&  feed["gift_request"].user_has_access?(current_user.id)) %>
 			<tr>
 				<td>
 					<div style="background:#E0E0E0; padding-left:3%; padding-right:3%; padding-top:1.5%;">
@@ -387,6 +388,7 @@ node.setAttribute("class", "active padd");
 			</td>
 			<% @giftcount = @giftcount + 1 %>
 		</tr>
+		<% end %>
 
 		<% end %>
 
