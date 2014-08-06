@@ -38,7 +38,9 @@ class Comment < ActiveRecord::Base
 
   def email_business_accounts
     gift_request.subscribed_users.each do |user|
-      BusinessUserMailer.delay.final_answer_notification(user, gift_request)
+      unless user == gift_request_owner
+        BusinessUserMailer.delay.final_answer_notification(user, gift_request)
+      end
     end
   end
 
