@@ -86,7 +86,14 @@ tr.border_bottom td {
        <div class="list group">
         <li class="list-group-item">
           <span class="glyphicon glyphicon-gift"></span>
-          <span class="badge"><%= @user.gift_request.count %></span>
+          <span class="badge">
+          <% @postcount = 0 %>
+          <% @user.gift_request.each do |gift_request| %>
+            <% if gift_request.user_has_access?(current_user.id) %>
+              <% @postcount = @postcount + 1 %>
+            <% end %>
+          <% end %>
+          <%= @postcount %></span>
           Gift Requests
         </li>
         <li class="list-group-item">
@@ -242,7 +249,7 @@ tr.border_bottom td {
       </div> 
 
     <br>
-   <h3 class="inline" style="margin-left: 20px;margin-top: 10px"><%= @user.gift_request.count %> Gift Requests</h3>
+   <h3 class="inline" style="margin-left: 20px;margin-top: 10px"><%= @postcount %> Gift Requests</h3>
    <% @gifts = @user.gift_request %>
     <div class="tab-content">
     <div class="tab-pane fade in active" id="giftpopular">

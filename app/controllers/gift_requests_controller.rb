@@ -140,7 +140,13 @@ class GiftRequestsController < ApplicationController
 
 
   def gift_request_search
-    @gift_requests = GiftRequest.search params[:keyword]
+    total_gift_requests = GiftRequest.search params[:keyword]
+    @gift_requests = []
+    total_gift_requests.each do |gift_request|
+      if gift_request.user_has_access?(current_user.id)
+        @gift_requests << gift_request
+      end
+    end
     @keyword = params[:keyword]
     #redirect_to "/gift_requests/gift_request_search"
   end
