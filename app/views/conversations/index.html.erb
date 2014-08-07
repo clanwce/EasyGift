@@ -1,6 +1,6 @@
 <script type="text/javascript" >
 	function mark_read(conversation_id, form_authenticity_token){
-		$.post( 'conversations/mark_as_read', {id:conversation_id, authenticity_token: form_authenticity_token}, function(returned){
+		$.post( '/conversations/mark_as_read', {id:conversation_id, authenticity_token: form_authenticity_token}, function(returned){
 			location.reload();
 		});
 	}
@@ -21,7 +21,7 @@
 	    });	
 	}
 	function delete_conversation(conversation_id, form_authenticity_token){
-		$.post( 'conversations/delete', {id:conversation_id, authenticity_token: form_authenticity_token}, function(returned){
+		$.post( '/conversations/delete', {id:conversation_id, authenticity_token: form_authenticity_token}, function(returned){
 			location.reload();
 		});
 
@@ -48,7 +48,7 @@
 <%= other_user.username+": "+conversation.last_message.message+":: AT: #{conversation.last_message_at}"+" ====> "+read %>
 <% end %>
 <button id="delete_conversation" type="button" onclick="delete_conversation(<%= conversation.id %>, <%=form_authenticity_token %>)" >Delete</button>
-<input id="converation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+<input id="conversation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 <br>
 <br>
 <% end %>

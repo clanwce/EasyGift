@@ -1,6 +1,8 @@
 <p>Hi <%= @user.username %>, there is a new business opportunity for you!</p><br>
-<p><%= @poster.username %> has selected a final answer on post <%= link_to @post.title, "http://easy-gift.herokuapp.com/gift_requests/#{@post.id}" %>. You can contact the post owner at <%= @poster.email%></p>
+<p><%= @poster.username %> has selected a final answer on post <%= link_to @post.title, "http://easy-gift.herokuapp.com/gift_requests/#{@post.id}" %>. You can contact <%= link_to @poster.username, "http://easy-gift.herokuapp.com/users/#{@poster.id}" %> through private messaging or sending email to <%= @poster.email%>.</p>
 <br><br>
-<p>Tags: <% @post.tags.each do |tag| %>
-				&nbsp;<%= tag.name %></p>
+<p>Subscribed Tags For This Post: <% @post.tags.each do |tag| %>
+				&nbsp;<% if tag.is_subscribed?(@user.id) %>
+					  <%= tag.name %>
+					  <% end %></p>
 				<% end %>
