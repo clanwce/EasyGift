@@ -7,6 +7,27 @@
 var whitelist=[];
 var blacklist=[];
 
+$( document ).ready(function() {
+	   $("#alluserscheckbox").change(function() {
+	    if(this.checked) {
+	    	$("#followerscheckbox").attr("disabled", true);
+	    	$("#followingcheckbox").attr("disabled", true);
+	    	$('#followerscheckbox').attr('checked', false); // Checks it
+			$('#followingcheckbox').attr('checked', false); // Checks it
+	    	$("#whitelistkeyword").val("");
+
+	    	$("#whitelistkeyword").attr("disabled", true);
+	        // alert('chech');
+	    }
+	    else
+	    {
+	    	// alert('not');
+	    	$("#followerscheckbox").removeAttr("disabled");
+	    	$("#followingcheckbox").removeAttr("disabled");
+	    	$("#whitelistkeyword").removeAttr("disabled");
+	    }
+	});
+});
 
 function addusers(list,searchdiv, usersdiv,modaldiv)
 {

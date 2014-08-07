@@ -12,6 +12,10 @@
   background-color:#98AFC7;
 }
 
+.new_conversation{
+  background-color:#98AFC7;
+}
+
 .footer {
   height: 100px; 
   width:100%;
@@ -20,9 +24,12 @@
 }
 
 span.glyphicon-globe {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
+span.glyphicon-envelope {
+    font-size: 1.1em;
+}
 .dropdown-menu {
   width: 100%; 
 }
@@ -113,13 +120,42 @@ body{
         <div id="user_navigation_bar" <% if current_user %> data-user-id=<%= current_user.id %> <% end %> class="navbar-collapse collapse">
             <form class="navbar-form navbar-left" role="search" style="padding-left:140px; padding-top:20px" action="/gift_requests/searchresult" method = "post">
                   <div class="form-group" style="">
-                    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+                    <input id="authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
                     <input type="text" id="giftrequestsearch" name="keyword" style="height: 28px; font-size: 12px;line-height: 12px; width: 300px" class="form-control" placeholder="Search Gift Request">
                   </div>
                   <input type="submit" class="btn btn-default" style="height: 28px; font-size: 12px;line-height: 12px; width: 90px"value="Submit">
                 </form>
           <ul class="nav navbar-nav navbar-right" style="padding-top:10px;">
         <% if current_user %>
+          <li id="user_conv_dropdown"> <a href="#" style= "background-color:transparent; color:white;" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
+              <% @convcount = current_user.user_conversations.where(read: false).count %>
+            <h4><span class="glyphicon glyphicon-envelope"><span id="conversation_count" data-count=<%= @convcount %> class="badge" style="background-color:red;"><% if @convcount  > 0 %><%= @convcount %> <% end %></span></span> </h4>
+          </a>
+          <ul id="conversation_ul" class="dropdown-menu" style=" font-size:90%;margin-top:1px; width: 380px; height: 500px;word-wrap:break-word;overflow:auto;" role="menu" id="notify" align="left" >
+                    <% @conversations = current_user.show_all_conversations[0..9] %>
+                    <% @conversations.each do |conversation| %>
+                    <script>
+                    loadmorecount ++;
+                    </script>
+                    <%  other_user = conversation.users.where("user_id != #{current_user.id}").first %>
+                    <% if !conversation.is_read?(current_user.id) %>              
+                      <li id="li_<%= conversation.id %>" data-id=<%= conversation.id %> class="new_conversation" style="padding-left:20px;padding-right:20px;padding-bottom:30px;"><div id="conv_<%= conversation.id %>" style="word-wrap:break-word;" > <b><%= link_to other_user.username, '/conversations/' + conversation.id.to_s ,:style=>"text-decoration:none;background:transparent;color:#333" %></b><div style="float:right" class="inline"><button  id="button_conv_unread_<%= conversation.id %>" onclick="return decider('<%= conversation.id %>');" class="glyphicon glyphicon-eye-open" style="background:none;padding: 0;border: none;"></button>&nbsp;&nbsp;<button onclick="return conversationunremove();" class="glyphicon glyphicon-remove-circle" style="background:none;padding: 0;border: none;"></button></div><br><% if conversation.last_message.message.length > 100 %> <%= conversation.last_message.message[0..100] %>...
+                        <% else %>
+                         <%= conversation.last_message.message %>
+                        <% end %></div></li>
+                    <% else %>  
+                      <li id="li_<%= conversation.id %>" data-id=<%= conversation.id %>  style="padding-left:20px;padding-right:20px;padding-bottom:30px;"><div id="conv_<%= conversation.id %>" style=" word-wrap:break-word;"><b> <%= link_to other_user.username, '/conversations/' + conversation.id.to_s ,:style=>"text-decoration:none;background:transparent;color:#333" %></b><div style="float:right" class="inline"><button   id="button_conv_read_<%= conversation.id %>" onclick="return decider('<%= conversation.id %>');" class="glyphicon glyphicon-eye-open" style="background:none;padding: 0;border: none;"></button>&nbsp;&nbsp;<button onclick="return conversationunremove();" class="glyphicon glyphicon-remove-circle" style="background:none;padding: 0;border: none;"></button></div><br><% if conversation.last_message.message.length > 100 %> <%= conversation.last_message.message[0..100] %>...
+                        <% else %>
+                         <%= conversation.last_message.message %>
+                        <% end %></div></li>
+                    <% end %>
+              <% end %>
+               <% if !@conversations.empty? %>
+               <li style=""><div style="word-wrap:break-word;" align="center"><button class="btn btn-primary" onclick ="return loadmoreconversations();"> Load More</button></li>
+               <% end %>
+             </ul>
+          </li>
+
           <li id="user_notification_dropdown"> <a href="#" style= "background-color:transparent; color:white;" class="dropdown-toggle"  id="clickable" data-toggle="dropdown">
               <% @count = current_user.user_notifications.where(read: false).count %>
             <h4><span class="glyphicon glyphicon-globe"><span id="navigation_count" data-count=<%= @count %> class="badge" style="background-color:red;"><% if @count > 0 %><%= @count %> <% end %></span></span> </h4>

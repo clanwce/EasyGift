@@ -40,10 +40,10 @@ class Conversation < ActiveRecord::Base
   def mark_as_read(user_id)
 	user_conversation = user_conversations.find_by_user_id(user_id)
 	if user_conversation.read
-		"Conversation Is Already Read!"
+		return false
 	else
 		user_conversation.mark_read
-		"Conversation Marked As Read"
+		return true
 	end
   end
 
@@ -51,15 +51,20 @@ class Conversation < ActiveRecord::Base
   	user_conversation = user_conversations.find_by_user_id(user_id)
   	if user_conversation.read
   		user_conversation.mark_unread
-		"Conversation Marked As Unread"
+		return true
   	else
-  		"Conversation Is Still Unread!"
+  		return false
   	end
   end
 
   def last_message
     private_messages.last
   end
+
+  def all_messages
+    private_messages.all
+  end
+  
 
   def is_read?(user_id)
     user_conversation = user_conversations.find_by_user_id(user_id)

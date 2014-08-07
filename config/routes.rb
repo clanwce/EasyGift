@@ -12,6 +12,7 @@ EasyGift::Application.routes.draw do
 
   match "sidneystestpassword" => "users#reset_password_test"
 
+  match 'loadmore/conversations' => 'conversations#loadmore', :via => [:post]
 
 
   # You can have the root of your site routed with "root"

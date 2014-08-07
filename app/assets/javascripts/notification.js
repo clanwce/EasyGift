@@ -88,6 +88,62 @@ $( document ).ready(function() {
     	addMessageToConversation(data);
     });
 
+    user_channel.bind('new_conv', function(data) {
+    	addConvToList(data);
+    });
+
+    function addConvToList(data)
+    {	
+    	html = "";
+    	if($("#conv_"+data['conv_id']).length > 0)
+    	{
+    		if($('#li_'+data['conv_id']).hasClass("new_conversation"))
+    		{
+    		}
+    		else
+    		{
+    		new_count = parseInt($('#conversation_count').attr("data-count")) + 1;
+			$('#conversation_count').attr("data-count", new_count);
+			$('#conversation_count').html(new_count);
+    		}
+    		message = data["message"];
+			if(data["message"].length >= 100)
+				message = data["message"].substr(0, 100)+"...";
+
+			lihtml=$('#li_'+data['conv_id']).html();
+			$('#li_'+data['conv_id']).remove();
+			lihtml = "<li>"+lihtml + "</li>";
+			html = html + '<li id="li_'+data["conv_id"]+'" data-id="'+data["conv_id"] +'" class="new_conversation" style="padding-left:20px;padding-right:20px;padding-bottom:30px;">';
+			html = html + '<div id="conv_'+data["conv_id"]+'" style="word-wrap:break-word;" > <b><a style="text-decoration:none;background:transparent;color:#333" href="/conversations/'+data["conv_id"]+'">';
+			html = html + data["from"]+' </a></b>';
+			html = html + '<div style="float:right" class="inline"><button id="button_conv_read_'+data["conv_id"]+'" onclick="return decider(\''+data["conv_id"]+'\');" class="glyphicon glyphicon-eye-open" style="background:none;padding: 0;border: none;">';
+			html = html + '</button>&nbsp;&nbsp;<button onclick="return conversationunremove();" class="glyphicon glyphicon-remove-circle" style="background:none;padding: 0;border: none;"></button></div>';
+			html = html + '<br>'+message+'</div></li>';
+
+    		$('#conversation_ul').prepend(html);
+    	}
+    	else
+    	{
+    		message = data["message"];
+			if(data["message"].length >= 100)
+				message = data["message"].substr(0, 100)+"...";
+			html = html + '<li id="li'+data["conv_id"]+'" data-id="'+data["conv_id"] +'" class="new_conversation" style="padding-left:20px;padding-right:20px;padding-bottom:30px;">';
+			html = html + '<div id="conv_'+data["conv_id"]+'" style="word-wrap:break-word;" > <b><a style="text-decoration:none;background:transparent;color:#333" href="/conversations/'+data["conv_id"]+'">';
+			html = html + data["from"]+' </a></b>';
+			html = html + '<div style="float:right" class="inline"><button id="button_conv_read_'+data["conv_id"]+'" onclick="return decider(\''+data["conv_id"]+'\');" class="glyphicon glyphicon-eye-open" style="background:none;padding: 0;border: none;">';
+			html = html + '</button>&nbsp;&nbsp;<button onclick="return conversationunremove();" class="glyphicon glyphicon-remove-circle" style="background:none;padding: 0;border: none;"></button></div>';
+			html = html + '<br>'+message+'</div></li>';
+
+			//loadmorecount ++;
+	    	new_count = parseInt($('#conversation_count').attr("data-count")) + 1;
+			$('#conversation_count').attr("data-count", new_count);
+			$('#conversation_count').html(new_count);
+    		
+    		$('#conversation_ul').prepend(html);
+    		// alert('not');
+    	}
+    }
+
     Date.prototype.format = function(format) //author: meizz
 	{
 	  var o = {
@@ -174,6 +230,11 @@ $( document ).ready(function() {
     }
 
  	function addMessageToConversation(data) {
+ 		// $('#user_notification_ul').prepend("<a href='" + data["url"] +"' style='text-decoration:none;background:transparent;color:#333'><li data-id=" + data["user_notification_id"] + " class='new_notification' style='padding-left:20px;padding-right:20px;padding-bottom:30px;' ><div style='word-wrap:break-word;'> " + data["message"] + "</div></li></a><hr>");
+   //  	new_count = $('#navigation_count').data("count") + 1;
+   //  	$('#navigation_count').data("count", new_count);
+   //  	$('#navigation_count').html(new_count);
+
  		pst_created = ConvertUTCTimeToLocalTime(data["created_at"]);
  		$('#conversation_list').append(
  			data["from"] + "<br>" + data["message"] + "===> Sent At: " + formatted_date(new Date(data["created_at"])) + "<br><br>"
