@@ -86,6 +86,8 @@ $( document ).ready(function() {
 
     user_channel.bind('new_message', function(data) {
     	addMessageToConversation(data);
+//do ajax call here, check if user is on window location '/conversations/id'
+
     });
 
     user_channel.bind('new_conv', function(data) {
