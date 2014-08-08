@@ -127,7 +127,7 @@ chck();
     <br>
     <% @postcount = 0 %>
     <% @gift_requests.each do |gift_request| %>
-      <% if gift_request.private_post != true %>
+      <% if gift_request.user_has_access?(current_user.id) %>
       <% @postcount = @postcount + 1 %>
       <% end %>
       <% end %>
