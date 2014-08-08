@@ -134,3 +134,4 @@ function mark_read(conversation_id){
 		    }
 	    });	
 	}
+

@@ -86,6 +86,7 @@ $( document ).ready(function() {
 
     user_channel.bind('new_message', function(data) {
     	addMessageToConversation(data);
+    	//chckconversation(data['conv_id']);
 //do ajax call here, check if user is on window location '/conversations/id'
 
     });
@@ -94,8 +95,81 @@ $( document ).ready(function() {
     	addConvToList(data);
     });
 
+
+function chckconversation(convid)
+{
+   var sPageURL = window.location;
+   // alert(sPageURL);
+   s= sPageURL.href.split("conversations/");
+   if(s[1]==convid)
+   {
+   		$("#conv_"+data['conv_id']).removeClass("new_conversation");
+   		new_count = parseInt($('#conversation_count').attr("data-count")) - 1;
+		$('#conversation_count').attr("data-count", new_count);
+		$('#conversation_count').html(new_count);
+   }
+   else
+   {
+
+   }
+   //  if(sPageURL=="page=2")
+   //  {
+   //    document.getElementById("allli").className = "active";
+   //    document.getElementById("popularli").className = "";
+   //    document.getElementById("topli").className = "";      
+   //  }
+   // else if(sPageURL.indexOf("filter")>-1)
+   // {
+   //  if(sPageURL.indexOf("&") > -1)
+   //  {
+   //    var ss = sPageURL.split("&");
+   //    var s = ss[0].split("=");
+   //    if(s[1]=="popular")
+   //    {
+   //    document.getElementById("allli").className = "";
+   //    document.getElementById("popularli").className = "active";
+   //    document.getElementById("topli").className = "";
+   //    }
+   //    else
+   //    {
+   //    document.getElementById("allli").className = "";
+   //    document.getElementById("popularli").className = "";
+   //    document.getElementById("topli").className = "active";
+   //    }
+   //  }
+   //  else
+   //  {
+   //    var s = sPageURL.split("=");
+   //    if(s[1]=="popular")
+   //    {
+   //    document.getElementById("allli").className = "";
+   //    document.getElementById("popularli").className = "active";
+   //    document.getElementById("topli").className = "";
+   //    }
+   //    else
+   //    {
+   //    document.getElementById("allli").className = "";
+   //    document.getElementById("popularli").className = "";
+   //    document.getElementById("topli").className = "active";
+   //    }
+   //  }
+   // }
+   // else
+   // {
+   //    document.getElementById("allli").className = "active";
+   //    document.getElementById("popularli").className = "";
+   //    document.getElementById("topli").className = "";
+   // }
+    
+}
+
+
     function addConvToList(data)
     {	
+    	var sPageURL = window.location;
+	   // alert(sPageURL);
+	   s= sPageURL.href.split("conversations/");
+
     	html = "";
     	if($("#conv_"+data['conv_id']).length > 0)
     	{
@@ -104,9 +178,17 @@ $( document ).ready(function() {
     		}
     		else
     		{
-    		new_count = parseInt($('#conversation_count').attr("data-count")) + 1;
-			$('#conversation_count').attr("data-count", new_count);
-			$('#conversation_count').html(new_count);
+    			if(s[1]==data['conv_id'])
+				   {
+				   		
+				   }
+				   else
+				   {
+		    		new_count = parseInt($('#conversation_count').attr("data-count")) + 1;
+					$('#conversation_count').attr("data-count", new_count);
+					$('#conversation_count').html(new_count);
+					$('#div_'+data['conv_id']).addClass("new_conversation");
+				}
     		}
     		message = data["message"];
 			if(data["message"].length >= 100)
@@ -236,11 +318,27 @@ $( document ).ready(function() {
    //  	new_count = $('#navigation_count').data("count") + 1;
    //  	$('#navigation_count').data("count", new_count);
    //  	$('#navigation_count').html(new_count);
-
- 		pst_created = ConvertUTCTimeToLocalTime(data["created_at"]);
- 		$('#conversation_list').append(
- 			data["from"] + "<br>" + data["message"] + "===> Sent At: " + formatted_date(new Date(data["created_at"])) + "<br><br>"
- 		);
+   		html = "";
+ 		pst_created = ConvertUTCTimeToLocalTime(data["created_at"]);	 
+   		if(data['other'])
+   		{
+		html = html + '<li align="left" style="float:left;width:70%"><b>';
+		html = html + data["from"]+'</b><br>'+data['message']+'<br>';
+		html = html + '<h5 style="font-size:85%"> <span class="label label-default"> Sent At: ';
+		html = html + formatted_date(new Date(data["created_at"]))+'</span></h5><br><hr style="padding-top:1px;padding-bottom:1px;margin-top:5px;margin-bottom:5px"></li>';
+   		}
+   		else
+   		{
+		html = html + '<li align="right" style="float:right;width:70%"><b>';
+		html = html + data["from"]+'</b><br>'+data['message']+'<br>';
+		html = html + '<h5 style="font-size:85%"> <span class="label label-default"> Sent At: ';
+		html = html + formatted_date(new Date(data["created_at"]))+'</span></h5><br><hr style="padding-top:1px;padding-bottom:1px;margin-top:5px;margin-bottom:5px"></li>';   			
+   		}
+   		$('#pi_'+data['conv_id']).text(data['message']);
+ 		// $('#conversation_list').append(
+ 		// 	data["from"] + "<br>" + data["message"] + "===> Sent At: " + formatted_date(new Date(data["created_at"])) + "<br><br>"
+ 		// );
+		$('#conversation_list').append(html);
  	}
 
  	$('#send_message_from_user_page_submit').click(function(e) {

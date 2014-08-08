@@ -1,26 +1,195 @@
-<h1>Conversations#show</h1>
-<p>Find me in app/views/conversations/show.html.erb</p>
-	<br><br>
-<div id="conversation_list">
-	<% @messages.each do |message|%>
-		<% if message.user_id != current_user.id %>
-			<%= @other_user.username %>:
-			<br>
-			<%= message.message %> ===> Sent At: <%= message.created_at.strftime("%b %d, %Y %l:%M %p") %>
-			<br><br>
-		<% else %> 
-			<%= current_user.username %>:
-			<br>
-			<%= message.message %> ===> Sent At: <%= message.created_at.strftime("%b %d, %Y %l:%M %p") %>
-			<br><br>
-		<% end %>
-	<% end %>
+<style>
+.inline
+{
+  display:inline;
+}
+.scroll
+{
+  height:80px;
+  overflow:auto;
+  word-wrap:break-word;
+}
+.btn-danger{
+  color:#000;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+   font-style: italic;
+   font-weight: bold;
+}
+ul{
+	list-style-type: none;
+
+}
+</style>
+
+<% content_for :title, "Conversations" %>
+
+  <script>
+//   function func(object) {
+//     if(object.id == "top" )
+//     {
+//     window.location.href = "/gift_requests?filter=top";
+//     }
+//     else if (object.id == "popular")
+//     {
+//     window.location.href = "/gift_requests?filter=popular";      
+//     }
+//     else
+//     {
+//     window.location.href = "/gift_requests";      
+//     }
+//   }
+
+// function chck()
+// {
+//    var sPageURL = window.location.search.substring(1);
+//     if(sPageURL=="page=2")
+//     {
+//       document.getElementById("allli").className = "active";
+//       document.getElementById("popularli").className = "";
+//       document.getElementById("topli").className = "";      
+//     }
+//    else if(sPageURL.indexOf("filter")>-1)
+//    {
+//     if(sPageURL.indexOf("&") > -1)
+//     {
+//       var ss = sPageURL.split("&");
+//       var s = ss[0].split("=");
+//       if(s[1]=="popular")
+//       {
+//       document.getElementById("allli").className = "";
+//       document.getElementById("popularli").className = "active";
+//       document.getElementById("topli").className = "";
+//       }
+//       else
+//       {
+//       document.getElementById("allli").className = "";
+//       document.getElementById("popularli").className = "";
+//       document.getElementById("topli").className = "active";
+//       }
+//     }
+//     else
+//     {
+//       var s = sPageURL.split("=");
+//       if(s[1]=="popular")
+//       {
+//       document.getElementById("allli").className = "";
+//       document.getElementById("popularli").className = "active";
+//       document.getElementById("topli").className = "";
+//       }
+//       else
+//       {
+//       document.getElementById("allli").className = "";
+//       document.getElementById("popularli").className = "";
+//       document.getElementById("topli").className = "active";
+//       }
+//     }
+//    }
+//    else
+//    {
+//       document.getElementById("allli").className = "active";
+//       document.getElementById("popularli").className = "";
+//       document.getElementById("topli").className = "";
+//    }
+    
+// }
+  </script>
+
+<div class="container cc">
+
+<div align = "center">
+    <div class="inline">
+      <% if flash[:notice] %>
+        <p id="flash_alert" style="color:red"><%= flash[:notice] if flash[:notice] %></p>
+        <% end %>
+    </div>
 </div>
-<br><br>
-<form class="form-inline" role="form">
-  <div class="form-group">
-  	<input id="send_message_from_converation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-    <textarea data-user-to='<%= @other_user.id %>' style='resize:none'rows="5" cols="50" name="gift_request[description]" class="form-control" id="conversation_message" placeholder="Enter a message"></textarea>
+
+
+
+  <div class="inline" style=" height: 500px;float:left;width:30%">
+  	<ul id="div_ul" style=" background-color:#FFFFFF;border-right:solid #808080; height: 500px;word-wrap:break-word;overflow:auto;" align="left" >	
+  		<% @conversations.each do |conversation| %>
+	<% other_user = conversation.users.where("user_id != #{current_user.id}").first %>
+	<% if conversation.is_read?(current_user.id) %>
+                <li id="div_<%= conversation.id %>" data-id=<%= conversation.id %> class=""  style="padding-left:20px;padding-right:20px;padding-bottom:10px;padding-top:10px;">
+                <div id="conv_<%= conversation.id %>" style=" word-wrap:break-word;padding-left:10px;"><b> <%= link_to other_user.username, '/conversations/' + conversation.id.to_s ,:style=>"text-decoration:none;background:transparent;color:#333" %></b>
+               	<div  style="float:right;padding-right:10px;" class="inline"><button   id="button_conv_read_<%= conversation.id %>" onclick="return decider('<%= conversation.id %>');" class="glyphicon glyphicon-eye-open" style="background:none;padding: 0;border: none;"></button>&nbsp;&nbsp;<button onclick="return conversationunremove();" class="glyphicon glyphicon-remove-circle" style="background:none;padding: 0;border: none;"></button></div><br>
+                      <% if conversation.last_message.message.length > 100 %> 
+                      <p class="inline" id="pi_<%= conversation.id %>"><%= conversation.last_message.message[0..100] %>...</p>
+                        <% else %>
+                       <p class="inline" id="pi_<%= conversation.id %>"><%= conversation.last_message.message %></p>
+                        <% end %><br>
+                        <%= conversation.last_message.created_at.strftime("%b %d, %Y %l:%M %p") %></div></li>
+		<% else %>
+                <li id="div_<%= conversation.id %>" data-id=<%= conversation.id %> class="new_conversation"  style="padding-left:20px;padding-right:20px;padding-bottom:10px;padding-top:10px;">
+                <div id="conv_<%= conversation.id %>" style=" word-wrap:break-word;padding-left:10px;"><b> <%= link_to other_user.username, '/conversations/' + conversation.id.to_s ,:style=>"text-decoration:none;background:transparent;color:#333" %></b>
+               	<div  style="float:right;padding-right:10px;" class="inline"><button   id="button_conv_read_<%= conversation.id %>" onclick="return decider('<%= conversation.id %>');" class="glyphicon glyphicon-eye-open" style="background:none;padding: 0;border: none;"></button>&nbsp;&nbsp;<button onclick="return conversationunremove();" class="glyphicon glyphicon-remove-circle" style="background:none;padding: 0;border: none;"></button></div><br>
+                      <% if conversation.last_message.message.length > 100 %> 
+                      <%= conversation.last_message.message[0..100] %>...
+                        <% else %>
+                         <%= conversation.last_message.message %>
+                        <% end %><br>
+                        <%= conversation.last_message.created_at.strftime("%b %d, %Y %l:%M %p") %></div></li>
+
+	<% end %>
+
+	<% end %>
+	</ul>
+  </div>    
+
+      <div class="inline" style=" height: 500px;background-color:#FFFFFF;">
+      	<ul id="conversation_list" style=" background-color:#FFFFFF; height: 380px;word-wrap:break-word;overflow:auto;padding-left:10px;padding-right:10px" >
+			<% @messages.each do |message|%>
+		<% if message.user_id != current_user.id %>
+				<li align="left" style="float:left;width:70%">
+						<b><%= @other_user.username %></b>
+						<br>
+						<%= message.message %><br>
+						<h5 style="font-size:85%"> <span class="label label-default"> Sent At: <%= message.created_at.strftime("%b %d, %Y %l:%M %p") %></span></h5>
+						
+						<br><hr style="padding-top:1px;padding-bottom:1px;margin-top:5px;margin-bottom:5px">
+					<% else %> 
+				<li align="right" style="float:right;width:70%">
+						<b><%= current_user.username %></b>
+						<br>
+						<%= message.message %><br>						
+						<h5 style="font-size:85%"> <span class="label label-default"> Sent At: <%= message.created_at.strftime("%b %d, %Y %l:%M %p") %></span></h5>
+						<br><hr style="padding-top:5px;padding-bottom:5px">
+					<% end %>
+				</li>
+				<% end %>
+
+
+		</ul>
+			 <form class="form-inline" role="form" >
+		  <div class="form-group">
+		  	<input id="send_message_from_converation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+		    <textarea data-user-to='<%= @other_user.id %>' style='resize:none'rows="5" cols="115" name="gift_request[description]" class="form-control" id="conversation_message" placeholder="Enter a message"></textarea>
+		  </div>
+		  <button id="conversation_message_submit" type="submit" class="btn btn-primary">Send</button>
+		</form>
+
+		 
+      </div>
+
+<input id="conversation_page_authenticity_token" name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+  <!-- <div class="inline" style="word-wrap:break-word;overflow:auto;background-color:#ffffff;">
+    <table class="table" align="center" style="background-color:#ffffff; width:100%;word-wrap:break-word;overflow:auto">
+      <tr>
+			asaasaasaasaasaasaasaasaasaasaasaasaasaa saasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaasaa saasaasaasaasaasaasaasaasaasaasaasaasaasa
+      </tr>
+
+    </table>
   </div>
-  <button id="conversation_message_submit" type="submit" class="btn btn-default">Send</button>
-</form>
+ -->
+
+
+</div> <!-- end of main cc div -->  
+<br>
+<br>
+<br>
+<br>

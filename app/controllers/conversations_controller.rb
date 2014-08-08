@@ -5,6 +5,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
+      @conversations = current_user.show_all_conversations
       conversation = Conversation.find(params[:id])
       if conversation.users.find_by_id(current_user.id)
         @other_user = conversation.users.where("user_id != #{current_user.id}").first

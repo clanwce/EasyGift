@@ -221,12 +221,16 @@ def feed
     Pusher[to_channel].trigger('new_message', {
       message: new_message.message,
       from: username,
+      other: true,
+      conv_id: conversation_id,
       created_at: new_message.created_at
     })
     from_channel = 'user' + id.to_s + '_channel'
     Pusher[from_channel].trigger('new_message', {
       message: new_message.message,
       from: username,
+      other: false,
+      conv_id: conversation_id,
       created_at: new_message.created_at
     })
     msgchannel = 'user' + user_id.to_s + '_channel'
