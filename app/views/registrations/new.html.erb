@@ -7,7 +7,7 @@
   display: inline
 }
 body{
-  background-color: #008080;
+  background-color: black;
   color: #ffffff;
 }
 
@@ -26,11 +26,6 @@ body{
 
 </style>
   <div class="container">
-
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Sign In", new_session_path(resource_name), class: "btn btn-primary signupbutton border" %><br/>
-
-<% end -%>
 
         <div class="login-screen" >
 
@@ -68,7 +63,7 @@ body{
            
       <% end %>
 
-      <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+      <% if devise_mapping.confirmable? && controller_name != 'confirmations' %>
         
     <label><a style="color: white" href="confirmation/new"> Didn't receive confirmation Email? </a> </label><br />
 
