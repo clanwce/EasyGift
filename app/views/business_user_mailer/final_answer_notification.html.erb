@@ -2,7 +2,7 @@
 <p><%= @poster.username %> has selected a final answer on post <%= link_to @post.title, "http://easy-gift.herokuapp.com/gift_requests/#{@post.id}" %>. You can contact <%= link_to @poster.username, "http://easy-gift.herokuapp.com/users/#{@poster.id}" %> through private messaging or sending email to <%= @poster.email%>.</p>
 <br><br>
 <p>Subscribed Tags For This Post: <% @post.tags.each do |tag| %>
-				&nbsp;<% if tag.is_subscribed?(@user.id) %>
+				&nbsp;<% if tag.is_subscribed(@user.id) %>
 					  <%= tag.name %>
 					  <% end %></p>
 				<% end %>
